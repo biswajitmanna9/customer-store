@@ -1,0 +1,9 @@
+.nav {
+    orientation: horizontal;
+    horizontal-align: stretch;
+    padding: 2;
+}
+
+.nav-item {
+    margin: 6 2;
+}
