@@ -6,32 +6,33 @@
         <GridLayout rows="auto, auto, auto">
             <StackLayout row="0" class="input-field">
                 <TextField #email="ngModel" class="input" hint="Email" [isEnabled]="!processing" keyboardType="email" autocorrect="false"
-                    autocapitalizationType="none" [(ngModel)]="user.email" returnKeyType="next" (returnPress)="focusPassword()"
-                    required></TextField>
+                    autocapitalizationType="none" [(ngModel)]="user.email" returnKeyType="next" required email></TextField>
                 <StackLayout class="hr-light"></StackLayout>
                 <StackLayout *ngIf="email.errors && (email.dirty || email.touched)">
                     <Label *ngIf="email.errors.required" text="- Email is required -"></Label>
+                    <Label *ngIf="email.errors.email" text="- Email must be valid -"></Label>
                 </StackLayout>
             </StackLayout>
 
             <StackLayout row="1" class="input-field">
                 <TextField #password="ngModel" class="input" [isEnabled]="!processing" hint="Password" secure="true" [(ngModel)]="user.password"
-                    [returnKeyType]="isLoggingIn ? 'done' : 'next'" (returnPress)="focusMobile()" required></TextField>
+                    [returnKeyType]="isLoggingIn ? 'done' : 'next'" required minlength="5"></TextField>
                 <StackLayout class="hr-light"></StackLayout>
                 <StackLayout *ngIf="password.errors && (password.dirty || password.touched)">
                     <Label *ngIf="password.errors.required" text="- Password is required -"></Label>
+                    <Label *ngIf="password.errors.minlength" text="- Password must be longer than 5 characters"></Label>
                 </StackLayout>
             </StackLayout>
 
             <StackLayout row="2" *ngIf="!isLoggingIn" class="input-field">
-                <TextField #mobile class="input" [isEnabled]="!processing" hint="Contact Number" [(ngModel)]="user.mobile"
-                    returnKeyType="done"></TextField>
+                <TextField #mobile="ngModel" class="input" [isEnabled]="!processing" hint="Contact Number" [(ngModel)]="user.mobile" returnKeyType="done"></TextField>
                 <StackLayout class="hr-light"></StackLayout>
             </StackLayout>
             <ActivityIndicator rowSpan="3" [busy]="processing"></ActivityIndicator>
         </GridLayout>
 
-        <Button [text]="isLoggingIn ? 'Log In' : 'Sign Up'" [isEnabled]="!processing && email.valid && password.valid" (tap)="submit()" class="btn btn-primary m-t-20"></Button>
+        <Button [text]="isLoggingIn ? 'Log In' : 'Sign Up'" [isEnabled]="!processing && email.valid && password.valid" (tap)="submit()"
+            class="btn btn-primary m-t-20"></Button>
         <Label *ngIf="isLoggingIn" text="Forgot your password?" class="login-label" (tap)="forgotPassword()"></Label>
         <Label *ngIf="isLoggingIn" text="Skip" class="login-label" (tap)="skip()" class="bold m-t-20"></Label>
     </StackLayout>
