@@ -1,6 +1,13 @@
 .page {
     align-items: center;
     flex-direction: column;
+    background: url(~/images/login-bg.jpg) no-repeat 0 0;
+    background-size: cover;
+}
+
+.apps-container {
+    width: 90%;
+    background: #fff;
 }
 
 .form {
