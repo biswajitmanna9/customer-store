@@ -1,4 +1,4 @@
-import { Injectable, NgZone } from "@angular/core";
+import { Injectable } from "@angular/core";
 import {
   HttpClient,
   HttpHeaders,
@@ -12,10 +12,10 @@ import * as Globals from '../../core/globals';
 @Injectable()
 export class ExploreService {
 
-  constructor(private http: HttpClient, private zone: NgZone) { }
+  constructor(private http: HttpClient) { }
 
-  getCategoryList(params): Observable<any>{
-    return this.http.get(Globals.apiEndpoint+'all_employee/?'+params, {
+  getCategoryList(params): Observable<any> {
+    return this.http.get(Globals.apiEndpoint + 'all_employee/?' + params, {
       headers: new HttpHeaders().set('Authorization', 'Token ')
     })
   }

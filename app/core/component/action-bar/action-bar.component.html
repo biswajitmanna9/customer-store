@@ -2,5 +2,6 @@
     <StackLayout orientation="horizontal" ios:horizontalAlignment="center" android:horizontalAlignment="left">
         <Image src="res://icon" class="action-image"></Image>
         <Label text="Shyam Future Store" class="action-label"></Label>
+        <Button text="logout"(tap)="logout()" class="btn btn-primary m-t-20" *ngIf="isLoggedin"></Button>
     </StackLayout>
 </ActionBar>

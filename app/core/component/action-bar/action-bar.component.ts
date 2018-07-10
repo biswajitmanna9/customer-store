@@ -1,14 +1,28 @@
-import { Component } from '@angular/core';
-
+import { Component,OnInit } from '@angular/core';
+import { RouterExtensions } from "nativescript-angular/router";
+import { getString, setString, getBoolean, setBoolean, clear } from "application-settings";
 @Component({
     selector: "action-bar",
     moduleId: module.id,
     templateUrl: "./action-bar.component.html",
     styleUrls: ['./action-bar.component.css']
 })
-export class ActionBarComponent {
+export class ActionBarComponent implements OnInit{
+    isLoggedin: boolean;
+    constructor(
+        private _routerExtensions: RouterExtensions
+    ) {
 
-    constructor() {
+    }
 
+    ngOnInit() {
+        if(getBoolean('isLoggedin')){
+            this.isLoggedin = getBoolean('isLoggedin');
+        }
+    }
+
+    logout(){
+        clear();
+        this._routerExtensions.navigate(["login"], { clearHistory: true });
     }
 }
