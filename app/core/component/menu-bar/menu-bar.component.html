@@ -1,5 +1,17 @@
-<StackLayout class="nav">
-    <Button text="About" [nsRouterLink]="['/about']" class="nav-item"></Button>
-    <Button text="Product" [nsRouterLink]="['.']" class="nav-item"></Button>
-    <Button text="Contact Us" [nsRouterLink]="['.']" class="nav-item"></Button>
+<StackLayout row="1" orientation="horizontal">
+    <Button textWrap="true" width="33.33%" [nsRouterLink]="['/dashboard']">
+        <FormattedString>
+            <Span text="dashboard"></Span>
+        </FormattedString>
+    </Button>
+    <Button textWrap="true" width="33.33%" [nsRouterLink]="['/explore']">
+        <FormattedString>
+            <Span text="Explore"></Span>
+        </FormattedString>
+    </Button>
+    <Button textWrap="true" width="33.33%" [nsRouterLink]="['.']">
+        <FormattedString>
+            <Span text="All Apps"></Span>
+        </FormattedString>
+    </Button>
 </StackLayout>

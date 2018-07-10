@@ -9,6 +9,7 @@ import { AuthGuard } from './guard/auth.guard';
 
 // services
 import { LoginService } from './services/login.service';
+import { ExploreService } from './services/explore.service';
 
 // component
 import { ActionBarComponent } from './component/action-bar/action-bar.component';
@@ -27,6 +28,7 @@ import { MenuBarComponent } from './component/menu-bar/menu-bar.component'
     ],
     exports: [
         ActionBarComponent,
+        NativeScriptFormsModule,
         MenuBarComponent
     ],
     entryComponents: [
@@ -42,7 +44,8 @@ export class CoreModule {
             ngModule: CoreModule,
             providers: [
                 AuthGuard,
-                LoginService
+                LoginService,
+                ExploreService
             ]
         };
     }

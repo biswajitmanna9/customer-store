@@ -16,10 +16,10 @@ export class LoginComponent {
   user = {
     email: '',
     password: '',
-    confirmPassword: ''
+    mobile: ''
   }
   @ViewChild("password") password: ElementRef;
-  @ViewChild("confirmPassword") confirmPassword: ElementRef;
+  @ViewChild("mobile") mobile: ElementRef;
 
   constructor(private page: Page, private router: Router) {
     this.page.actionBarHidden = true;
@@ -29,16 +29,27 @@ export class LoginComponent {
     this.isLoggingIn = !this.isLoggingIn;
   }
 
-  submit() {
-    this.router.navigate(['about'])
+  submit() {    
+    if (!this.user.email || !this.user.password) {
+      this.alert("Please provide both an email address and password.");
+      return;
+    }
+
+    this.processing = true;
+    if (this.isLoggingIn) {
+      this.login();
+    } else {
+      this.register();
+    }
   }
 
-  skip(){
-    this.router.navigate(['about'])
+  skip() {
+    this.router.navigate(['/'])
   }
-  
+
   login() {
-    
+    console.log(this.user)
+    this.router.navigate(['/'])
   }
 
   register() {
@@ -63,9 +74,10 @@ export class LoginComponent {
   focusPassword() {
     this.password.nativeElement.focus();
   }
-  focusConfirmPassword() {
+  
+  focusMobile() {
     if (!this.isLoggingIn) {
-      this.confirmPassword.nativeElement.focus();
+      this.mobile.nativeElement.focus();
     }
   }
 
