@@ -11,8 +11,13 @@ refer to http://docs.nativescript.org/ui/theme.
 */
 
 @import '~nativescript-theme-core/css/core.light.css';
+
 /* custom */
 
 .main_container {
     padding: 30 15;
+}
+
+.fa {
+    font-family: FontAwesome, fontawesome-webfont;
 }

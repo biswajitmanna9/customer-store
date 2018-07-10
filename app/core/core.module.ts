@@ -4,6 +4,7 @@ import { NativeScriptRouterModule } from "nativescript-angular/router";
 import { NativeScriptFormsModule } from "nativescript-angular/forms";
 import { ReactiveFormsModule } from "@angular/forms";
 import { NativeScriptHttpClientModule } from "nativescript-angular/http-client";
+import { TNSFontIconModule } from 'nativescript-ngx-fonticon';
 
 // directive
 import { MinLengthDirective, MaxLengthDirective, IsEmailDirective } from "./directive/input.directive";
@@ -25,7 +26,11 @@ import { MenuBarComponent } from './component/menu-bar/menu-bar.component'
         NativeScriptRouterModule,
         NativeScriptFormsModule,
         ReactiveFormsModule,
-        NativeScriptHttpClientModule
+        NativeScriptHttpClientModule,
+        TNSFontIconModule.forRoot({
+			'fa': './css/font-awesome.min.css'
+		})
+
     ],
     declarations: [
         MinLengthDirective,
@@ -35,6 +40,7 @@ import { MenuBarComponent } from './component/menu-bar/menu-bar.component'
         MenuBarComponent
     ],
     exports: [
+        TNSFontIconModule,
         MinLengthDirective,
         MaxLengthDirective,
         IsEmailDirective,
