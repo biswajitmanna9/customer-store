@@ -1,13 +1,16 @@
-<FlexboxLayout class="page">
+<FlexboxLayout class="login-page">
+    <Image class="logo" src="~/images/logo.png"></Image>
     <FlexboxLayout class="apps-container">
         <StackLayout class="form">
-            <Image class="logo" src="~/images/logo.png"></Image>
-            <Label class="header" text="APP NAME"></Label>
+
+
+            <label class="head-line" text="LOG IN"></label>
+            <label class="tag-line" text="Log in using your email id."></label>
 
             <GridLayout rows="auto, auto, auto">
-                <StackLayout row="0" class="input-field">
-                    <TextField #email="ngModel" class="input" hint="Email" [isEnabled]="!processing" keyboardType="email" autocorrect="false" autocapitalizationType="none" [(ngModel)]="user.email" returnKeyType="next" required email></TextField>
-                    <StackLayout class="hr-light"></StackLayout>
+                <StackLayout row="0" class="input-field first-input">
+                    <TextField #email="ngModel" class="input1" hint="Email" [isEnabled]="!processing" keyboardType="email" autocorrect="false" autocapitalizationType="none" [(ngModel)]="user.email" returnKeyType="next" required email borderWidth="1" borderRadius="6" borderColor="#3cacf4"></TextField>
+                    <!-- <StackLayout class="hr-light"></StackLayout> -->
                     <StackLayout *ngIf="email.errors && (email.dirty || email.touched)">
                         <Label *ngIf="email.errors.required" text="- Email is required -"></Label>
                         <Label *ngIf="email.errors.email" text="- Email must be valid -"></Label>
@@ -15,8 +18,8 @@
                 </StackLayout>
 
                 <StackLayout row="1" class="input-field">
-                    <TextField #password="ngModel" class="input" [isEnabled]="!processing" hint="Password" secure="true" [(ngModel)]="user.password" [returnKeyType]="isLoggingIn ? 'done' : 'next'" required minlength="5"></TextField>
-                    <StackLayout class="hr-light"></StackLayout>
+                    <TextField #password="ngModel" class="input1" [isEnabled]="!processing" hint="Password" secure="true" [(ngModel)]="user.password" [returnKeyType]="isLoggingIn ? 'done' : 'next'" required borderWidth="1" borderRadius="6" borderColor="#3cacf4"></TextField>
+                    <!-- <StackLayout class="hr-light"></StackLayout> -->
                     <StackLayout *ngIf="password.errors && (password.dirty || password.touched)">
                         <Label *ngIf="password.errors.required" text="- Password is required -"></Label>
                         <Label *ngIf="password.errors.minlength" text="- Password must be longer than 5 characters"></Label>
@@ -25,22 +28,41 @@
 
                 <StackLayout row="2" *ngIf="!isLoggingIn" class="input-field">
                     <TextField #mobile="ngModel" class="input" [isEnabled]="!processing" hint="Contact Number" [(ngModel)]="user.mobile" returnKeyType="done"></TextField>
-                    <StackLayout class="hr-light"></StackLayout>
+
                 </StackLayout>
                 <ActivityIndicator rowSpan="3" [busy]="processing"></ActivityIndicator>
             </GridLayout>
 
-            <Button [text]="isLoggingIn ? 'Log In' : 'Sign Up'" [isEnabled]="!processing && email.valid && password.valid" (tap)="submit()" class="btn btn-primary m-t-20"></Button>
-            <Label *ngIf="isLoggingIn" text="Forgot your password?" class="login-label" (tap)="forgotPassword()"></Label>
-            <Label *ngIf="isLoggingIn" text="Skip" class="login-label" (tap)="skip()" class="bold m-t-20"></Label>
+            <!-- <Button [text]="isLoggingIn ? 'Log In' : 'Sign Up'" [isEnabled]="!processing" (tap)="submit()" class="btn btn-primary m-t-20"></Button> -->
+
+            <Button class="btn login-btn" id="button" text="Sign in" (tap)="onTap($event)"></Button>
+
+
+            <Label *ngIf="isLoggingIn" text="Forgot your password?" class="tag-line-grey" (tap)="forgotPassword()"></Label>
+
+
+            <StackLayout class="hr-light pading-gap"></StackLayout>
+            <Label *ngIf="isLoggingIn" text="don't have an account sign up" class="tag-line-grey" (tap)="forgotPassword()" [nsRouterLink]="['/signup']"></Label>
+            <!-- <Label *ngIf="isLoggingIn" text="Skip" class="login-label" (tap)="skip()" class="bold m-t-20"></Label> -->
+            <Button textWrap="true" class="btn skip-btn facebook">
+                <FormattedString>
+                    <!-- <Span class="fa" [text]="'fa-facebook' | fonticon"></Span> -->
+                    <Span text="facebook"></Span>
+                </FormattedString>
+            </Button>
+            <Button textWrap="true" class="btn skip-btn gmail">
+                    <FormattedString>
+                        <!-- <Span class="fa" [text]="'fa-google-plus-square' | fonticon"></Span> -->
+                        <Span text="Google"></Span>
+                    </FormattedString>
+                </Button>
+
+            <Label class="skip-text" id="button" text="skip" (tap)="onTap($event)"></Label>
+
         </StackLayout>
 
-        <Label class="login-label sign-up-label" (tap)="toggleForm()">
-        <FormattedString>
-            <Span [text]="isLoggingIn ? 'Don’t have an account? ' : 'Back to Login'"></Span>
-            <Span [text]="isLoggingIn ? 'Sign up' : ''" class="bold"></Span>
-        </FormattedString>
-    </Label>
+
+
 
     </FlexboxLayout>
 </FlexboxLayout>

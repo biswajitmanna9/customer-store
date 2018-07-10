@@ -1,26 +1,26 @@
-.page {
+.login-page {
     align-items: center;
     flex-direction: column;
     background: url(~/images/login-bg.jpg) no-repeat 0 0;
     background-size: cover;
 }
 
+.logo {
+    margin-top: 35;
+    text-align: center;
+    display: block;
+}
+
 .apps-container {
     width: 90%;
     background: #fff;
-}
-
-.form {
-    margin-left: 30;
-    margin-right: 30;
-    flex-grow: 2;
-    vertical-align: middle;
-}
-
-.logo {
-    margin-bottom: 12;
-    height: 90;
-    font-weight: bold;
+    border-radius: 20px;
+    -webkit-box-shadow: 0px 0px 18px 3px rgba(0, 0, 0, 0.61);
+    -moz-box-shadow: 0px 0px 18px 3px rgba(0, 0, 0, 0.61);
+    box-shadow: 0px 0px 18px 3px rgba(0, 0, 0, 0.61);
+    height: 100%;
+    margin: 3% auto;
+    padding: 80px;
 }
 
 .header {
@@ -36,9 +36,11 @@
     margin-bottom: 25;
 }
 
-.input {
+TextField.input1 {
     font-size: 18;
     placeholder-color: #A8A8A8;
+    height: 70;
+    padding-left: 2;
 }
 
 .input:disabled {
@@ -71,4 +73,75 @@
 
 .bold {
     color: #000000;
+}
+
+.head-line {
+    color: #00aff0;
+    text-align: center;
+    display: block;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.tag-line {
+    color: #33244d;
+    text-align: center;
+    display: block;
+    font-size: 20px;
+}
+
+.tag-line-grey {
+    color: #b3b1b5;
+    text-align: center;
+    display: block;
+    font-size: 15px;
+}
+
+.login-btn {
+    background: rgb(73, 221, 255);
+    background: linear-gradient(90deg, rgba(73, 221, 255, 1) 0%, rgba(32, 134, 217, 1) 100%);
+    border-radius: 5;
+    color: #fff;
+    height: 70;
+}
+
+.skip-btn {
+    background: rgb(205, 216, 218);
+    background: linear-gradient(90deg, rgba(205, 216, 218, 1) 0%, rgba(128, 141, 152, 1) 100%);
+    border-radius: 5;
+    color: #fff;
+    height: 70;
+    font-size: 25px;
+    margin-top: 10;
+}
+
+.first-input {}
+
+.social-btn {
+    margin-top: 50;
+    border-radius: 5;
+    color: #fff;
+}
+
+.pading-gap {
+    padding: 10px 0;
+    margin: 15px auto;
+}
+
+.skip-text {
+    font-size: 20px;
+    color: #33244d;
+    text-align: center;
+    background: #fff;
+    margin-top: 10;
+}
+
+.facebook {
+    background: #4267B2;
+    color: #fff
+}
+
+.gmail {
+    background: #EA4335;
+    color: #fff
 }
