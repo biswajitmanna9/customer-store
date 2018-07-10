@@ -5,7 +5,7 @@ import { NativeScriptFormsModule } from "nativescript-angular/forms";
 import { NativeScriptHttpModule } from "nativescript-angular/http";
 
 // directive
-import { MinLengthDirective, IsEmailDirective } from "./directive/input.directive";
+import { MinLengthDirective, MaxLengthDirective, IsEmailDirective } from "./directive/input.directive";
 
 // guard
 import { AuthGuard } from './guard/auth.guard';
@@ -27,12 +27,14 @@ import { MenuBarComponent } from './component/menu-bar/menu-bar.component'
     ],
     declarations: [
         MinLengthDirective,
+        MaxLengthDirective,
         IsEmailDirective,
         ActionBarComponent,
         MenuBarComponent
     ],
     exports: [
         MinLengthDirective,
+        MaxLengthDirective,
         IsEmailDirective,
         ActionBarComponent,
         NativeScriptFormsModule,

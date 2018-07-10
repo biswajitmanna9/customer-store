@@ -18,6 +18,22 @@ export class MinLengthDirective implements Validator {
 }
 
 @Directive({
+    selector: '[maxlength]',
+    providers: [{provide: NG_VALIDATORS, useExisting: MaxLengthDirective, multi: true}]
+})
+export class MaxLengthDirective implements Validator {
+
+    @Input() maxnlength: string;
+
+    public constructor() {}
+
+    public validate(control: AbstractControl): {[key: string]: any} {
+        return !control.value || control.value.length <= this.maxnlength ? null : { "maxlength": true };
+    }
+
+}
+
+@Directive({
     selector: '[email]',
     providers: [{provide: NG_VALIDATORS, useExisting: IsEmailDirective, multi: true}]
 })
