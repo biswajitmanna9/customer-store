@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from "@angular/core";
+import { Component } from "@angular/core";
 import { Router } from "@angular/router";
 import { alert, prompt } from "tns-core-modules/ui/dialogs";
 import { Page } from "tns-core-modules/ui/page";
@@ -16,10 +16,8 @@ export class LoginComponent {
   user = {
     email: '',
     password: '',
-    confirmPassword: ''
+    mobile: ''
   }
-  @ViewChild("password") password: ElementRef;
-  @ViewChild("confirmPassword") confirmPassword: ElementRef;
 
   constructor(private page: Page, private router: Router) {
     this.page.actionBarHidden = true;
@@ -30,15 +28,26 @@ export class LoginComponent {
   }
 
   submit() {
-    this.router.navigate(['about'])
+    if (!this.user.email || !this.user.password) {
+      this.alert("Please provide both an email address and password.");
+      return;
+    }
+
+    this.processing = true;
+    if (this.isLoggingIn) {
+      this.login();
+    } else {
+      this.register();
+    }
   }
 
-  skip(){
-    this.router.navigate(['about'])
+  skip() {
+    this.router.navigate(['/'])
   }
-  
+
   login() {
-    
+    console.log(this.user)
+    this.router.navigate(['/'])
   }
 
   register() {
@@ -60,14 +69,6 @@ export class LoginComponent {
     });
   }
 
-  focusPassword() {
-    this.password.nativeElement.focus();
-  }
-  focusConfirmPassword() {
-    if (!this.isLoggingIn) {
-      this.confirmPassword.nativeElement.focus();
-    }
-  }
 
   alert(message: string) {
     return alert({

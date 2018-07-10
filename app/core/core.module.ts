@@ -4,11 +4,15 @@ import { NativeScriptRouterModule } from "nativescript-angular/router";
 import { NativeScriptFormsModule } from "nativescript-angular/forms";
 import { NativeScriptHttpModule } from "nativescript-angular/http";
 
+// directive
+import { MinLengthDirective, IsEmailDirective } from "./directive/input.directive";
+
 // guard
 import { AuthGuard } from './guard/auth.guard';
 
 // services
 import { LoginService } from './services/login.service';
+import { ExploreService } from './services/explore.service';
 
 // component
 import { ActionBarComponent } from './component/action-bar/action-bar.component';
@@ -22,11 +26,16 @@ import { MenuBarComponent } from './component/menu-bar/menu-bar.component'
         NativeScriptHttpModule
     ],
     declarations: [
+        MinLengthDirective,
+        IsEmailDirective,
         ActionBarComponent,
         MenuBarComponent
     ],
     exports: [
+        MinLengthDirective,
+        IsEmailDirective,
         ActionBarComponent,
+        NativeScriptFormsModule,
         MenuBarComponent
     ],
     entryComponents: [
@@ -42,7 +51,8 @@ export class CoreModule {
             ngModule: CoreModule,
             providers: [
                 AuthGuard,
-                LoginService
+                LoginService,
+                ExploreService
             ]
         };
     }
