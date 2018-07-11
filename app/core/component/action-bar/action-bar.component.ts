@@ -23,6 +23,6 @@ export class ActionBarComponent implements OnInit{
 
     logout(){
         clear();
-        this._routerExtensions.navigate(["login"], { clearHistory: true });
+        this._routerExtensions.navigate(["/login"], { clearHistory: true });
     }
 }

@@ -15,18 +15,6 @@ export class LoginService {
   constructor(private http: HttpClient) { }
 
   login(data): Observable<any> {
-    let options = this.createRequestHeader();
-    return this.http.post(Globals.apiEndpoint + 'customer_login/', { data }, { headers: options })
+    return this.http.post(Globals.apiEndpoint + 'customer_login/', data)
   }
-  private createRequestHeader() {
-    let headers = new HttpHeaders();
-    // let token = this.globals.getToken();
-    // if (token != "") {
-    //     headers.set("X-AUTH-TOKEN", token);
-    // }
-    headers.set("Accept", "application/json");
-    //headers.set("AuthToken", "my-token");
-    headers.set("Content-Type", "application/json");
-    return headers;
-}
 }
