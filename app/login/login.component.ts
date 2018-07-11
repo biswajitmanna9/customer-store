@@ -14,13 +14,7 @@ import { getString, setString, getBoolean, setBoolean, clear } from "application
 })
 export class LoginComponent implements OnInit {
   form: FormGroup;
-  isLoggingIn = true;
   processing = false;
-  user = {
-    email: '',
-    password: '',
-    mobile: ''
-  }
 
   constructor(
     private page: Page,
@@ -34,12 +28,8 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
 
     this.form = this.formBuilder.group({
-      email: ['', [
-        Validators.required,
-        Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/)
-      ]],
-      password: [null, Validators.required],
-      mobile: [null, Validators.required]
+      email_or_phone: [null, Validators.required],
+      password: [null, Validators.required]
     });
 
   }
@@ -55,19 +45,20 @@ export class LoginComponent implements OnInit {
     };
   }
 
-  toggleForm() {
-    this.isLoggingIn = !this.isLoggingIn;
-  }
+  
 
-  submit() {
-
+  signIn() {
     if (this.form.valid) {
+      this.processing = true;
       this.loginService.login(this.form.value).subscribe(res => {
         console.log(res)
-        setBoolean("isLoggedin", true)
-        setString('token', "gfjhgjkfdhgkfhg")
-        console.log(getBoolean('isLoggedin'))
-        console.log(getString('token'))
+        // setBoolean("isLoggedin", true)
+        // setString('token', "gfjhgjkfdhgkfhg")
+        // console.log(getBoolean('isLoggedin'))
+        // console.log(getString('token'))
+      },
+      error => {
+        console.log(error)
       })
     }
     else {
@@ -96,41 +87,41 @@ export class LoginComponent implements OnInit {
   }
 
   skip() {
-    setBoolean("isLoggedin", true)
-    setString('token', "gfjhgjkfdhgkfhg")
-    this.router.navigate(['/'])
+    // setBoolean("isLoggedin", true)
+    // setString('token', "gfjhgjkfdhgkfhg")
+    // this.router.navigate(['/'])
   }
 
-  login() {
-    console.log(this.user)
-    this.router.navigate(['/'])
-  }
+  // login() {
+  //   console.log(this.user)
+  //   this.router.navigate(['/'])
+  // }
 
-  register() {
+  // register() {
 
-  }
+  // }
 
-  forgotPassword() {
-    prompt({
-      title: "Forgot Password",
-      message: "Enter the email address you used to register for Shyam Future Store to reset your password.",
-      inputType: "email",
-      defaultText: "",
-      okButtonText: "Ok",
-      cancelButtonText: "Cancel"
-    }).then((data) => {
-      if (data.result) {
+  // forgotPassword() {
+  //   prompt({
+  //     title: "Forgot Password",
+  //     message: "Enter the email address you used to register for Shyam Future Store to reset your password.",
+  //     inputType: "email",
+  //     defaultText: "",
+  //     okButtonText: "Ok",
+  //     cancelButtonText: "Cancel"
+  //   }).then((data) => {
+  //     if (data.result) {
 
-      }
-    });
-  }
+  //     }
+  //   });
+  // }
 
 
-  alert(message: string) {
-    return alert({
-      title: "Shyam Future Store",
-      okButtonText: "OK",
-      message: message
-    });
-  }
+  // alert(message: string) {
+  //   return alert({
+  //     title: "Shyam Future Store",
+  //     okButtonText: "OK",
+  //     message: message
+  //   });
+  // }
 }
