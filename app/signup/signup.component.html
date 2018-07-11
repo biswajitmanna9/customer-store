@@ -1,1 +1,34 @@
-<Label text="Signup Works" textWrap="true"></Label>
+<FlexboxLayout class="login-page">
+    <Image class="logo" src="~/images/logo.png"></Image>
+    <FlexboxLayout class="apps-container">
+
+        <StackLayout class="form">
+            <label class="head-line" text="Sign Up"></label>
+            <GridLayout rows="auto, auto, auto, auto, auto, auto, auto, auto">
+                <StackLayout class="input-filld" row="0">
+                    <TextField hint="Name" class="input input-border cyan-border m-t-30" borderColor="#49ddff" height="70"></TextField>
+                </StackLayout>
+
+                <StackLayout class="input-filld" row="1">
+                    <TextField hint="Phone number" class="input input-border cyan-border m-t-10" borderColor="#49ddff" height="70"></TextField>
+                </StackLayout>
+
+                <StackLayout class="input-filld" row="2">
+                    <TextField hint="Email id" class="input input-border cyan-border m-t-10" borderColor="#49ddff" height="70"></TextField>
+                </StackLayout>
+
+                <StackLayout class="input-filld" row="3">
+                    <TextField hint="Password" class="input input-border cyan-border m-t-10" borderColor="#49ddff" height="70"></TextField>
+                </StackLayout>
+
+                <Button row="5" class="btn " id="button" text="Sign Up" (tap)="onTap($event)" backgroundColor="#41bffe" color="#fff" height="70" width="100%"></Button>
+
+                <Button row="6" class="btn " id="button" text="facebook" (tap)="onTap($event)" backgroundColor="#4267B2" height="70" color="#fff" width="100%"></Button>
+
+                <Button row="7" class="btn " id="button" text="Google" (tap)="onTap($event)" backgroundColor="#EA4335" height="70" color="#fff" width="100%"></Button>
+
+            </GridLayout>
+
+        </StackLayout>
+    </FlexboxLayout>
+</FlexboxLayout>

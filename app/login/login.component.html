@@ -6,19 +6,16 @@
             <label class="tag-line" text="Log in using your email id/mobile number."></label>
             <GridLayout rows="auto, auto, auto">
                 <StackLayout row="0" class="input-field first-input">
-                    <TextField class="input1" hint="User Name" [isEnabled]="!processing"  autocorrect="false"
-                        autocapitalizationType="none" returnKeyType="next" borderWidth="1"
-                        borderRadius="6" borderColor="#3cacf4" formControlName="email_or_phone" [ngClass]="displayFieldCss('email_or_phone')"></TextField>
+                    <TextField class="input1" hint="User Name" [isEnabled]="!processing" autocorrect="false" autocapitalizationType="none" returnKeyType="next" borderWidth="1" borderRadius="6" borderColor="#3cacf4" formControlName="email_or_phone" [ngClass]="displayFieldCss('email_or_phone')"></TextField>
                     <StackLayout *ngIf="isFieldValid('email_or_phone')">
                         <Label text="User name is required"></Label>
                     </StackLayout>
                 </StackLayout>
 
                 <StackLayout row="1" class="input-field">
-                    <TextField class="input1" [isEnabled]="!processing" hint="Password" secure="true" 
-                        returnKeyType="done" borderWidth="1" borderRadius="6" borderColor="#3cacf4" formControlName="password" [ngClass]="displayFieldCss('password')"></TextField>
+                    <TextField class="input1" [isEnabled]="!processing" hint="Password" secure="true" returnKeyType="done" borderWidth="1" borderRadius="6" borderColor="#3cacf4" formControlName="password" [ngClass]="displayFieldCss('password')"></TextField>
                     <StackLayout *ngIf="isFieldValid('password')">
-                        <Label  text="Password is required"></Label>
+                        <Label text="Password is required"></Label>
                     </StackLayout>
                 </StackLayout>
 
