@@ -26,12 +26,10 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-
     this.form = this.formBuilder.group({
-      email_or_phone: [null, Validators.required],
+      username: [null, Validators.required],
       password: [null, Validators.required]
     });
-
   }
 
   isFieldValid(field: string) {
@@ -45,36 +43,27 @@ export class LoginComponent implements OnInit {
     };
   }
 
-  
+
 
   signIn() {
     if (this.form.valid) {
       this.processing = true;
-      this.loginService.login(this.form.value).subscribe(res => {
-        console.log(res)
-        // setBoolean("isLoggedin", true)
-        // setString('token', "gfjhgjkfdhgkfhg")
-        // console.log(getBoolean('isLoggedin'))
-        // console.log(getString('token'))
-      },
-      error => {
-        console.log(error)
-      })
+      this.loginService.login(this.form.value).subscribe(
+        res => {
+          console.log(res)
+          setBoolean("isLoggedin", true)
+          setString('email', res.email)
+          setString('contact_no', res.contact_no)
+          this.router.navigate(['/'])          
+        },
+        error => {
+          console.log(error)
+        }
+      )
     }
     else {
       this.markFormGroupTouched(this.form)
     }
-    // if (!this.user.email || !this.user.password) {
-    //   this.alert("Please provide both an email address and password.");
-    //   return;
-    // }
-
-    // this.processing = true;
-    // if (this.isLoggingIn) {
-    //   this.login();
-    // } else {
-    //   this.register();
-    // }
   }
 
   markFormGroupTouched(formGroup: FormGroup) {
@@ -87,41 +76,24 @@ export class LoginComponent implements OnInit {
   }
 
   skip() {
-    // setBoolean("isLoggedin", true)
-    // setString('token', "gfjhgjkfdhgkfhg")
-    // this.router.navigate(['/'])
+    setBoolean("isSkipped", true)
+    this.router.navigate(['/'])    
   }
 
-  // login() {
-  //   console.log(this.user)
-  //   this.router.navigate(['/'])
-  // }
 
-  // register() {
+  forgotPassword() {
+    prompt({
+      title: "Forgot Password",
+      message: "Enter the email address you used to register for Shyam Future Store to reset your password.",
+      inputType: "email",
+      defaultText: "",
+      okButtonText: "Ok",
+      cancelButtonText: "Cancel"
+    }).then((data) => {
+      if (data.result) {
 
-  // }
+      }
+    });
+  }
 
-  // forgotPassword() {
-  //   prompt({
-  //     title: "Forgot Password",
-  //     message: "Enter the email address you used to register for Shyam Future Store to reset your password.",
-  //     inputType: "email",
-  //     defaultText: "",
-  //     okButtonText: "Ok",
-  //     cancelButtonText: "Cancel"
-  //   }).then((data) => {
-  //     if (data.result) {
-
-  //     }
-  //   });
-  // }
-
-
-  // alert(message: string) {
-  //   return alert({
-  //     title: "Shyam Future Store",
-  //     okButtonText: "OK",
-  //     message: message
-  //   });
-  // }
 }

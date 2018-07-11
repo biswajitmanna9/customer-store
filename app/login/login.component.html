@@ -6,8 +6,8 @@
             <label class="tag-line" text="Log in using your email id/mobile number."></label>
             <GridLayout rows="auto, auto, auto">
                 <StackLayout row="0" class="input-field first-input">
-                    <TextField class="input1" hint="User Name" [isEnabled]="!processing" autocorrect="false" autocapitalizationType="none" returnKeyType="next" borderWidth="1" borderRadius="6" borderColor="#3cacf4" formControlName="email_or_phone" [ngClass]="displayFieldCss('email_or_phone')"></TextField>
-                    <StackLayout *ngIf="isFieldValid('email_or_phone')">
+                    <TextField class="input1" hint="User Name" [isEnabled]="!processing" autocorrect="false" autocapitalizationType="none" returnKeyType="next" borderWidth="1" borderRadius="6" borderColor="#3cacf4" formControlName="username" [ngClass]="displayFieldCss('username')"></TextField>
+                    <StackLayout *ngIf="isFieldValid('username')">
                         <Label text="User name is required"></Label>
                     </StackLayout>
                 </StackLayout>
@@ -29,13 +29,11 @@
 
             <Button textWrap="true" class="btn skip-btn facebook">
                 <FormattedString>
-                    <!-- <Span class="fa" [text]="'fa-facebook' | fonticon"></Span> -->
                     <Span text="facebook"></Span>
                 </FormattedString>
             </Button>
             <Button textWrap="true" class="btn skip-btn gmail">
                 <FormattedString>
-                    <!-- <Span class="fa" [text]="'fa-google-plus-square' | fonticon"></Span> -->
                     <Span text="Google"></Span>
                 </FormattedString>
             </Button>

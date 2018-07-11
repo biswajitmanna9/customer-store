@@ -1,4 +1,4 @@
 'use strict';
-export const apiEndpoint: string = 'http://192.168.24.129:8000/';
+export const apiEndpoint: string = 'http://132.148.147.239:8001/';
 export const itemPerPage: number = 10;
 export const paginationMaxSize: number = 2;
