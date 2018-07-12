@@ -17,4 +17,8 @@ export class LoginService {
   login(data): Observable<any> {
     return this.http.post(Globals.apiEndpoint + 'customer_login/', data)
   }
+
+  signup(data): Observable<any> {
+    return this.http.post(Globals.apiEndpoint + 'customer_registration/', data)
+  }
 }
