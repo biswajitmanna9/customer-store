@@ -1,0 +1,13 @@
+.explore-full {
+    align-items: center;
+    flex-direction: column;
+    background: url(~/images/explore-bg.jpg) no-repeat 0 0;
+    background-size: cover;
+}
+
+.catagory-list .ListView {
+    margin-top: 20px;
+    background: #ffffff;
+    height: 80;
+    border: 1px solid #b4b3b3;
+}
