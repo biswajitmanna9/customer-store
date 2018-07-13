@@ -1,3 +1,4 @@
+import * as geoLocation from "nativescript-geolocation";
 import { Component, OnInit } from '@angular/core';
 import { ItemEventData } from "ui/list-view";
 import { Switch } from "ui/switch";
@@ -6,7 +7,8 @@ import { registerElement } from 'nativescript-angular/element-registry';
 import { FilterSelect } from 'nativescript-filter-select';
 registerElement('FilterSelect', () => FilterSelect);
 
-import { ExploreService } from "../../core/services/explore.service"
+import { ExploreService } from "../../core/services/explore.service";
+
 // import { MapsAPILoader } from '@agm/core';
 // import { } from '@types/googlemaps';
 // import { ViewChild, ElementRef, NgZone } from '@angular/core';
@@ -21,6 +23,7 @@ export class ExploreComponent implements OnInit {
   // @ViewChild('search') public searchElement: ElementRef;
   category_list: any = [];
   app_list: any = [];
+  currentGeoLocation: any;
   constructor(
     private exploreService: ExploreService,
     // private mapsAPILoader: MapsAPILoader,
@@ -46,6 +49,28 @@ export class ExploreComponent implements OnInit {
     //     });
     //   }
     // );
+  }
+
+  enableLocationServices(): void {
+    geoLocation.isEnabled().then(enabled => {
+      if (!enabled) {
+        geoLocation.enableLocationRequest().then(() => this.showLocation());
+      } else {
+        this.showLocation();
+      }
+    });
+  }
+
+  showLocation(): void {
+    geoLocation.watchLocation(location => {
+      this.currentGeoLocation = location;
+    }, error => {
+      alert(error);
+    }, {
+        desiredAccuracy: 3,
+        updateDistance: 10,
+        minimumUpdateTime: 1000 * 1
+      });
   }
 
   getCategoryList() {

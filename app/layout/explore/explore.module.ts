@@ -6,11 +6,27 @@ import { ExploreComponent } from './explore.component';
 
 import { CoreModule } from "../../core/core.module";
 
+import { NativeScriptUISideDrawerModule } from "nativescript-ui-sidedrawer/angular";
+import { NativeScriptUIListViewModule } from "nativescript-ui-listview/angular";
+import { NativeScriptUICalendarModule } from "nativescript-ui-calendar/angular";
+import { NativeScriptUIChartModule } from "nativescript-ui-chart/angular";
+import { NativeScriptUIDataFormModule } from "nativescript-ui-dataform/angular";
+import { NativeScriptUIAutoCompleteTextViewModule } from "nativescript-ui-autocomplete/angular";
+import { NativeScriptUIGaugeModule } from "nativescript-ui-gauge/angular";
+
 @NgModule({
     imports: [
         NativeScriptCommonModule,
         ExploreRoutingModule,
-        CoreModule
+        CoreModule,
+        NativeScriptUISideDrawerModule,
+        NativeScriptUIListViewModule,
+        NativeScriptUICalendarModule,
+        NativeScriptUIChartModule,
+        NativeScriptUIDataFormModule,
+        NativeScriptUIAutoCompleteTextViewModule,
+        NativeScriptUIGaugeModule,
+        NativeScriptCommonModule
     ],
     declarations: [
         ExploreComponent
