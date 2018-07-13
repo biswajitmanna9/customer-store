@@ -5,7 +5,7 @@ import { NativeScriptFormsModule } from "nativescript-angular/forms";
 import { ReactiveFormsModule } from "@angular/forms";
 import { NativeScriptHttpClientModule } from "nativescript-angular/http-client";
 import { TNSFontIconModule } from 'nativescript-ngx-fonticon';
-
+import { DropDownModule } from "nativescript-drop-down/angular";
 // directive
 import { MinLengthDirective, MaxLengthDirective, IsEmailDirective } from "./directive/input.directive";
 
@@ -29,8 +29,8 @@ import { MenuBarComponent } from './component/menu-bar/menu-bar.component'
         NativeScriptHttpClientModule,
         TNSFontIconModule.forRoot({
 			'fa': './css/font-awesome.min.css'
-		})
-
+        }),
+        DropDownModule
     ],
     declarations: [
         MinLengthDirective,
@@ -41,6 +41,7 @@ import { MenuBarComponent } from './component/menu-bar/menu-bar.component'
     ],
     exports: [
         TNSFontIconModule,
+        DropDownModule,
         MinLengthDirective,
         MaxLengthDirective,
         IsEmailDirective,

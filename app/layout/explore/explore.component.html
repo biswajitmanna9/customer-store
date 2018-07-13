@@ -1,34 +1,34 @@
-<ScrollView row="0" class="explore-full">
-    <WrapLayout orientation="horizontal">
-        <StackLayout class="main_container">
-            <GridLayout rows="auto, auto, auto">
-                <SearchBar row="0" hint="Search by Category" backgroundColor="#fff" [text]="searchPhrase" (submit)="onSearchSubmit($event)" height="70" class="m-b-25 m-t-20" borderRadius="10"></SearchBar>
+<ScrollView sdkExampleTitle sdkToggleNavButton>
+    <DockLayout stretchLastChild="true">
+        <GridLayout rows="auto, auto" dock="top">
+            <StackLayout background="#41bffe" padding="20" row="0">
+                <FilterSelect height="100%" [items]="category_list" (change)="onCategoryChange($event)" hint="Search by Category" modal_title="Category"
+                    search_param="category_name" primary_key="id" class="category_dropdown">
+                    <ng-template let-category="item">
+                        <GridLayout columns="*" rows="*">
+                            <Label col="0" row="0" [text]="category.category_name" class="list-group-item-heading"></Label>
+                        </GridLayout>
+                    </ng-template>
+                </FilterSelect>
+                <!-- <TextField hint="Search for Location" text="" autocorrect="off" autocapitalize="off" spellcheck="off" class="form-control" #search></TextField> -->
+                <!-- <SearchBar hint="Search by Location" backgroundColor="#fff" height="50" class="m-t-10"></SearchBar> -->
+            </StackLayout>
 
+            <StackLayout row="1" background="#f2f2f2" padding="10">
+                <Button class="btn" id="button" text="Search" (tap)="onTap($event)" backgroundColor="#41bffe" color="#fff" height="50" width="60%"></Button>
+            </StackLayout>
 
-                <Button row="1" class="btn " id="button" text="Sign Up" (tap)="onTap($event)" backgroundColor="#41bffe" color="#fff" height="80" width="60%"></Button>
-
-
-
-
-
-
-
-
-
-
-            </GridLayout>
-
-
-
-
-        </StackLayout>
-        <ListView class="list-group">
-            <ListView.itemTemplate>
-                <GridLayout class="list-group-item" rows="*" columns="auto, *">
-                    <Image row="0" col="0" src="~/images/shyam-wheel.png" class="thumb img-circle"></Image>
-                    <Label row="0" col="1" text="Your text"></Label>
+        </GridLayout>
+        <ListView class="list-group" [items]="app_list" (itemTap)="onItemTap($event)">
+            <ng-template let-app="item">
+                <GridLayout columns="*,*,*" rows="*" class="list-group-item">
+                    <Image col="0" row="0" [src]="app.logo" class="thumb img-circle" *ngIf="app.logo != null"></Image>
+                    <StackLayout orientation="vertical" col="1" row="0">
+                        <Label [text]="app.business_name" class="list-group-item-heading"></Label>
+                    </StackLayout>
+                    <Switch class="switch" checked="false" (checkedChange)="addToDashboard($event,app.id)" col="2" row="0"></Switch>
                 </GridLayout>
-            </ListView.itemTemplate>
+            </ng-template>
         </ListView>
-    </WrapLayout>
+    </DockLayout>
 </ScrollView>

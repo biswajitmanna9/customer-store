@@ -2,7 +2,7 @@ import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
 import { NativeScriptModule } from "nativescript-angular/nativescript.module";
 import { AppRoutingModule } from "./app.routing";
 import { AppComponent } from "./app.component";
-
+import { AgmCoreModule } from '@agm/core';
 import { CoreModule } from "./core/core.module";
 
 @NgModule({
@@ -13,7 +13,12 @@ import { CoreModule } from "./core/core.module";
         NativeScriptModule,
         AppRoutingModule,
         CoreModule,
-        CoreModule.forRoot()
+        CoreModule.forRoot(),
+        // AgmCoreModule.forRoot({
+        //     apiKey: 'AIzaSyB3FKbaqonmY-bDPanbzJSH9U7HXF8dpS4',
+        //     libraries: ['places']
+
+        // })
     ],
     declarations: [
         AppComponent

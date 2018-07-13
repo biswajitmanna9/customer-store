@@ -14,10 +14,12 @@ export class ExploreService {
 
   constructor(private http: HttpClient) { }
 
-  getCategoryList(params): Observable<any> {
-    return this.http.get(Globals.apiEndpoint + 'all_employee/?' + params, {
-      headers: new HttpHeaders().set('Authorization', 'Token ')
-    })
+  getCategoryList(): Observable<any> {
+    return this.http.get(Globals.apiEndpoint + 'all_categories/')
+  }
+
+  getMostViewAppList(): Observable<any> {
+    return this.http.get(Globals.apiEndpoint + 'most_viewed_app/')
   }
 
 }

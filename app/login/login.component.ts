@@ -27,8 +27,8 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.formBuilder.group({
-      username: [null, Validators.required],
-      password: [null, Validators.required]
+      username: ['', Validators.required],
+      password: ['', Validators.required]
     });
   }
 
@@ -54,7 +54,7 @@ export class LoginComponent implements OnInit {
           setBoolean("isLoggedin", true)
           setString('email', res.email)
           setString('contact_no', res.contact_no)
-          setString('user_id', res.user_id)
+          setString('user_id', res.user_id.toString())
           this.router.navigate(['/'])          
         },
         error => {

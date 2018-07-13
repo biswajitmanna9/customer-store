@@ -29,16 +29,16 @@ export class SignupComponent implements OnInit {
   ngOnInit() {
 
     this.form = this.formBuilder.group({
-      customer_name: [null, Validators.required],
-      email: [null, [
+      customer_name: ['', Validators.required],
+      email: ['', [
         Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/)
       ]],
-      contact_no: [null, [
+      contact_no: ['', [
         Validators.required,
         Validators.minLength(10),
         Validators.maxLength(12)
       ]],
-      password: [null, Validators.required]
+      password: ['', Validators.required]
     });
 
   }
@@ -60,9 +60,11 @@ export class SignupComponent implements OnInit {
         res => {
           console.log(res)
           setBoolean("isLoggedin", true)
-          setString('email', res.email)
+          if(res.email != ""){
+            setString('email', res.email)
+          }          
           setString('contact_no', res.contact_no)
-          setString('user_id', res.user_id)
+          setString('user_id', res.user_id.toString())
           this.router.navigate(['/'])
         },
         error => {

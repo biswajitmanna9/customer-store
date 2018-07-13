@@ -10,3 +10,10 @@
     font-weight: bold;
     vertical-align: center;
 }
+
+.logout-label{
+    color: rgb(57, 58, 63);
+    font-size: 24;
+    font-weight: bold;
+    vertical-align: center;
+}

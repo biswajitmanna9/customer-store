@@ -2,6 +2,6 @@
     <StackLayout orientation="horizontal" ios:horizontalAlignment="center" android:horizontalAlignment="left">
         <Image src="~/images/shyam-wheel.png" class="action-image"></Image>
         <Label text="Shyam Future Store" class="action-label" color="#00aff0"></Label>
-        <Span class="fa" (tap)="logout()" [text]="'fa-sign-out' | fonticon"></Span>
+        <Label class="fa logout-label" (tap)="logout()" [text]="'fa-sign-out' | fonticon" *ngIf="isLoggedin"></Label>
     </StackLayout>
 </ActionBar>
