@@ -1,0 +1,26 @@
+.full-dashboard {
+    align-items: center;
+    flex-direction: column;
+    background: url(~/images/full-blue.jpg) no-repeat 0 0;
+    background-size: cover;
+}
+
+.apps-container {
+    width: 90%;
+    background: #fff;
+    border-radius: 20;
+    -webkit-box-shadow: 0 0 18 3 rgba(0, 0, 0, 0.61);
+    -moz-box-shadow: 0 0 18 3 rgba(0, 0, 0, 0.61);
+    box-shadow: 0 0 18 3 rgba(0, 0, 0, 0.61);
+    height: 100%;
+    margin: 3% auto;
+    padding: 25;
+}
+
+.product-lebel .sec-tab {
+    text-align: center;
+    font-size: 20;
+    padding: 10;
+    width: 150;
+    color: black;
+}
