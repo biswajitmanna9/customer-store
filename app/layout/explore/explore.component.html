@@ -9,7 +9,16 @@
                         </GridLayout>
                     </ng-template>
                 </FilterSelect>
-
+                <StackLayout>
+                    <Button text="Show location" (tap)="enableLocationServices()" *ngIf="!currentGeoLocation"></Button>
+                    <StackLayout *ngIf="currentGeoLocation">
+                        <Label text="Latitude: {{ currentGeoLocation.latitude }}"></Label>
+                        <Label text="Longitude: {{ currentGeoLocation.longitude }}"></Label>
+                        <Label text="Altitude: {{ currentGeoLocation.altitude }}"></Label>
+                        <Label text="Direction: {{ currentGeoLocation.direction }}"></Label>
+                    </StackLayout>
+                </StackLayout>
+                <!-- <SearchBar hint="Search by Location" backgroundColor="#fff" height="50" class="m-t-10"></SearchBar> -->
             </StackLayout>
 
             <StackLayout row="1" background="#f2f2f2" padding="10">
