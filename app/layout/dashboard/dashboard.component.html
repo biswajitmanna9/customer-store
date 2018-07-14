@@ -1,61 +1,13 @@
-<ScrollView row="0" class="full-dashboard">
-    <GridLayout class="apps-container">
-
-
-
-        <!-- <FlexboxLayout flexWrap="wrap" class="product-lebel">
-            <StackLayout class="sec-tab" height="20">
-                <Image class="logo" src="~/images/apps-logo.jpg"></Image>
-                <Label text="Label 1"></Label>
-            </StackLayout>
-            <StackLayout class="sec-tab" height="20">
-                <Image class="logo" src="~/images/apps-logo.jpg"></Image>
-                <Label text="Label 1"></Label>
-            </StackLayout>
-            <StackLayout class="sec-tab" height="20">
-                <Image class="logo" src="~/images/apps-logo.jpg"></Image>
-                <Label text="Label 1"></Label>
-            </StackLayout>
-
-            <StackLayout class="sec-tab" height="20">
-                <Image class="logo" src="~/images/apps-logo.jpg"></Image>
-                <Label text="Label 1"></Label>
-            </StackLayout>
-
-
-        </FlexboxLayout> -->
-
-
-        <!-- <ListView class="list-group" [items]="countries" (itemTap)="onItemTap($event)">
-            <ng-template let-country="item" width="50" style="float: left;">
-                <FlexboxLayout orientation="horizontal" columns="*,*,*" rows="*" flexDirection="row" flexWrap="wrap" class="list-group-item">
-                    <Image [src]="country.imageSrc" class="thumb img-circle"></Image>
-                    <Label [text]="country.name" class="list-group-item-heading" verticalAlignment="center" style="width: 60%"></Label>
-                </FlexboxLayout>
-            </ng-template>
-        </ListView>  -->
-
-
-
-        <WrapLayout orientation="horizontal" width="100%">
-            <StackLayout class="sec-tab" height="20">
-                <Image class="logo" src="~/images/apps-logo.jpg"></Image>
-                <Label text="Label 1"></Label>
-            </StackLayout>
-            <StackLayout class="sec-tab" height="20">
-                <Image class="logo" src="~/images/apps-logo.jpg"></Image>
-                <Label text="Label 1"></Label>
-            </StackLayout>
-            <StackLayout class="sec-tab" height="20">
-                <Image class="logo" src="~/images/apps-logo.jpg"></Image>
-                <Label text="Label 1"></Label>
-            </StackLayout>
-
-            <StackLayout class="sec-tab" height="20">
-                <Image class="logo" src="~/images/apps-logo.jpg"></Image>
-                <Label text="Label 1"></Label>
-            </StackLayout>
-        </WrapLayout>
-
-    </GridLayout>
+<ScrollView row="0">
+    <StackLayout class="full-dashboard">
+        <FlexboxLayout flexWrap="wrap" justifyContent="space-around" alignItems="flex-start">
+            <CardView *ngFor="let item of data" class="card" elevation="0" radius="0" shadowOpacity="0" shadowOffsetWidth="0" shadowOffsetHeight="0"
+                width="250px" height="250px" alignSelf="flex-start">
+                <StackLayout orientation="vertical">
+                    <Image src="~/images/plane.jpg" class="app-icon"></Image>
+                    <Label class="app-name" [text]="item.heading"></Label>
+                </StackLayout>
+            </CardView>
+        </FlexboxLayout>
+    </StackLayout>
 </ScrollView>

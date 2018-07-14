@@ -2,7 +2,8 @@
     <DockLayout stretchLastChild="true">
         <GridLayout rows="auto, auto" dock="top">
             <StackLayout background="#41bffe" padding="20" row="0">
-                <FilterSelect height="100%" [items]="category_list" (change)="onCategoryChange($event)" hint="Search by Category" modal_title="Category" search_param="category_name" primary_key="id" class="category_dropdown">
+                <FilterSelect height="100%" [items]="category_list" (change)="onCategoryChange($event)" hint="Search by Category" modal_title="Category"
+                    search_param="category_name" primary_key="id" class="category_dropdown">
                     <ng-template let-category="item">
                         <GridLayout columns="*" rows="*">
                             <Label col="0" row="0" [text]="category.category_name" class="list-group-item-heading"></Label>
@@ -13,7 +14,7 @@
                 <StackLayout>
                     <TextField id="searchField" returnKeyType="done" hint="Search by Location" width="90%" (textChange)="searchFieldChanged($event)"
                         backgroundColor="#fff" height="50" class="m-t-10"></TextField>
-                    <AbsoluteLayout width="100%" height="400">
+                    <!-- <AbsoluteLayout width="100%" height="400">
                         <ScrollView row="0">
                             <ListView class="list-group" [items]="items" (itemTap)="listViewItemTap($event)">
                                 <ng-template let-app="item">
@@ -23,7 +24,7 @@
                                 </ng-template>
                             </ListView>
                         </ScrollView>
-                    </AbsoluteLayout>
+                    </AbsoluteLayout> -->
                 </StackLayout>
                 <!-- <ListView #placesList [items]="items" (itemTap)="listViewItemTap($event)">
                     <ng-template let-location="item">
@@ -37,9 +38,7 @@
             <StackLayout row="1" background="#f2f2f2" padding="10">
                 <Button class="btn" id="button" text="Search" (tap)="search()" backgroundColor="#41bffe" color="#fff" height="50" width="60%"></Button>
             </StackLayout>
-
         </GridLayout>
-
         <ListView class="list-group" [items]="app_list" (itemTap)="onItemTap($event)">
             <ng-template let-app="item">
                 <GridLayout columns="*,*,*" rows="*" class="list-group-item">
