@@ -1,10 +1,12 @@
 <ScrollView row="0">
     <StackLayout class="full-dashboard">
         <FlexboxLayout flexWrap="wrap" justifyContent="space-around" alignItems="flex-start">
-            <CardView *ngFor="let item of data" class="card" elevation="0" radius="0" shadowOpacity="0" shadowOffsetWidth="0" shadowOffsetHeight="0"
-                width="250px" height="250px" alignSelf="flex-start">
+            <CardView *ngFor="let item of data" class="card" elevation="0" radius="0" shadowOpacity="0" shadowOffsetWidth="0" shadowOffsetHeight="0" width="250px" height="250px" alignSelf="flex-start">
                 <StackLayout orientation="vertical">
-                    <Image src="~/images/plane.jpg" class="app-icon"></Image>
+                    <StackLayout class="app-icon">
+                        <Image src="~/images/big-plane.png"></Image>
+                    </StackLayout>
+                    <!-- <Image src="~/images/cu-apps-logo.png" class="app-icon"></Image> -->
                     <Label class="app-name" [text]="item.heading"></Label>
                 </StackLayout>
             </CardView>
