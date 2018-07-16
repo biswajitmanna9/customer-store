@@ -15,10 +15,12 @@ import { AuthGuard } from './guard/auth.guard';
 // services
 import { LoginService } from './services/login.service';
 import { ExploreService } from './services/explore.service';
-
+import { ModalDialogService } from "nativescript-angular/modal-dialog";
 // component
 import { ActionBarComponent } from './component/action-bar/action-bar.component';
-import { MenuBarComponent } from './component/menu-bar/menu-bar.component'
+import { MenuBarComponent } from './component/menu-bar/menu-bar.component';
+import { LoginModalComponent } from './component/login-modal/login-modal.component';
+import { SignUpModalComponent } from './component/signup-modal/signup-modal.component';
 
 @NgModule({
     imports: [
@@ -28,7 +30,7 @@ import { MenuBarComponent } from './component/menu-bar/menu-bar.component'
         ReactiveFormsModule,
         NativeScriptHttpClientModule,
         TNSFontIconModule.forRoot({
-			'fa': './css/font-awesome.min.css'
+            'fa': './css/font-awesome.min.css'
         }),
         DropDownModule
     ],
@@ -37,7 +39,9 @@ import { MenuBarComponent } from './component/menu-bar/menu-bar.component'
         MaxLengthDirective,
         IsEmailDirective,
         ActionBarComponent,
-        MenuBarComponent
+        MenuBarComponent,
+        LoginModalComponent,
+        SignUpModalComponent
     ],
     exports: [
         TNSFontIconModule,
@@ -51,7 +55,8 @@ import { MenuBarComponent } from './component/menu-bar/menu-bar.component'
         MenuBarComponent
     ],
     entryComponents: [
-
+        LoginModalComponent,
+        SignUpModalComponent
     ],
     schemas: [
         NO_ERRORS_SCHEMA
@@ -64,7 +69,8 @@ export class CoreModule {
             providers: [
                 AuthGuard,
                 LoginService,
-                ExploreService
+                ExploreService,
+                ModalDialogService
             ]
         };
     }

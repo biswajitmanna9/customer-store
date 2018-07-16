@@ -5,7 +5,7 @@ import { Page } from "tns-core-modules/ui/page";
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LoginService } from "../core/services/login.service";
 import { getString, setString, getBoolean, setBoolean, clear } from "application-settings";
-
+import { RouterExtensions } from "nativescript-angular/router";
 @Component({
   selector: "signup",
   moduleId: module.id,
@@ -19,7 +19,7 @@ export class SignupComponent implements OnInit {
 
   constructor(
     private page: Page,
-    private router: Router,
+    private router: RouterExtensions,
     private formBuilder: FormBuilder,
     private loginService: LoginService
   ) {
@@ -59,6 +59,7 @@ export class SignupComponent implements OnInit {
       this.loginService.signup(this.form.value).subscribe(
         res => {
           console.log(res)
+          clear();
           setBoolean("isLoggedin", true)
           if(res.email != ""){
             setString('email', res.email)

@@ -1,5 +1,5 @@
 <StackLayout row="1" orientation="horizontal">
-    <Button textWrap="true" width="33.33%" [nsRouterLink]="['/dashboard']">
+    <Button textWrap="true" width="33.33%" (tap)="goTodashboard()">
         <FormattedString>
             <Span text="dashboard"></Span>
         </FormattedString>

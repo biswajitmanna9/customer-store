@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { ItemEventData } from "ui/list-view";
 import { Switch } from "ui/switch";
 
@@ -25,6 +25,10 @@ import { SearchBar } from "ui/search-bar";
 import { ViewChild, ElementRef, NgZone } from '@angular/core';
 let API_KEY = "AIzaSyB3FKbaqonmY-bDPanbzJSH9U7HXF8dpS4";
 let googlePlacesAutocomplete = new GooglePlacesAutocomplete(API_KEY);
+import { ModalDialogService } from "nativescript-angular/directives/dialogs";
+import { LoginModalComponent } from '../../core/component/login-modal/login-modal.component';
+import { SignUpModalComponent } from '../../core/component/signup-modal/signup-modal.component';
+import { getString, setString, getBoolean, setBoolean, clear } from "application-settings";
 @Component({
   selector: "explore",
   moduleId: module.id,
@@ -41,10 +45,17 @@ export class ExploreComponent extends Observable {
   events;
   searchInput = new Subject<string>();
   items;
+  options = {
+    context: {},
+    fullscreen: false,
+    viewContainerRef: this.vcRef
+  };
   @ViewChild('placesList') public places_list: ElementRef;
   public searchPhrase: string;
   constructor(
-    private exploreService: ExploreService
+    private exploreService: ExploreService,
+    private modal: ModalDialogService,
+    private vcRef: ViewContainerRef
   ) {
     super();
     this.searchInput.pipe(
@@ -125,13 +136,49 @@ export class ExploreComponent extends Observable {
     console.log('Item with index: ' + args.index + ' tapped');
   }
 
-  addToDashboard(args, id) {
-    let val = <Switch>args.object;
-    if (val.checked) {
+  openLoginModal() {
+    this.modal.showModal(LoginModalComponent, this.options).then(res => {
+      console.log(res);
+      if (res.signup) {
+        this.openSignupModal();
+      }
+    })
+  }
 
-    } else {
+  openSignupModal() {
+    this.modal.showModal(SignUpModalComponent, this.options).then(res => {
+      console.log(res);
+      if (res.signin) {
+        this.openLoginModal();
+      }
+    })
+  }
+
+  addToDashboard(args, id) {
+    if (!getBoolean('isLoggedin')) {
+      this.openLoginModal();
+    }
+    else {
 
     }
+
+    // dialogs.login({
+    //   title: "Login",
+    //   message: "Login into your account",
+    //   okButtonText: "Sign In",
+    //   cancelButtonText: "Cancel",
+    //   neutralButtonText: "Sign Up",
+    //   userName: "",
+    //   password: ""
+    // }).then(r => {
+    //   console.log("Dialog result: " + r.result + ", user: " + r.userName + ", pwd: " + r.password);
+    // });
+    // let val = <Switch>args.object;
+    // if (val.checked) {
+
+    // } else {
+
+    // }
   }
 
 
