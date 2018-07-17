@@ -1,110 +1,65 @@
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
-import { ItemEventData } from "ui/list-view";
-import { Switch } from "ui/switch";
-
 import { registerElement } from 'nativescript-angular/element-registry';
 import { FilterSelect } from 'nativescript-filter-select';
 registerElement('FilterSelect', () => FilterSelect);
-
 import { ExploreService } from "../../core/services/explore.service";
-import { Observable } from 'tns-core-modules/data/observable';
-import { GooglePlacesAutocomplete } from 'nativescript-google-places-autocomplete';
 
-import { Subject } from "rxjs";
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { Page } from "tns-core-modules/ui/page";
-import { TextField } from "tns-core-modules/ui/text-field";
-import { ListView } from "tns-core-modules/ui/list-view";
-import {
-  EventData,
-} from "tns-core-modules/data/observable";
-import * as observable from 'tns-core-modules/data/observable';
-import * as pages from 'tns-core-modules/ui/page';
-import * as dialogs from 'tns-core-modules/ui/dialogs';
-import { SearchBar } from "ui/search-bar";
-import { ViewChild, ElementRef, NgZone } from '@angular/core';
-let API_KEY = "AIzaSyB3FKbaqonmY-bDPanbzJSH9U7HXF8dpS4";
-let googlePlacesAutocomplete = new GooglePlacesAutocomplete(API_KEY);
 import { ModalDialogService } from "nativescript-angular/directives/dialogs";
 import { LoginModalComponent } from '../../core/component/login-modal/login-modal.component';
 import { SignUpModalComponent } from '../../core/component/signup-modal/signup-modal.component';
+import { LocationModalComponent } from '../../core/component/location-modal/location-modal.component';
 import { getString, setString, getBoolean, setBoolean, clear } from "application-settings";
+
 @Component({
   selector: "explore",
   moduleId: module.id,
   templateUrl: "./explore.component.html",
   styleUrls: ['./explore.component.css']
 })
-export class ExploreComponent extends Observable {
+export class ExploreComponent implements OnInit {
   category_list: any = [];
   app_list: any = [];
   selected_category: string = '';
   location: string = '';
-  googlePlacesAutocomplete: GooglePlacesAutocomplete;
-  page: Page;
-  events;
-  searchInput = new Subject<string>();
-  items;
   options = {
     context: {},
     fullscreen: false,
     viewContainerRef: this.vcRef
   };
-  @ViewChild('placesList') public places_list: ElementRef;
+  user_id: string;
+  user_app_list: any = [];
   public searchPhrase: string;
   constructor(
     private exploreService: ExploreService,
     private modal: ModalDialogService,
     private vcRef: ViewContainerRef
   ) {
-    super();
-    this.searchInput.pipe(
-      debounceTime(500),
-      distinctUntilChanged()
-    ).subscribe((params: any) => {
-      // let list = <ListView>this.places_list.nativeElement;
-      googlePlacesAutocomplete.search(params)
-        .then((places: any) => {
-          this.items = [];
-          this.items = places;
-          this.set('items', this.items);
-          console.log(this.items)
-          // list.items = this.items;
-          // list.refresh();
-        }, (error => {
-          console.log(error)
-        }));
-    }
-      ,
-      error => {
-        console.log(error);
-      });
+
   }
 
   ngOnInit() {
+    this.user_id = getString('user_id');
+    console.log(getString('user_id'))
     this.getCategoryList();
     this.getMostViewAppList();
+    if (this.user_id != undefined) {
+      this.getDashboardAppList();
+    }
 
   }
 
-  getPlace(place) {
-    googlePlacesAutocomplete.getPlaceById(place.placeId).then((place) => {
-      dialogs.alert("Frmatted address :" + place.formattedAddress + "\n latitude: " + place.latitude + "\n longitude: " + place.longitude)
-        .then(function () { });
-    }, error => {
-      console.log(error)
-    })
+  getDashboardAppList() {
+    this.exploreService.getUserDashboardAppList(this.user_id).subscribe(
+      res => {
+        this.user_app_list = res['app_master']
+        console.log(res);
+      },
+      error => {
+        console.log(error)
+      }
+    )
   }
 
-  public searchFieldChanged(args: EventData) {
-    var tmptextfield = <TextField>args.object
-    this.searchInput
-      .next(tmptextfield.text)
-  }
-
-  listViewItemTap(args) {
-    this.getPlace(this.items[args.index]);
-  }
 
 
 
@@ -123,7 +78,27 @@ export class ExploreComponent extends Observable {
   getMostViewAppList() {
     this.exploreService.getMostViewAppList().subscribe(
       res => {
-        this.app_list = res;
+        this.app_list = [];
+        if (this.user_app_list.length > 0) {
+          res.forEach(x => {
+            var index = this.user_app_list.findIndex(y => y.id == x.id)
+            console.log(index)
+            if (index != -1) {
+              x['isDashboard'] = true;
+            }
+            else {
+              x['isDashboard'] = false;
+            }
+            this.app_list.push(x);
+          })
+        }
+        else {
+          res.forEach(x => {
+            x['isDashboard'] = false;
+            this.app_list.push(x);
+          })
+        }
+
         console.log(res)
       },
       error => {
@@ -132,56 +107,81 @@ export class ExploreComponent extends Observable {
     )
   }
 
-  onItemTap(args: ItemEventData): void {
-    console.log('Item with index: ' + args.index + ' tapped');
-  }
 
-  openLoginModal() {
+  openLoginModal(app_id) {
     this.modal.showModal(LoginModalComponent, this.options).then(res => {
       console.log(res);
       if (res.signup) {
-        this.openSignupModal();
+        this.openSignupModal(app_id);
+      }
+      else if (res.success == 1) {
+        this.appAttachAndDisattach(app_id, res.user_id)
+      }
+      else{
+        var index = this.app_list.findIndex(x => x.id == app_id);
+        this.app_list[index].isDashboard = false
       }
     })
   }
 
-  openSignupModal() {
+  openSignupModal(app_id) {
     this.modal.showModal(SignUpModalComponent, this.options).then(res => {
       console.log(res);
       if (res.signin) {
-        this.openLoginModal();
+        this.openLoginModal(app_id);
+      }
+      else if (res.success == 1) {
+        this.appAttachAndDisattach(app_id, res.user_id)
+      }
+      else{
+        var index = this.app_list.findIndex(x => x.id == app_id);
+        this.app_list[index].isDashboard = false
       }
     })
   }
 
-  addToDashboard(args, id) {
+  addToDashboard(app_id) {
     if (!getBoolean('isLoggedin')) {
-      this.openLoginModal();
+      this.openLoginModal(app_id);
     }
     else {
-
+      this.appAttachAndDisattach(app_id, this.user_id)
     }
 
-    // dialogs.login({
-    //   title: "Login",
-    //   message: "Login into your account",
-    //   okButtonText: "Sign In",
-    //   cancelButtonText: "Cancel",
-    //   neutralButtonText: "Sign Up",
-    //   userName: "",
-    //   password: ""
-    // }).then(r => {
-    //   console.log("Dialog result: " + r.result + ", user: " + r.userName + ", pwd: " + r.password);
-    // });
-    // let val = <Switch>args.object;
-    // if (val.checked) {
-
-    // } else {
-
-    // }
   }
 
+  appAttachAndDisattach(app, user) {
+    var index = this.app_list.findIndex(x => x.id == app)
+    if (index != -1) {
+      this.app_list[index].isDashboard = !this.app_list[index].isDashboard;
+      var data = {
+        "customer": user,
+        "app_master": app
+      }
+      this.exploreService.appAttachAndDisattachToDashboard(data).subscribe(
+        res => {
+          console.log(res)
+        },
+        error => {
+          console.log(error)
+        }
+      )
+    }
+  }
 
+  searchLocation() {
+    var option = {
+      context: {},
+      fullscreen: true,
+      viewContainerRef: this.vcRef
+    };
+    this.modal.showModal(LocationModalComponent, option).then(res => {
+      console.log(res);
+      if (res.formattedAddress != "") {
+        this.location = res.formattedAddress
+      }
+    })
+  }
 
   onCategoryChange(args) {
     this.selected_category = '';
@@ -205,7 +205,25 @@ export class ExploreComponent extends Observable {
     }
     this.exploreService.getAllAppList(params).subscribe(
       res => {
-        this.app_list = res;
+        this.app_list = [];
+        if (this.user_app_list.length > 0) {
+          res.forEach(x => {
+            var index = this.user_app_list.findIndex(y => y.id == x.id)
+            if (index != -1) {
+              x['isDashboard'] = true;
+            }
+            else {
+              x['isDashboard'] = false;
+            }
+            this.app_list.push(x);
+          })
+        }
+        else {
+          res.forEach(x => {
+            x['isDashboard'] = false;
+            this.app_list.push(x);
+          })
+        }
         console.log(res)
       },
       error => {

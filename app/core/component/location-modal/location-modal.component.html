@@ -1,0 +1,20 @@
+<FlexboxLayout class="location_modal">
+    <StackLayout>
+        <Button text="Use Current location" (tap)="enableLocationServices()" *ngIf="!currentGeoLocation"></Button>
+        <StackLayout *ngIf="currentGeoLocation">
+            <Label text="Latitude: {{ currentGeoLocation.latitude }}"></Label>
+            <Label text="Longitude: {{ currentGeoLocation.longitude }}"></Label>
+            <Label text="Altitude: {{ currentGeoLocation.altitude }}"></Label>
+            <Label text="Direction: {{ currentGeoLocation.direction }}"></Label>
+        </StackLayout>
+        <TextField id="searchField" returnKeyType="done" hint="Search by Location" width="90%" (textChange)="searchFieldChanged($event)"
+            backgroundColor="#fff" height="50" class="input input-border cyan-border"></TextField>
+        <ListView class="list-group" [items]="items" (itemTap)="listViewItemTap($event)">
+            <ng-template let-app="item">
+                <GridLayout columns="*,*,*" rows="*" class="list-group-item">
+                    <Label [text]="app.description" class="list-group-item-heading"></Label>
+                </GridLayout>
+            </ng-template>
+        </ListView>
+    </StackLayout>
+</FlexboxLayout>

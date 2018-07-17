@@ -21,6 +21,7 @@ import { ActionBarComponent } from './component/action-bar/action-bar.component'
 import { MenuBarComponent } from './component/menu-bar/menu-bar.component';
 import { LoginModalComponent } from './component/login-modal/login-modal.component';
 import { SignUpModalComponent } from './component/signup-modal/signup-modal.component';
+import { LocationModalComponent } from './component/location-modal/location-modal.component';
 
 @NgModule({
     imports: [
@@ -41,7 +42,8 @@ import { SignUpModalComponent } from './component/signup-modal/signup-modal.comp
         ActionBarComponent,
         MenuBarComponent,
         LoginModalComponent,
-        SignUpModalComponent
+        SignUpModalComponent,
+        LocationModalComponent
     ],
     exports: [
         TNSFontIconModule,
@@ -56,7 +58,8 @@ import { SignUpModalComponent } from './component/signup-modal/signup-modal.comp
     ],
     entryComponents: [
         LoginModalComponent,
-        SignUpModalComponent
+        SignUpModalComponent,
+        LocationModalComponent
     ],
     schemas: [
         NO_ERRORS_SCHEMA
