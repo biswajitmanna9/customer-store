@@ -6,9 +6,10 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { NativeScriptHttpClientModule } from "nativescript-angular/http-client";
 import { TNSFontIconModule } from 'nativescript-ngx-fonticon';
 import { DropDownModule } from "nativescript-drop-down/angular";
+import { AccordionModule } from "nativescript-accordion/angular";
 // directive
 import { MinLengthDirective, MaxLengthDirective, IsEmailDirective } from "./directive/input.directive";
-
+import { CarouselDirective } from "./directive/carousel.directive";
 // guard
 import { AuthGuard } from './guard/auth.guard';
 
@@ -16,12 +17,14 @@ import { AuthGuard } from './guard/auth.guard';
 import { LoginService } from './services/login.service';
 import { ExploreService } from './services/explore.service';
 import { ModalDialogService } from "nativescript-angular/modal-dialog";
+import { StoreAppService } from './services/store-app.service';
 // component
 import { ActionBarComponent } from './component/action-bar/action-bar.component';
 import { MenuBarComponent } from './component/menu-bar/menu-bar.component';
 import { LoginModalComponent } from './component/login-modal/login-modal.component';
 import { SignUpModalComponent } from './component/signup-modal/signup-modal.component';
 import { LocationModalComponent } from './component/location-modal/location-modal.component';
+import { AppMenuBarComponent } from './component/app-menu-bar/app-menu-bar.component';
 
 @NgModule({
     imports: [
@@ -33,7 +36,8 @@ import { LocationModalComponent } from './component/location-modal/location-moda
         TNSFontIconModule.forRoot({
             'fa': './css/font-awesome.min.css'
         }),
-        DropDownModule
+        DropDownModule,
+        AccordionModule
     ],
     declarations: [
         MinLengthDirective,
@@ -43,18 +47,23 @@ import { LocationModalComponent } from './component/location-modal/location-moda
         MenuBarComponent,
         LoginModalComponent,
         SignUpModalComponent,
-        LocationModalComponent
+        LocationModalComponent,
+        AppMenuBarComponent,
+        CarouselDirective
     ],
     exports: [
         TNSFontIconModule,
         DropDownModule,
+        AccordionModule,
         MinLengthDirective,
         MaxLengthDirective,
         IsEmailDirective,
         ActionBarComponent,
         NativeScriptFormsModule,
         ReactiveFormsModule,
-        MenuBarComponent
+        MenuBarComponent,
+        AppMenuBarComponent,
+        CarouselDirective
     ],
     entryComponents: [
         LoginModalComponent,
@@ -73,7 +82,8 @@ export class CoreModule {
                 AuthGuard,
                 LoginService,
                 ExploreService,
-                ModalDialogService
+                ModalDialogService,
+                StoreAppService
             ]
         };
     }

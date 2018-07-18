@@ -1,0 +1,49 @@
+<ScrollView sdkExampleTitle sdkToggleNavButton>
+    <DockLayout stretchLastChild="true">
+        <GridLayout rows="auto" dock="top">
+            <StackLayout background="#41bffe" padding="10" row="0">
+                <app-menu-bar></app-menu-bar>
+            </StackLayout>
+        </GridLayout>
+        <Accordion [items]="category_list" itemTapped="tapped" class="category_product_accordian" separatorColor="transparent" *ngIf="accordian_view_key">
+
+            <ng-template accordionHeaderTemplate let-item="item" let-i="index">
+                <GridLayout columns="*,*" rows="*" class="category_heading" borderWidth="1" borderColor="#ccc">
+                    <Label [text]="item.category_name" textWrap="true" row="0" col="0"></Label>
+                </GridLayout>
+            </ng-template>
+
+            <ng-template accordionItemTemplate let-item="item" let-parent="parentIndex" let-even="even" let-child="childIndex">
+                <StackLayout class="product_list" borderRightWidth="1" borderLeftWidth="1" borderColor="#ccc">
+                    <CardView class="whiteCard">
+                        <GridLayout rows="*" columns="*,*,*" padding="5" verticalAlignment="center">
+                            <Label [text]="item.product_name" textWrap="true" row="0" col="0" verticalAlignment="center" class="product_name"></Label>
+                            <StackLayout row="0" col="1" verticalAlignment="center" orientation="horizontal">
+                                <Label [text]="item.discounted_price" class="discounted_price" textWrap="true" *ngIf="item.discounted_price > 0"></Label>
+                                <Label [text]="item.price" class="original_price" textWrap="true" [ngClass]="[item.discounted_price > 0 ? 'isDiscount' : '']"></Label>
+                                <Label [text]="getDiscount(item.price,item.discounted_price)" class="discount" textWrap="true" *ngIf="item.discounted_price > 0"></Label>
+                            </StackLayout>
+                            <Switch class="switch" checked="false" (tap)="addToCart(item.id)" col="2" row="0" verticalAlignment="center"></Switch>
+                        </GridLayout>
+                    </CardView>
+                </StackLayout>
+            </ng-template>
+
+        </Accordion>
+        <StackLayout padding="10"  *ngIf="list_view_key">
+            <StackLayout borderWidth="1" borderColor="#ccc" *ngFor="let item of category_list[0].items" style="margin-bottom: 5px;">
+                <CardView class="whiteCard">
+                    <GridLayout rows="*" columns="*,*,*" padding="10" verticalAlignment="center">
+                        <Label [text]="item.product_name" textWrap="true" row="0" col="0" verticalAlignment="center" class="product_name"></Label>
+                        <StackLayout row="0" col="1" verticalAlignment="center" orientation="horizontal">
+                            <Label [text]="item.discounted_price" class="discounted_price" textWrap="true" *ngIf="item.discounted_price > 0"></Label>
+                            <Label [text]="item.price" class="original_price" textWrap="true" [ngClass]="[item.discounted_price > 0 ? 'isDiscount' : '']"></Label>
+                            <Label [text]="getDiscount(item.price,item.discounted_price)" class="discount" textWrap="true" *ngIf="item.discounted_price > 0"></Label>
+                        </StackLayout>
+                        <Switch class="switch" checked="false" (tap)="addToCart(item.id)" col="2" row="0" verticalAlignment="center"></Switch>
+                    </GridLayout>
+                </CardView>
+            </StackLayout>
+        </StackLayout>
+    </DockLayout>
+</ScrollView>
