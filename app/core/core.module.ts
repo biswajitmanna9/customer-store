@@ -6,7 +6,7 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { NativeScriptHttpClientModule } from "nativescript-angular/http-client";
 import { TNSFontIconModule } from 'nativescript-ngx-fonticon';
 import { DropDownModule } from "nativescript-drop-down/angular";
-
+import { AccordionModule } from "nativescript-accordion/angular";
 // directive
 import { MinLengthDirective, MaxLengthDirective, IsEmailDirective } from "./directive/input.directive";
 import { CarouselDirective } from "./directive/carousel.directive";
@@ -36,7 +36,8 @@ import { AppMenuBarComponent } from './component/app-menu-bar/app-menu-bar.compo
         TNSFontIconModule.forRoot({
             'fa': './css/font-awesome.min.css'
         }),
-        DropDownModule
+        DropDownModule,
+        AccordionModule
     ],
     declarations: [
         MinLengthDirective,
@@ -53,6 +54,7 @@ import { AppMenuBarComponent } from './component/app-menu-bar/app-menu-bar.compo
     exports: [
         TNSFontIconModule,
         DropDownModule,
+        AccordionModule,
         MinLengthDirective,
         MaxLengthDirective,
         IsEmailDirective,

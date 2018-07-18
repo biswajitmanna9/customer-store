@@ -4,7 +4,7 @@
             <app-menu-bar></app-menu-bar>
         </StackLayout>
     </GridLayout>
-    <GridLayout rows="*,60">
+    <GridLayout rows="*">
         <ScrollView row="0">
             <StackLayout padding="10" *ngIf="visible_key">
                 <FlexboxLayout flexDirection="column" alignItems="center">
@@ -13,9 +13,9 @@
                     <Label [text]="app_details.business_name" class="business_name m-t-20" textWrap="true"></Label>
                     <Label [text]="app_details.business_description" class="business_desc m-t-20" textWrap="true"></Label>
                 </FlexboxLayout>
-                <Button class="btn" [text]="gallery_visible_key? 'Hide Gallery' : 'View Gallery'" backgroundColor="#41bffe" color="#fff" width="50%" (tap)="toggleGallery()">
+                <Button class="btn" [text]="gallery_visible_key? 'Hide Gallery' : 'View Gallery'" backgroundColor="#41bffe" color="#fff" width="50%" (tap)="toggleGallery()" *ngIf="gallery_images.length > 0">
                 </Button>
-                <GridLayout [carousel]="images" carouselLabelOverlay="true" carouselSpeed="2000" *ngIf="gallery_visible_key"></GridLayout>
+                <GridLayout [carousel]="gallery_images" carouselLabelOverlay="true" carouselSpeed="2000" *ngIf="gallery_visible_key && gallery_images.length > 0"></GridLayout>
             </StackLayout>
         </ScrollView>
     </GridLayout>
