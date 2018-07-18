@@ -10,7 +10,8 @@ const routes: Routes = [
         children: [
             { path: '', redirectTo: 'explore' },
             { path: 'dashboard', loadChildren: './layout/dashboard/dashboard.module#DashboardModule' },
-            { path: 'explore', loadChildren: './layout/explore/explore.module#ExploreModule' }
+            { path: 'explore', loadChildren: './layout/explore/explore.module#ExploreModule' },
+            { path: 'store-app', loadChildren: './layout/store-app/store-app.module#StoreAppModule' }
         ]
     }
 ];
