@@ -1,20 +1,22 @@
 <FlexboxLayout>
     <StackLayout class="apps-container">
         <StackLayout class="form" [formGroup]="form" novalidate>
+            <DockLayout stretchLastChild="false">
+                <Label (tap)="close()" [text]="'fa-times' | fonticon" class="fa materialdesign actionbaricon close-btn" dock="right"></Label>
+            </DockLayout>
             <label class="head-line" text="Log In"></label>
             <label class="tag-line m-t-20" text="Log in using your email id/mobile number."></label>
             <GridLayout rows="auto, auto">
                 <StackLayout class="input-filld" row="0">
-                    <TextField hint="User Name" class="input input-border cyan-border m-t-10" borderColor="#49ddff" returnKeyType="next" [isEnabled]="!processing"
-                        formControlName="username" [ngClass]="displayFieldCss('username')"></TextField>
+
+                    <TextField hint="User Name" class="input input-border cyan-border m-t-10" borderColor="#49ddff" returnKeyType="next" [isEnabled]="!processing" formControlName="username" [ngClass]="displayFieldCss('username')"></TextField>
                     <StackLayout *ngIf="isFieldValid('username')" class="invalid-feedback">
                         <Label text="User name is required"></Label>
                     </StackLayout>
                 </StackLayout>
 
                 <StackLayout class="input-filld" row="1">
-                    <TextField hint="Password" class="input input-border cyan-border m-t-10" borderColor="#49ddff" secure="true" returnKeyType="done"
-                        [isEnabled]="!processing" formControlName="password" [ngClass]="displayFieldCss('password')"></TextField>
+                    <TextField hint="Password" class="input input-border cyan-border m-t-10" borderColor="#49ddff" secure="true" returnKeyType="done" [isEnabled]="!processing" formControlName="password" [ngClass]="displayFieldCss('password')"></TextField>
                     <StackLayout *ngIf="isFieldValid('password')" class="invalid-feedback">
                         <Label text="Password is required"></Label>
                     </StackLayout>

@@ -4,9 +4,9 @@
     -webkit-box-shadow: 0 0 18 3 rgba(0, 0, 0, 0.61);
     -moz-box-shadow: 0 0 18 3 rgba(0, 0, 0, 0.61);
     box-shadow: 0 0 18 3 rgba(0, 0, 0, 0.61);
-    height: 100%;
+    height: 60%;
     margin: 3% auto;
-    padding: 25;
+    padding: 5 25;
 }
 
 .head-line {
@@ -21,4 +21,11 @@
     text-align: center;
     font-size: 15;
     font-weight: 600;
+}
+
+.close-btn {
+    text-align: right;
+    margin-top: 0;
+    color: #b3b1b5;
+    font-size: 25;
 }

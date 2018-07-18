@@ -34,7 +34,7 @@ export class LocationModalComponent extends Observable {
                     .then((places: any) => {
                         this.items = [];
                         this.items = places;
-                        // console.log(this.items)
+                        console.log(this.items)
                     }, (error => {
                         console.log(error)
                     }));
