@@ -2,14 +2,14 @@ import { NgModule } from "@angular/core";
 import { Routes } from "@angular/router";
 import { NativeScriptRouterModule } from "nativescript-angular/router";
 
-import { AboutComponent } from "./about.component";
+import { CartComponent } from "./cart.component";
 
 const routes: Routes = [
-    { path: "", component: AboutComponent },
+    { path: "", component: CartComponent },
 ];
 
 @NgModule({
     imports: [NativeScriptRouterModule.forChild(routes)],
     exports: [NativeScriptRouterModule]
 })
-export class AboutRoutingModule { }
+export class CartRoutingModule { }

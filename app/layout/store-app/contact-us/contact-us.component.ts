@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
-
+import { Location } from '@angular/common';
 @Component({
     selector: 'contact-us',
     moduleId: module.id,
@@ -10,12 +10,13 @@ import { ActivatedRoute } from "@angular/router";
 export class StoreAppContactUsComponent implements OnInit {
     app_id: string;
     constructor(
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private location: Location,
     ) {
 
     }
     ngOnInit() {
-        this.app_id = this.route.snapshot.params["id"];
-        // console.log(this.route.snapshot.params["id"])
+        var full_location = this.location.path().split('/');
+        this.app_id = full_location[2].trim();
     }
 }

@@ -11,6 +11,7 @@ const routes: Routes = [
             { path: '', redirectTo: 'explore' },
             { path: 'dashboard', loadChildren: './layout/dashboard/dashboard.module#DashboardModule' },
             { path: 'explore', loadChildren: './layout/explore/explore.module#ExploreModule' },
+            { path: 'cart', loadChildren: './layout/cart/cart.module#CartModule' },
             { path: 'store-app', loadChildren: './layout/store-app/store-app.module#StoreAppModule' }
         ]
     }
