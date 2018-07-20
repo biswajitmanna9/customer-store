@@ -1,6 +1,16 @@
 <ScrollView row="0">
-    <StackLayout padding="10">
-        <Label [text]="app_id" textWrap="true"></Label>
-        <Label text="cart page" textWrap="true"></Label>
+    <StackLayout padding="10" *ngIf="visible_key">
+        <CardView *ngFor="let item of customer_cart_data" class="card" elevation="0" radius="0" shadowOpacity="0" shadowOffsetWidth="0"
+            shadowOffsetHeight="0">
+            <GridLayout rows="*" columns="*,*,30" padding="10" verticalAlignment="center">
+                <Label [text]="item.product_name" textWrap="true" row="0" col="0" verticalAlignment="center" class="product_name"></Label>
+                <StackLayout row="0" col="1" verticalAlignment="center" orientation="horizontal">
+                    <Label [text]="item.discounted_price" class="discounted_price" textWrap="true" *ngIf="item.discounted_price > 0"></Label>
+                    <Label [text]="item.price" class="original_price" textWrap="true" [ngClass]="[item.discounted_price > 0 ? 'isDiscount' : '']"></Label>
+                    <Label [text]="getDiscount(item.price,item.discounted_price)" class="discount" textWrap="true" *ngIf="item.discounted_price > 0"></Label>
+                </StackLayout>
+                <Button class="fa" [text]="'fa-times' | fonticon" col="2" row="0" verticalAlignment="center" background="#fff"></Button>
+            </GridLayout>
+        </CardView>
     </StackLayout>
 </ScrollView>
