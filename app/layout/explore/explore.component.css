@@ -1,14 +1,37 @@
-.category_dropdown{
+.category_dropdown {
     background: #ffffff;
     border: 1 solid #b4b3b3;
     padding: 5;
+    font-size: 18px;
+    color: #00aff0;
 }
-.category_dropdown .filter-select-hint{
+
+.category_dropdown .filter-select-hint {
     padding: 5;
     margin-left: 5;
 }
-.category_dropdown .filter-select-tag-delete{
+
+.category_dropdown .filter-select-tag-delete {
     background: transparent;
 }
 
+.add-btn {
+    background: url(~/images/ready-to-add.png) no-repeat 0 0;
+    background-size: contain;
+    margin-top: 50%;
+}
 
+.active-btn {
+    background: url(~/images/active-add.png) no-repeat 0 0;
+    background-size: contain;
+    margin-top: 50%;
+}
+
+.list-group {
+    background: url(~/images/dashboard-bg.jpg) no-repeat 0 0;
+    background-size: cover;
+}
+
+.list-group .list-group-item {
+    background: #fff;
+}
