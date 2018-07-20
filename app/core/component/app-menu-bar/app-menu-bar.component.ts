@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
 import { StoreAppService } from "../../services/store-app.service";
 @Component({
@@ -8,9 +8,10 @@ import { StoreAppService } from "../../services/store-app.service";
     styleUrls: [`app-menu-bar.component.css`]
 })
 export class AppMenuBarComponent implements OnInit {
-    app_id: string;
     app_details: any;
     category_list: any = [];
+    @Input('appId') appId: string;
+    visible_key: boolean
     constructor(
         private route: ActivatedRoute,
         private storeAppService: StoreAppService
@@ -19,9 +20,7 @@ export class AppMenuBarComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.app_id = this.route.snapshot.params["id"];
-        // console.log(this.route.snapshot.params["id"])
-        this.getAppDetails(this.app_id);
+        this.getAppDetails(this.appId);
     }
 
     getAppDetails(id) {
@@ -30,6 +29,7 @@ export class AppMenuBarComponent implements OnInit {
                 this.app_details = res;
                 this.category_list = this.app_details.app_product_categories;
                 console.log(res)
+                this.visible_key = true;
             },
             error => {
                 console.log(error)

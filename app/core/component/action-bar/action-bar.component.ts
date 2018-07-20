@@ -25,4 +25,8 @@ export class ActionBarComponent implements OnInit{
         clear();
         this._routerExtensions.navigate(["/login"], { clearHistory: true });
     }
+
+    cart(){
+        
+    }
 }

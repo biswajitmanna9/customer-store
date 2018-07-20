@@ -5,6 +5,8 @@ import { StoreAppRoutingModule } from './store-app.routing';
 import { StoreAppComponent } from './store-app.component';
 import { StoreAppProductsComponent } from './products/products.component';
 import { StoreAppContactUsComponent } from './contact-us/contact-us.component';
+import { StoreAppAboutUsComponent } from './about-us/about-us.component';
+import { StoreAppCartComponent } from './cart/cart.component';
 
 import { CoreModule } from "../../core/core.module";
 
@@ -16,8 +18,10 @@ import { CoreModule } from "../../core/core.module";
     ],
     declarations: [
         StoreAppComponent,
+        StoreAppAboutUsComponent,
         StoreAppProductsComponent,
-        StoreAppContactUsComponent
+        StoreAppContactUsComponent,
+        StoreAppCartComponent
     ],
     schemas: [
         NO_ERRORS_SCHEMA

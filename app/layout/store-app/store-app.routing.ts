@@ -5,11 +5,21 @@ import { NativeScriptRouterModule } from "nativescript-angular/router";
 import { StoreAppComponent } from "./store-app.component";
 import { StoreAppProductsComponent } from './products/products.component';
 import { StoreAppContactUsComponent } from './contact-us/contact-us.component';
+import { StoreAppAboutUsComponent } from './about-us/about-us.component';
+import { StoreAppCartComponent } from './cart/cart.component';
 
 const routes: Routes = [
-    { path: "about-us/:id", component: StoreAppComponent },
-    { path: "products/:id", component: StoreAppProductsComponent },
-    { path: "contact-us/:id", component: StoreAppContactUsComponent },
+    {
+        path: ':id',
+        component: StoreAppComponent,
+        children: [
+            { path: "about-us", component: StoreAppAboutUsComponent },
+            { path: "products", component: StoreAppProductsComponent },
+            { path: "contact-us", component: StoreAppContactUsComponent },
+            { path: "cart", component: StoreAppCartComponent }
+        ]
+    }
+
 ];
 
 @NgModule({

@@ -1,0 +1,13 @@
+<ScrollView row="0">
+    <StackLayout padding="10" *ngIf="visible_key">
+        <FlexboxLayout flexDirection="column" alignItems="center">
+            <Image [src]="app_details.logo" class="app_logo img-rounded" height="90" *ngIf="app_details.logo != null"></Image>
+            <Image src="~/images/no-logo.png" class="app_logo img-rounded" height="90" *ngIf="app_details.logo == null"></Image>
+            <Label [text]="app_details.business_name" class="business_name m-t-20" textWrap="true"></Label>
+            <Label [text]="app_details.business_description" class="business_desc m-t-20" textWrap="true"></Label>
+        </FlexboxLayout>
+        <Button class="btn" [text]="gallery_visible_key? 'Hide Gallery' : 'View Gallery'" backgroundColor="#41bffe" color="#fff" width="50%" (tap)="toggleGallery()" *ngIf="gallery_images.length > 0">
+        </Button>
+        <GridLayout [carousel]="gallery_images" carouselLabelOverlay="true" carouselSpeed="2000" *ngIf="gallery_visible_key && gallery_images.length > 0"></GridLayout>
+    </StackLayout>
+</ScrollView>

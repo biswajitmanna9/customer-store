@@ -1,22 +1,22 @@
 import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
 import { NativeScriptCommonModule } from "nativescript-angular/common";
 
-import { AboutRoutingModule } from './about.routing';
-import { AboutComponent } from './about.component';
+import { CartRoutingModule } from './cart.routing';
+import { CartComponent } from './cart.component';
 
 import { CoreModule } from "../../core/core.module";
 
 @NgModule({
     imports: [
         NativeScriptCommonModule,
-        AboutRoutingModule,
+        CartRoutingModule,
         CoreModule
     ],
     declarations: [
-        AboutComponent
+        CartComponent
     ],
     schemas: [
         NO_ERRORS_SCHEMA
     ]
 })
-export class AboutModule { }
+export class CartModule { }

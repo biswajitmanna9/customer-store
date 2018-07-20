@@ -1,19 +1,19 @@
 .action-image {
-    width: 40;
-    height: 40;
-    vertical-align: center;
+    
 }
 
 .action-label {
     color: #3C5AFD;
-    font-size: 24;
-    font-weight: bold;
-    vertical-align: center;
+    font-size: 18;
+    font-weight: 500;
 }
 
-.logout-label{
+.logout-label {
     color: rgb(57, 58, 63);
-    font-size: 24;
-    font-weight: bold;
-    vertical-align: center;
+    font-size: 18;
+}
+
+.cart-label {
+    color: rgb(57, 58, 63);
+    font-size: 18;
 }
