@@ -16,3 +16,7 @@
 .product_name{
     /* font-size: 18; */
 }
+.quantity{
+    text-align: center;
+    padding: 10 0;
+}

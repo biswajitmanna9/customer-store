@@ -7,6 +7,7 @@ import { StoreAppProductsComponent } from './products/products.component';
 import { StoreAppContactUsComponent } from './contact-us/contact-us.component';
 import { StoreAppAboutUsComponent } from './about-us/about-us.component';
 import { StoreAppCartComponent } from './cart/cart.component';
+import { StoreAppPaymentComponent } from './payment/payment.component';
 
 const routes: Routes = [
     {
@@ -16,7 +17,8 @@ const routes: Routes = [
             { path: "about-us", component: StoreAppAboutUsComponent },
             { path: "products", component: StoreAppProductsComponent },
             { path: "contact-us", component: StoreAppContactUsComponent },
-            { path: "cart", component: StoreAppCartComponent }
+            { path: "cart", component: StoreAppCartComponent },
+            { path: "payment", component: StoreAppPaymentComponent }
         ]
     }
 

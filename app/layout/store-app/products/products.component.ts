@@ -69,9 +69,11 @@ export class StoreAppProductsComponent implements OnInit {
                         // console.log(index)
                         if (index != -1) {
                             this.category_list[i].items[j]['isCart'] = true;
+                            this.category_list[i].items[j]['quantity'] = this.customer_cart_data[index].quantity
                         }
                         else {
                             this.category_list[i].items[j]['isCart'] = false;
+                            this.category_list[i].items[j]['quantity'] = 0;
                         }
                     }
                 }
@@ -101,18 +103,26 @@ export class StoreAppProductsComponent implements OnInit {
             discounted_price: item.discounted_price,
             tags: item.tags,
             packing_charges: item.packing_charges,
-            hide_org_price_status: item.hide_org_price_status
+            hide_org_price_status: item.hide_org_price_status,
+            quantity: item.quantity + 1
         }
         var index = this.customer_cart_data.findIndex(y => y.app_id == this.app_id && y.product_id == item.id && y.customer_id == this.user_id);
-        // console.log(index)
+        for (var i = 0; i < this.category_list.length; i++) {
+            var cat_index = this.category_list[i].items.findIndex(y => y.id == item.id && y.app_master == this.app_id);
+            if (cat_index != -1) {
+                this.category_list[i].items[cat_index].isCart = true;
+                this.category_list[i].items[cat_index].quantity = item.quantity + 1
+            }
+        }
+
         if (index == -1) {
             this.customer_cart_data.push(data);
+            this.setCartData();
         }
-        else {
-            this.customer_cart_data.splice(index, 1);
-        }
-        // console.log(this.customer_cart_data)
 
+    }
+
+    setCartData() {
         this.secureStorage.set({
             key: 'cart',
             value: JSON.stringify(this.customer_cart_data)
@@ -121,7 +131,54 @@ export class StoreAppProductsComponent implements OnInit {
         });
     }
 
+    decrement(item) {
+        if (item.quantity > 1) {
+            var index = this.customer_cart_data.findIndex(y => y.app_id == this.app_id && y.product_id == item.id && y.customer_id == this.user_id);
+            if (index != -1) {
+                this.customer_cart_data[index].quantity = item.quantity - 1;
+                this.setCartData();
+            }
+            for (var i = 0; i < this.category_list.length; i++) {
+                var cat_index = this.category_list[i].items.findIndex(y => y.id == item.id && y.app_master == this.app_id);
+                if (cat_index != -1) {
+                    this.category_list[i].items[cat_index].quantity = item.quantity - 1
+                }
+            }
+
+        }
+        else {
+            var index = this.customer_cart_data.findIndex(y => y.app_id == this.app_id && y.product_id == item.id && y.customer_id == this.user_id);
+            if (index != -1) {
+                this.customer_cart_data.splice(index, 1);
+                this.setCartData();
+            }
+            for (var i = 0; i < this.category_list.length; i++) {
+                var cat_index = this.category_list[i].items.findIndex(y => y.id == item.id && y.app_master == this.app_id);
+                if (cat_index != -1) {
+                    this.category_list[i].items[cat_index].isCart = false;
+                    this.category_list[i].items[cat_index].quantity = item.quantity - 1
+                }
+            }
+
+        }
+
+    }
+    increment(item) {
+        var index = this.customer_cart_data.findIndex(y => y.app_id == this.app_id && y.product_id == item.id && y.customer_id == this.user_id);
+        if (index != -1) {
+            this.customer_cart_data[index].quantity = item.quantity + 1;
+            this.setCartData();
+        }
+        for (var i = 0; i < this.category_list.length; i++) {
+            var cat_index = this.category_list[i].items.findIndex(y => y.id == item.id && y.app_master == this.app_id);
+            if (cat_index != -1) {
+                this.category_list[i].items[cat_index].quantity = item.quantity + 1
+            }
+        }
+
+    }
+
     getDiscount(price, discounted_price) {
-        return ((price - discounted_price) * 100) / 100 + '%';
+        return Math.floor(((price - discounted_price) * 100) / price) + '%';
     }
 }

@@ -7,6 +7,7 @@ import { StoreAppProductsComponent } from './products/products.component';
 import { StoreAppContactUsComponent } from './contact-us/contact-us.component';
 import { StoreAppAboutUsComponent } from './about-us/about-us.component';
 import { StoreAppCartComponent } from './cart/cart.component';
+import { StoreAppPaymentComponent } from './payment/payment.component';
 
 import { CoreModule } from "../../core/core.module";
 
@@ -21,7 +22,8 @@ import { CoreModule } from "../../core/core.module";
         StoreAppAboutUsComponent,
         StoreAppProductsComponent,
         StoreAppContactUsComponent,
-        StoreAppCartComponent
+        StoreAppCartComponent,
+        StoreAppPaymentComponent
     ],
     schemas: [
         NO_ERRORS_SCHEMA
