@@ -1,17 +1,20 @@
-<StackLayout row="1" orientation="horizontal">
-    <Button textWrap="true" width="33.33%" (tap)="goTodashboard()">
+<StackLayout row="1" orientation="horizontal" background="#e5e5e5" class="bottom-nav">
+    <Button textWrap="true" width="33.33%" (tap)="goTodashboard()" background="#e5e5e5">
         <FormattedString>
-            <Span text="dashboard"></Span>
+            <Span class="fa"  [text]="'fa-tachometer' | fonticon"></Span>
+            <!-- <Span text="dashboard"></Span> -->
         </FormattedString>
     </Button>
-    <Button textWrap="true" width="33.33%" [nsRouterLink]="['/explore']">
+    <Button textWrap="true" width="33.33%" [nsRouterLink]="['/explore']" background="#e5e5e5">
         <FormattedString>
-            <Span text="Explore"></Span>
+            <Span class="fa"  [text]="'fa-compass' | fonticon"></Span>
+            <!-- <Span text="Explore"></Span> -->
         </FormattedString>
     </Button>
-    <Button textWrap="true" width="33.33%" [nsRouterLink]="['.']">
-        <FormattedString>
-            <Span text="All Apps"></Span>
+    <Button textWrap="true" width="33.33%" [nsRouterLink]="['.']" background="#e5e5e5">
+        <FormattedString orientation="horizontal">
+            <Span class="fa"  [text]="'fa-th-large' | fonticon"></Span>
+            <!-- <Span text="All Apps"></Span> -->
         </FormattedString>
     </Button>
 </StackLayout>
