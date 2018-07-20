@@ -1,17 +1,17 @@
-<StackLayout row="1" orientation="horizontal" background="#e5e5e5" class="bottom-nav">
-    <Button textWrap="true" width="33.33%" (tap)="goTodashboard()" background="#e5e5e5">
+<StackLayout row="1" orientation="horizontal" class="bottom-nav" borderTopWidth="1" borderTopColor="#3cacfe">
+    <Button textWrap="true" width="33.33%" (tap)="goTodashboard()" backgroundColor="#fff" borderColor="#fff" borderWidth="1">
         <FormattedString>
             <Span class="fa"  [text]="'fa-tachometer' | fonticon"></Span>
             <!-- <Span text="dashboard"></Span> -->
         </FormattedString>
     </Button>
-    <Button textWrap="true" width="33.33%" [nsRouterLink]="['/explore']" background="#e5e5e5">
+    <Button textWrap="true" width="33.33%" [nsRouterLink]="['/explore']" backgroundColor="#fff" borderColor="#fff" borderWidth="1">
         <FormattedString>
             <Span class="fa"  [text]="'fa-compass' | fonticon"></Span>
             <!-- <Span text="Explore"></Span> -->
         </FormattedString>
     </Button>
-    <Button textWrap="true" width="33.33%" [nsRouterLink]="['.']" background="#e5e5e5">
+    <Button textWrap="true" width="33.33%" [nsRouterLink]="['.']" backgroundColor="#fff" borderColor="#fff" borderWidth="1">
         <FormattedString orientation="horizontal">
             <Span class="fa"  [text]="'fa-th-large' | fonticon"></Span>
             <!-- <Span text="All Apps"></Span> -->
