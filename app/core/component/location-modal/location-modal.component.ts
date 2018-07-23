@@ -59,7 +59,8 @@ export class LocationModalComponent extends Observable {
     showLocation(): void {
         geoLocation.watchLocation(location => {
             this.currentGeoLocation = location;
-            alert(this.currentGeoLocation)
+            this.params.closeCallback(location);
+            // alert(this.currentGeoLocation)
         }, error => {
             alert(error);
         }, {

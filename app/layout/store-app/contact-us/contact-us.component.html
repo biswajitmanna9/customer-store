@@ -1,6 +1,13 @@
 <ScrollView row="0">
-    <StackLayout padding="10">
-        <Label [text]="app_id" textWrap="true"></Label>
-        <Label text="app contact us page" textWrap="true"></Label>
+    <StackLayout padding="10" *ngIf="visible_key">
+        <FlexboxLayout flexDirection="column" alignItems="center">
+            <Image [src]="app_owner_details.user_details[0].users_pic" class="app_logo img-rounded" height="90" *ngIf="app_owner_details.user_details[0].users_pic != null"></Image>
+            <Image src="~/images/no-logo.png" class="app_logo img-rounded" height="90" *ngIf="app_owner_details.user_details[0].users_pic == null"></Image>
+            <Label [text]="app_owner_details.first_name" class="owner_name m-t-20" textWrap="true"></Label>
+            <Label [text]="app_owner_details.user_details[0].designation.designation_name" class="owner_designation m-t-20" textWrap="true"></Label>
+            <Label [text]="app_owner_details.user_details[0].address" class="owner_address m-t-20" textWrap="true" *ngIf="app_owner_details.user_details[0].address != null"></Label>
+        </FlexboxLayout>
+        <Button class="btn btn-primary" text="Massage" (tap)="massage()" width="40%"></Button>
+        <Button class="btn btn-primary" text="Call" (tap)="call(app_owner_details.user_details[0].contact_no)" width="40%" *ngIf="app_owner_details.user_details[0].contact_no != null"></Button>        
     </StackLayout>
 </ScrollView>

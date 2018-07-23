@@ -41,7 +41,7 @@ export class ExploreComponent implements OnInit {
     this.user_id = getString('user_id');
     console.log(getString('user_id'))
     this.getCategoryList();
-    this.getMostViewAppList();
+    
     if (this.user_id != undefined) {
       this.getDashboardAppList();
     }
@@ -53,6 +53,7 @@ export class ExploreComponent implements OnInit {
       res => {
         this.user_app_list = res['app_master']
         console.log(res);
+        this.getMostViewAppList();
       },
       error => {
         console.log(error)
@@ -177,8 +178,9 @@ export class ExploreComponent implements OnInit {
     };
     this.modal.showModal(LocationModalComponent, option).then(res => {
       console.log(res);
-      if (res.formattedAddress != "") {
-        this.location = res.formattedAddress
+      if (res.name != "") {        
+        this.location = res.name;
+        // data.structured_formatting.main_text
       }
     })
   }

@@ -168,4 +168,8 @@ export class StoreAppCartComponent {
       }
     )
   }
+
+  shop(){
+    this.router.navigate(['/store-app/', this.app_id , 'products'])
+  }
 }

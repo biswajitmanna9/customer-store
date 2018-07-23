@@ -16,7 +16,15 @@
                         <Label [text]="item.price" class="original_price" textWrap="true" [ngClass]="[item.discounted_price > 0 ? 'isDiscount' : '']"></Label>
                         <Label [text]="getDiscount(item.price,item.discounted_price)" class="discount" textWrap="true" *ngIf="item.discounted_price > 0"></Label>
                     </StackLayout>
-                    <Switch class="switch" [checked]="item.isCart" (tap)="addToCart(item)" col="2" row="0" verticalAlignment="center"></Switch>
+                    <Button class="btn btn-primary pull-right" text="Add to cart" (tap)="addToCart(item)" *ngIf="!item.isCart" col="2" row="0"></Button>
+                    <GridLayout rows="*" columns="40,40,40" verticalAlignment="center" col="2" row="0" *ngIf="item.isCart">
+                        <Button class="fa" [text]="'fa-minus' | fonticon" backgroundColor="#fff" borderColor="#ababab" borderWidth="1" row="0" col="0"
+                            (tap)="decrement(item)"></Button>
+                        <Label [text]="item.quantity" borderTopWidth="1" borderBottomWidth="1" borderBottomColor="#ababab" borderTopColor="#ababab"
+                            row="0" col="1" class="quantity" lineHeight="40"></Label>
+                        <Button class="fa" [text]="'fa-plus' | fonticon" backgroundColor="#fff" borderColor="#ababab" borderWidth="1" row="0" col="2"
+                            (tap)="increment(item)"></Button>
+                    </GridLayout>
                 </GridLayout>
             </CardView>
         </StackLayout>
@@ -42,7 +50,6 @@
                     <Button class="fa" [text]="'fa-plus' | fonticon" backgroundColor="#fff" borderColor="#ababab" borderWidth="1" row="0" col="2"
                         (tap)="increment(item)"></Button>
                 </GridLayout>
-                <!-- <Switch class="switch" [checked]="item.isCart" (tap)="addToCart(item)" col="2" row="0" verticalAlignment="center"></Switch> -->
             </GridLayout>
         </CardView>
     </StackLayout>

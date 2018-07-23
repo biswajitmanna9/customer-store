@@ -3,24 +3,39 @@ import { ActivatedRoute } from "@angular/router";
 import { Location } from '@angular/common';
 import { StoreAppService } from "../../../core/services/store-app.service";
 import * as TNSPhone from 'nativescript-phone';
-import { Router } from "@angular/router";
 @Component({
-    selector: 'contact-us',
+    selector: 'messenger',
     moduleId: module.id,
-    templateUrl: `contact-us.component.html`,
-    styleUrls: [`contact-us.component.css`]
+    templateUrl: `messenger.component.html`,
+    styleUrls: [`messenger.component.css`]
 })
-export class StoreAppContactUsComponent implements OnInit {
+export class StoreAppMessengerComponent implements OnInit {
     app_id: string;
     app_owner_details: any;
-    visible_key: boolean
+    visible_key: boolean;
+    items: any = []
     constructor(
         private route: ActivatedRoute,
         private location: Location,
-        private storeAppService: StoreAppService,
-        private router: Router
+        private storeAppService: StoreAppService
     ) {
-
+        this.items = [
+            {
+                id: 1,
+                name: 'A k',
+                message: "test 1"
+            },
+            {
+                id: 2,
+                name: 'B M',
+                message: "test 2"
+            },
+            {
+                id: 3,
+                name: 'S Roy',
+                message: "test 3"
+            }
+        ]
     }
     ngOnInit() {
         var full_location = this.location.path().split('/');
@@ -41,24 +56,4 @@ export class StoreAppContactUsComponent implements OnInit {
             }
         )
     }
-
-    massage() {
-        this.router.navigate(['/store-app/', this.app_id , 'messenger'])
-    }
-
-    call(mobile) {
-        TNSPhone.dial(mobile.toString(), true);
-    }
-
-    // Text a number (or multiple numbers)
-    // public messageParents() {
-    //     TNSPhone.sms(['212-555-1234', '212-555-0987'], "Text till your fingers bleed")
-    //         .then(
-    //             (args) => {
-    //                 console.log(JSON.stringify(args));
-    //             }, (err) => {
-    //                 console.log('Error: ' + err);
-    //             }
-    //         )
-    // }
 }

@@ -1,0 +1,42 @@
+.msg {
+    font-size: 14;
+    margin-top: 5;
+    /* margin-bottom: 20; */
+}
+
+.me .msg_text {
+    background-color: #30A9FF;
+    color: white;
+    padding: 8;
+    margin-left: 40;
+    border-radius: 15;
+    
+}
+
+.them .msg_text {
+    background-color: #e0e0e0;
+    color: #333;
+    padding: 7;
+    border-radius: 15;
+    margin-right: 40;
+}
+
+.authorimg {
+    margin: 0 5 5 5;
+    width: 30;
+    height: 30;
+    border-radius: 15;
+}
+
+.them .msg_timestamp {
+    color: gray;
+    font-size: 11;
+    margin-left: 40;
+}
+
+.me .msg_timestamp {
+    color: gray;
+    font-size: 11;
+    margin-right: 40;
+    text-align: right;
+}

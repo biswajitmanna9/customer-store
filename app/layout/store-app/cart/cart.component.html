@@ -49,4 +49,8 @@
             <Button class="btn btn-primary pull-right" text="Pay" (tap)="pay()"></Button>
         </StackLayout>
     </StackLayout>
+    <StackLayout padding="10" *ngIf="visible_key && customer_cart_data.length == 0" style="text-align: center">
+        <Label text="No item in cart" textWrap="true"></Label>
+        <Button class="btn btn-primary" text="Continue shopping" (tap)="shop()"></Button>        
+    </StackLayout>
 </ScrollView>

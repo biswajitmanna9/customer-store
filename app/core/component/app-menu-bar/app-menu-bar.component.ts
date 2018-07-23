@@ -9,7 +9,7 @@ import { StoreAppService } from "../../services/store-app.service";
 })
 export class AppMenuBarComponent implements OnInit {
     app_details: any;
-    category_list: any = [];
+    product_list: any = [];
     @Input('appId') appId: string;
     visible_key: boolean
     constructor(
@@ -27,8 +27,13 @@ export class AppMenuBarComponent implements OnInit {
         this.storeAppService.getStoreAppDetails(id).subscribe(
             res => {
                 this.app_details = res;
-                this.category_list = this.app_details.app_product_categories;
+                this.app_details.app_product_categories.forEach( x => {
+                    x.products.forEach( y => {
+                        this.product_list.push(y)
+                    })
+                })
                 console.log(res)
+                console.log(this.product_list)
                 this.visible_key = true;
             },
             error => {

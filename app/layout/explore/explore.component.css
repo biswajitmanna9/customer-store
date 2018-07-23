@@ -18,13 +18,11 @@
 .add-btn {
     background: url(~/images/ready-to-add.png) no-repeat 0 0;
     background-size: contain;
-    margin-top: 50%;
 }
 
 .active-btn {
     background: url(~/images/active-add.png) no-repeat 0 0;
     background-size: contain;
-    margin-top: 50%;
 }
 
 .list-group {

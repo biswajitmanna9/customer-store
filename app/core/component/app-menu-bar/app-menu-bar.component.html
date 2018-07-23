@@ -1,4 +1,4 @@
-<StackLayout row="1" orientation="horizontal" *ngIf="visible_key && category_list.length > 0">
+<StackLayout row="1" orientation="horizontal" *ngIf="visible_key && product_list.length > 0">
     <Button textWrap="true" width="30%" [nsRouterLink]="['/store-app/', appId , 'about-us']">
         <FormattedString>
             <Span text="About Us"></Span>
@@ -20,7 +20,7 @@
         </FormattedString>
     </Button>
 </StackLayout>
-<StackLayout row="1" orientation="horizontal" *ngIf="visible_key && category_list.length == 0">
+<StackLayout row="1" orientation="horizontal" *ngIf="visible_key && product_list.length == 0">
     <Button textWrap="true" width="50%" [nsRouterLink]="['/store-app/', appId , 'about-us']">
         <FormattedString>
             <Span text="About Us"></Span>

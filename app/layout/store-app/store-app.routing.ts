@@ -8,6 +8,7 @@ import { StoreAppContactUsComponent } from './contact-us/contact-us.component';
 import { StoreAppAboutUsComponent } from './about-us/about-us.component';
 import { StoreAppCartComponent } from './cart/cart.component';
 import { StoreAppPaymentComponent } from './payment/payment.component';
+import { StoreAppMessengerComponent } from './messenger/messenger.component';
 
 const routes: Routes = [
     {
@@ -18,7 +19,8 @@ const routes: Routes = [
             { path: "products", component: StoreAppProductsComponent },
             { path: "contact-us", component: StoreAppContactUsComponent },
             { path: "cart", component: StoreAppCartComponent },
-            { path: "payment", component: StoreAppPaymentComponent }
+            { path: "payment", component: StoreAppPaymentComponent },
+            { path: "messenger", component: StoreAppMessengerComponent }
         ]
     }
 
