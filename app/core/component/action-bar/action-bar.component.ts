@@ -16,8 +16,13 @@ export class ActionBarComponent implements OnInit{
     }
 
     ngOnInit() {
+        this.setIsLogin()
+    }
+
+    setIsLogin(){
         if(getBoolean('isLoggedin')){
             this.isLoggedin = getBoolean('isLoggedin');
+            // alert(this.isLoggedin)
         }
     }
 

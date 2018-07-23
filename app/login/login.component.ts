@@ -6,6 +6,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LoginService } from "../core/services/login.service";
 import { getString, setString, getBoolean, setBoolean, clear } from "application-settings";
 import { RouterExtensions } from "nativescript-angular/router";
+import { Feedback, FeedbackType, FeedbackPosition } from "nativescript-feedback";
+import { Color } from "tns-core-modules/color";
 @Component({
   selector: "login",
   moduleId: module.id,
@@ -15,7 +17,7 @@ import { RouterExtensions } from "nativescript-angular/router";
 export class LoginComponent implements OnInit {
   form: FormGroup;
   processing = false;
-
+  private feedback: Feedback;
   constructor(
     private page: Page,
     private router: RouterExtensions,
@@ -23,6 +25,7 @@ export class LoginComponent implements OnInit {
     private loginService: LoginService
   ) {
     this.page.actionBarHidden = true;
+    this.feedback = new Feedback();
   }
 
   ngOnInit() {
@@ -30,6 +33,10 @@ export class LoginComponent implements OnInit {
       username: ['', Validators.required],
       password: ['', Validators.required]
     });
+    // this.feedback.error({
+    //   title: "KABOoooOOM!",
+    //   titleColor: new Color("black")
+    // });
   }
 
   isFieldValid(field: string) {

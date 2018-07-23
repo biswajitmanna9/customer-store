@@ -20,7 +20,7 @@ export class MenuBarComponent {
     constructor(
         private modal: ModalDialogService,
         private vcRef: ViewContainerRef,
-        private router: Router,
+        private router: RouterExtensions,
     ) {
 
     }
@@ -32,6 +32,7 @@ export class MenuBarComponent {
                 this.openSignupModal();
             }
             else if (res.success == 1) {
+                // console.log(getBoolean('isLoggedin'))
                 this.router.navigate(['/dashboard'])
             }
         })

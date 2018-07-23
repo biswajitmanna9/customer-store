@@ -1,32 +1,25 @@
-<ScrollView row="0">
-    <StackLayout padding="10" *ngIf="visible_key">
-        <ListView class="list-group " [items]="items" height="1250px">
-            <ng-template let-app="item">
-                <StackLayout id="">
-
-                    <StackLayout visibility="">
-                        <GridLayout width="100%" columns="*" rows="auto, 20" class="msg them">
-                            <StackLayout orientation="horizontal">
-                                <Image class="authorimg" width="30" height="30" stretch="aspectFill" verticalAlignment="top" src="~/images/shyam-wheel.png" ></Image>
-                                <Label text="Hi" textWrap="true" verticalAlignment="top" class="msg_text" ></Label>
-                            </StackLayout>
-
-                            <Label class="msg_timestamp" text="12/02/2018" verticalAlignment="top" row="1" colSpan="2" ></Label>
-                        </GridLayout>
-                    </StackLayout>
-
-                    <StackLayout visibility="">
-                        <GridLayout columns="*" rows="auto, 40" class="msg me">
-                            <StackLayout orientation="horizontal" horizontalAlignment="right">
-                                <Label text="Hello" class="msg_text" textWrap="true" verticalAlignment="top" ></Label>
-                                <Image class="authorimg" stretch="aspectFill" height="30" width="30" verticalAlignment="top" src="~/images/user.png" col="1" ></Image>
-                            </StackLayout>
-                            <Label class="msg_timestamp" text="21/07/2018" verticalAlignment="top" row="1" ></Label>
-                        </GridLayout>
-                    </StackLayout>
-
+<GridLayout rows="*, auto" columns="auto" class="wallpaper">
+    <StackLayout row="0" column="0" width="100%">
+        <ScrollView class="messages-area">
+            <FlexboxLayout class="messages">
+                <StackLayout [shadow]="2" cornerRadius="20" *ngFor="let message of messages; let idx = index" class="message-bubble" [class.myself]="!message.sender">
+                    <FlexboxLayout class="message-bubble-content">
+                        <Label class="message-text" [text]="message.text" textWrap="true"></Label>
+                        <FlexboxLayout class="meta">
+                            <Label [text]="message.created | date: 'shortTime'" class="time"></Label>
+                            <Label *ngIf="!message.sender" [text]="'fa-check' | fonticon" class="fa check" [class.blue]="isViewed(message)"></Label>
+                        </FlexboxLayout>
+                    </FlexboxLayout>
                 </StackLayout>
-            </ng-template>
-        </ListView>
+            </FlexboxLayout>
+        </ScrollView>
     </StackLayout>
-</ScrollView>
+    <StackLayout row="1" column="0" width="100%">
+        <FlexboxLayout class="message-box">
+            <FlexboxLayout class="text-area">
+                <TextView hint="Type a message" [text]="message" class="text-view" borderColor="#fff" borderRadius="1" borderWidth="1"></TextView>
+                <Button [text]="'fa-paper-plane' | fonticon" class="fa send" (tap)="chat()" backgroundColor="#fff" borderColor="#fff" borderWidth="1"></Button>
+            </FlexboxLayout>            
+        </FlexboxLayout>
+    </StackLayout>
+</GridLayout>

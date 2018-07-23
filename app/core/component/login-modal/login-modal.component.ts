@@ -8,11 +8,13 @@ import { getString, setString, getBoolean, setBoolean, clear } from "application
 import { ModalDialogParams } from "nativescript-angular/directives/dialogs";
 import { SignUpModalComponent } from '../signup-modal/signup-modal.component';
 import { ModalDialogService } from "nativescript-angular/directives/dialogs";
+import {ActionBarComponent } from '../action-bar/action-bar.component';
 @Component({
     selector: "login-modal",
     moduleId: module.id,
     templateUrl: "login-modal.component.html",
-    styleUrls: ["login-modal.component.css"]
+    styleUrls: ["login-modal.component.css"],
+    providers: [ActionBarComponent]
 })
 
 export class LoginModalComponent implements OnInit {
@@ -27,7 +29,8 @@ export class LoginModalComponent implements OnInit {
         private loginService: LoginService,
         private params: ModalDialogParams,
         private modal: ModalDialogService,
-        private vcRef: ViewContainerRef
+        private vcRef: ViewContainerRef,
+        private actionBarComponent: ActionBarComponent
     ) {
     }
 
@@ -61,6 +64,7 @@ export class LoginModalComponent implements OnInit {
                     setString('email', res.email)
                     setString('contact_no', res.contact_no)
                     setString('user_id', res.user_id.toString())
+                    this.actionBarComponent.setIsLogin();
                     this.params.closeCallback(res);
                 },
                 error => {

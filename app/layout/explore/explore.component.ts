@@ -45,6 +45,9 @@ export class ExploreComponent implements OnInit {
     if (this.user_id != undefined) {
       this.getDashboardAppList();
     }
+    else{
+      this.getMostViewAppList();
+    }
 
   }
 

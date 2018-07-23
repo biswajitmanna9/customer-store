@@ -6,12 +6,13 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LoginService } from "../../services/login.service";
 import { getString, setString, getBoolean, setBoolean, clear } from "application-settings";
 import { ModalDialogParams } from "nativescript-angular/directives/dialogs";
-
+import {ActionBarComponent } from '../action-bar/action-bar.component';
 @Component({
     selector: "signup-modal",
     moduleId: module.id,
     templateUrl: "signup-modal.component.html",
-    styleUrls: ["signup-modal.component.css"]
+    styleUrls: ["signup-modal.component.css"],
+    providers: [ActionBarComponent]
 })
 
 export class SignUpModalComponent implements OnInit {
@@ -24,7 +25,8 @@ export class SignUpModalComponent implements OnInit {
         private router: Router,
         private formBuilder: FormBuilder,
         private loginService: LoginService,
-        private params: ModalDialogParams
+        private params: ModalDialogParams,
+        private actionBarComponent: ActionBarComponent
     ) {
     }
 
@@ -75,6 +77,7 @@ export class SignUpModalComponent implements OnInit {
                     }
                     setString('contact_no', res.contact_no)
                     setString('user_id', res.user_id.toString())
+                    this.actionBarComponent.setIsLogin();
                     this.params.closeCallback(res);
                 },
                 error => {

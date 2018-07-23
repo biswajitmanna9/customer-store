@@ -1,15 +1,16 @@
 import { Injectable } from "@angular/core";
-import { CanLoad } from "@angular/router";
+import { CanActivate } from "@angular/router";
 import { RouterExtensions } from "nativescript-angular/router";
 import { getString, setString, getBoolean, setBoolean, clear } from "application-settings";
 
 @Injectable()
-export class AuthGuard implements CanLoad {
+export class AuthGuard implements CanActivate {
 
     constructor(private _routerExtensions: RouterExtensions) { }
 
-    canLoad(): boolean {
+    canActivate(): boolean {
         if (getBoolean('isLoggedin') || getBoolean('isSkipped')) {
+            console.log("got the")
             return true;
         }
         this._routerExtensions.navigate(["/login"], { clearHistory: true });
