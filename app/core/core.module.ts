@@ -25,7 +25,6 @@ import { LoginModalComponent } from './component/login-modal/login-modal.compone
 import { SignUpModalComponent } from './component/signup-modal/signup-modal.component';
 import { LocationModalComponent } from './component/location-modal/location-modal.component';
 import { AppMenuBarComponent } from './component/app-menu-bar/app-menu-bar.component';
-
 @NgModule({
     imports: [
         NativeScriptCommonModule,

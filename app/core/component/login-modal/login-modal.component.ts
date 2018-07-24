@@ -8,7 +8,9 @@ import { getString, setString, getBoolean, setBoolean, clear } from "application
 import { ModalDialogParams } from "nativescript-angular/directives/dialogs";
 import { SignUpModalComponent } from '../signup-modal/signup-modal.component';
 import { ModalDialogService } from "nativescript-angular/directives/dialogs";
-import {ActionBarComponent } from '../action-bar/action-bar.component';
+import { ActionBarComponent } from '../action-bar/action-bar.component';
+import { Feedback, FeedbackType, FeedbackPosition } from "nativescript-feedback";
+import { Color } from "tns-core-modules/color";
 @Component({
     selector: "login-modal",
     moduleId: module.id,
@@ -21,7 +23,7 @@ export class LoginModalComponent implements OnInit {
 
     form: FormGroup;
     processing = false;
-
+    private feedback: Feedback;
     constructor(
         private page: Page,
         private router: Router,
@@ -32,6 +34,7 @@ export class LoginModalComponent implements OnInit {
         private vcRef: ViewContainerRef,
         private actionBarComponent: ActionBarComponent
     ) {
+        this.feedback = new Feedback();
     }
 
     ngOnInit() {
@@ -60,6 +63,7 @@ export class LoginModalComponent implements OnInit {
             this.loginService.login(this.form.value).subscribe(
                 res => {
                     console.log(res)
+                    this.processing = false;
                     setBoolean("isLoggedin", true)
                     setString('email', res.email)
                     setString('contact_no', res.contact_no)
@@ -68,7 +72,15 @@ export class LoginModalComponent implements OnInit {
                     this.params.closeCallback(res);
                 },
                 error => {
+                    this.processing = false;
                     console.log(error)
+                    this.feedback.error({
+                        title: error.error.msg,
+                        backgroundColor: new Color("red"),
+                        titleColor: new Color("black"),
+                        position: FeedbackPosition.Bottom,
+                        type: FeedbackType.Custom
+                    });
                 }
             )
         }

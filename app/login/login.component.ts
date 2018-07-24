@@ -33,10 +33,7 @@ export class LoginComponent implements OnInit {
       username: ['', Validators.required],
       password: ['', Validators.required]
     });
-    // this.feedback.error({
-    //   title: "KABOoooOOM!",
-    //   titleColor: new Color("black")
-    // });
+    
   }
 
   isFieldValid(field: string) {
@@ -52,12 +49,13 @@ export class LoginComponent implements OnInit {
 
 
 
-  signIn() {
+  signIn() {    
     if (this.form.valid) {
       this.processing = true;
       this.loginService.login(this.form.value).subscribe(
         res => {
           console.log(res)
+          this.processing = false;
           clear();
           setBoolean("isLoggedin", true)
           setString('email', res.email)
@@ -66,7 +64,15 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['/'])          
         },
         error => {
+          this.processing = false;
           console.log(error)
+          this.feedback.error({
+            title: error.error.msg,
+            backgroundColor: new Color("red"),
+            titleColor: new Color("black"),
+            position: FeedbackPosition.Bottom,
+            type: FeedbackType.Custom
+          });
         }
       )
     }

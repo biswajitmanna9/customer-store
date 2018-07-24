@@ -9,7 +9,6 @@ import { LoginModalComponent } from '../../core/component/login-modal/login-moda
 import { SignUpModalComponent } from '../../core/component/signup-modal/signup-modal.component';
 import { LocationModalComponent } from '../../core/component/location-modal/location-modal.component';
 import { getString, setString, getBoolean, setBoolean, clear } from "application-settings";
-
 @Component({
   selector: "explore",
   moduleId: module.id,
@@ -101,8 +100,7 @@ export class ExploreComponent implements OnInit {
             x['isDashboard'] = false;
             this.app_list.push(x);
           })
-        }
-
+        }        
         console.log(res)
       },
       error => {

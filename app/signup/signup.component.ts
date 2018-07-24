@@ -6,6 +6,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LoginService } from "../core/services/login.service";
 import { getString, setString, getBoolean, setBoolean, clear } from "application-settings";
 import { RouterExtensions } from "nativescript-angular/router";
+import { Feedback, FeedbackType, FeedbackPosition } from "nativescript-feedback";
+import { Color } from "tns-core-modules/color";
 @Component({
   selector: "signup",
   moduleId: module.id,
@@ -16,7 +18,7 @@ export class SignupComponent implements OnInit {
 
   form: FormGroup;
   processing = false;
-
+  private feedback: Feedback;
   constructor(
     private page: Page,
     private router: RouterExtensions,
@@ -24,6 +26,7 @@ export class SignupComponent implements OnInit {
     private loginService: LoginService
   ) {
     this.page.actionBarHidden = true;
+    this.feedback = new Feedback();
   }
 
   ngOnInit() {
@@ -59,6 +62,7 @@ export class SignupComponent implements OnInit {
       this.loginService.signup(this.form.value).subscribe(
         res => {
           console.log(res)
+          this.processing = false;
           clear();
           setBoolean("isLoggedin", true)
           if(res.email != ""){
@@ -69,7 +73,15 @@ export class SignupComponent implements OnInit {
           this.router.navigate(['/'])
         },
         error => {
+          this.processing = false;
           console.log(error)
+          this.feedback.error({
+            title: error.error.msg,
+            backgroundColor: new Color("red"),
+            titleColor: new Color("black"),
+            position: FeedbackPosition.Bottom,
+            type: FeedbackType.Custom
+          });
         }
       )
     }
