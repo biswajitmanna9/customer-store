@@ -17,9 +17,9 @@
     <StackLayout row="1" column="0" width="100%">
         <FlexboxLayout class="message-box">
             <FlexboxLayout class="text-area">
-                <TextView hint="Type a message" [text]="message" class="text-view" borderColor="#fff" borderRadius="1" borderWidth="1"></TextView>
-                <Button [text]="'fa-paper-plane' | fonticon" class="fa send" (tap)="chat()" backgroundColor="#fff" borderColor="#fff" borderWidth="1"></Button>
-            </FlexboxLayout>            
+                <TextField [(ngModel)]="message" hint="Type a message" class="text-view" borderColor="#fff" borderRadius="1" borderWidth="1"></TextField>
+                <Button [text]="'fa-paper-plane' | fonticon" class="fa send" (tap)="send()" backgroundColor="#fff" borderColor="#fff" borderWidth="1"></Button>
+            </FlexboxLayout>
         </FlexboxLayout>
     </StackLayout>
 </GridLayout>
