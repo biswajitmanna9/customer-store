@@ -4,6 +4,7 @@ import { Location } from '@angular/common';
 import { StoreAppService } from "../../../core/services/store-app.service";
 import * as TNSPhone from 'nativescript-phone';
 import { RouterExtensions } from "nativescript-angular/router";
+import { getString, setString, getBoolean, setBoolean, clear } from "application-settings";
 require("nativescript-websockets");
 @Component({
     selector: 'messenger',
@@ -18,6 +19,8 @@ export class StoreAppMessengerComponent implements OnInit, OnDestroy {
     message: string;
     socket: any;
     messages: Array<any>;
+    user_id: string;
+    uri: string;
     constructor(
         private route: ActivatedRoute,
         private location: Location,
@@ -25,18 +28,21 @@ export class StoreAppMessengerComponent implements OnInit, OnDestroy {
         private router: RouterExtensions,
         private zone: NgZone
     ) {
-        this.socket = new WebSocket("wss://echo.websocket.org:443", []);
+        
         this.messages = [];
         this.message = "";
-        this.socket.onopen = (evt) => this.onOpen(evt)
-        this.socket.onclose = (evt) => this.onClose(evt)
-        this.socket.onmessage = (evt) => this.onMessage(evt)
-        this.socket.onerror = (evt) => this.onError(evt)
+        // this.socket = new WebSocket("wss://echo.websocket.org:443", []);
+        // this.socket.onopen = (evt) => this.onOpen(evt)
+        // this.socket.onclose = (evt) => this.onClose(evt)
+        // this.socket.onmessage = (evt) => this.onMessage(evt)
+        // this.socket.onerror = (evt) => this.onError(evt)
     }
     ngOnInit() {
         var full_location = this.location.path().split('/');
         this.app_id = full_location[2].trim();
-        this.getAppDetails(this.app_id);
+        this.user_id = getString('user_id');
+        // this.getAppDetails(this.app_id);
+        this.createChatSession();
     }
 
     onOpen(evt) {
@@ -79,7 +85,7 @@ export class StoreAppMessengerComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        this.socket.close();
+        // this.socket.close();
     }
 
     getAppDetails(id) {
@@ -102,8 +108,94 @@ export class StoreAppMessengerComponent implements OnInit, OnDestroy {
 
     send() {
         if (this.message) {
-            this.socket.send(this.message);
+            // this.socket.send(this.message);
+            this.sendMessageToApp();
             this.message = "";
         }
+    }
+
+
+    createChatSession() {
+        var data = {
+            sender: this.user_id,
+            sender_type: "customer",
+            receiver: this.app_id,
+            receiver_type: "app_master"
+        }
+        this.storeAppService.createChatSessionView(data).subscribe(
+            res => {
+                console.log(res)
+                this.uri = res['uri'];
+                this.getMessageList();
+            },
+            error => {
+                console.log(error)
+            }
+        )
+    }
+
+    // connectToApp(uri) {
+    //     var data = {
+    //         user_id: this.app_id,
+    //         user_type: "app_master"
+    //     }
+    //     this.storeAppService.connectToApp(data, uri).subscribe(
+    //         res => {
+    //             console.log(res)
+    //             this.getMessageList();
+    //         },
+    //         error => {
+    //             console.log(error)
+    //         }
+    //     )
+    // }
+
+
+    getMessageList() {
+        this.storeAppService.getMessageListByApp(this.uri).subscribe(
+            res => {
+                console.log(res)
+                res['messages'].forEach(x => {
+                    var type = x['user_type'];
+                    var data = {
+                        text: '',
+                        created: new Date(),
+                        sender: false
+                    }
+                    data.text = x['message']
+                    if(type.toLowerCase() == "customer"){
+                        data.sender = true;
+                    }
+                    this.messages.push(data)
+                    
+                })
+            },
+            error => {
+                console.log(error)
+            }
+        )
+    }
+
+    sendMessageToApp() {
+        var data = {
+            user_id: this.user_id,
+            user_type: "customer",
+            message: this.message
+        }
+        this.storeAppService.messageToApp(data, this.uri).subscribe(
+            res => {
+                console.log(res)
+                var data = {
+                    text: '',
+                    created: new Date(),
+                    sender: true
+                }
+                data.text = res['message'];                
+                this.messages.push(data)
+            },
+            error => {
+                console.log(error)
+            }
+        )
     }
 }

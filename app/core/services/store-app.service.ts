@@ -22,7 +22,25 @@ export class StoreAppService {
     return this.http.post(Globals.apiEndpoint + 'create_orders/', data)
   }
 
+
+  createChatSessionView(data) {
+    return this.http.post(Globals.apiEndpoint + 'chats/', data)
+  }
+
+  // connectToApp(data, uri) {
+  //   return this.http.patch(Globals.apiEndpoint + 'chats/' + uri + '/', data)
+  // }
+
+  getMessageListByApp(uri) {
+    return this.http.get(Globals.apiEndpoint + 'chats/' + uri + '/messages/')
+  }
+
+  messageToApp(data, uri) {
+    return this.http.post(Globals.apiEndpoint + 'chats/' + uri + '/messages/', data)
+  }
+
 }
+
 
 export class OrderModule {
   customer: string;
