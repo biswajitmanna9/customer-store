@@ -7,7 +7,7 @@
             <Label [text]="app_owner_details.user_details[0].designation.designation_name" class="owner_designation m-t-20" textWrap="true"></Label>
             <Label [text]="app_owner_details.user_details[0].address" class="owner_address m-t-20" textWrap="true" *ngIf="app_owner_details.user_details[0].address != null"></Label>
         </FlexboxLayout>
-        <Button class="btn btn-primary" text="Massage" (tap)="massage()" width="40%"></Button>
+        <Button class="btn btn-primary" text="Message" (tap)="massage()" width="40%"></Button>
         <Button class="btn btn-primary" text="Call" (tap)="call(app_owner_details.user_details[0].contact_no)" width="40%" *ngIf="app_owner_details.user_details[0].contact_no != null"></Button>        
     </StackLayout>
 </ScrollView>

@@ -77,6 +77,7 @@ export class StoreAppProductsComponent implements OnInit {
                         }
                     }
                 }
+                console.log(this.category_list)
                 if (this.category_list.length > 1) {
                     this.accordian_view_key = true
                 }
@@ -112,6 +113,7 @@ export class StoreAppProductsComponent implements OnInit {
             if (cat_index != -1) {
                 this.category_list[i].items[cat_index].isCart = true;
                 this.category_list[i].items[cat_index].quantity = item.quantity + 1
+                console.log(this.category_list)
             }
         }
 
@@ -155,10 +157,13 @@ export class StoreAppProductsComponent implements OnInit {
             for (var i = 0; i < this.category_list.length; i++) {
                 var cat_index = this.category_list[i].items.findIndex(y => y.id == item.id && y.app_master == this.app_id);
                 if (cat_index != -1) {
+                    console.log("cat_index" + cat_index)
                     this.category_list[i].items[cat_index].isCart = false;
                     this.category_list[i].items[cat_index].quantity = item.quantity - 1
                 }
             }
+
+            console.log(this.category_list)
 
         }
 
