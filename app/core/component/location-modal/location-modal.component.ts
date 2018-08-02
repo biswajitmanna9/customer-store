@@ -59,8 +59,7 @@ export class LocationModalComponent extends Observable {
     showLocation(): void {
         geoLocation.watchLocation(location => {
             this.currentGeoLocation = location;
-            this.params.closeCallback(location);
-            // alert(this.currentGeoLocation)
+            this.params.closeCallback({place: location,current: true});
         }, error => {
             alert(error);
         }, {
@@ -72,9 +71,7 @@ export class LocationModalComponent extends Observable {
 
     getPlace(place) {
         googlePlacesAutocomplete.getPlaceById(place.placeId).then((place) => {
-            // dialogs.alert("Frmatted address :" + place.formattedAddress + "\n latitude: " + place.latitude + "\n longitude: " + place.longitude)
-            //     .then(function () { });
-            this.params.closeCallback(place);
+            this.params.closeCallback({place: place,current: false});
         }, error => {
             console.log(error)
         })

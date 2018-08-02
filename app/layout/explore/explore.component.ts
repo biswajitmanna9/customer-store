@@ -27,7 +27,8 @@ export class ExploreComponent implements OnInit {
   };
   user_id: string;
   user_app_list: any = [];
-  public searchPhrase: string;
+  latitude: any;
+  longitude: any;
   constructor(
     private exploreService: ExploreService,
     private modal: ModalDialogService,
@@ -40,11 +41,11 @@ export class ExploreComponent implements OnInit {
     this.user_id = getString('user_id');
     console.log(getString('user_id'))
     this.getCategoryList();
-    
+
     if (this.user_id != undefined) {
       this.getDashboardAppList();
     }
-    else{
+    else {
       this.getMostViewAppList();
     }
 
@@ -100,7 +101,7 @@ export class ExploreComponent implements OnInit {
             x['isDashboard'] = false;
             this.app_list.push(x);
           })
-        }        
+        }
         console.log(res)
       },
       error => {
@@ -119,7 +120,7 @@ export class ExploreComponent implements OnInit {
       else if (res.success == 1) {
         this.appAttachAndDisattach(app_id, res.user_id)
       }
-      else{
+      else {
         var index = this.app_list.findIndex(x => x.id == app_id);
         this.app_list[index].isDashboard = false
       }
@@ -135,7 +136,7 @@ export class ExploreComponent implements OnInit {
       else if (res.success == 1) {
         this.appAttachAndDisattach(app_id, res.user_id)
       }
-      else{
+      else {
         var index = this.app_list.findIndex(x => x.id == app_id);
         this.app_list[index].isDashboard = false
       }
@@ -179,9 +180,16 @@ export class ExploreComponent implements OnInit {
     };
     this.modal.showModal(LocationModalComponent, option).then(res => {
       console.log(res);
-      if (res.name != "") {        
-        this.location = res.name;
-        // data.structured_formatting.main_text
+
+      if (res.current == true) {
+        this.location = "Current Location";
+        this.latitude = res.place.latitude;
+        this.longitude = res.place.longitude;
+      }
+      else if (res.current == false) {
+        this.location = res.place.name;
+        this.latitude = res.place.latitude;
+        this.longitude = res.place.longitude;
       }
     })
   }
@@ -198,13 +206,13 @@ export class ExploreComponent implements OnInit {
   searchAppList() {
     let params = '';
     if (this.location != '' && this.selected_category != '') {
-      params = '?search=' + this.location + '&category=' + this.selected_category;
+      params = '?latitude=' + this.latitude + '&longitude=' + this.longitude + '&category=' + this.selected_category;
     }
     else if (this.location == '' && this.selected_category != '') {
       params = '?category=' + this.selected_category;
     }
     else if (this.location != '' && this.selected_category == '') {
-      params = '?search=' + this.location;
+      params = '?latitude=' + this.latitude + '&longitude=' + this.longitude;
     }
     this.exploreService.getAllAppList(params).subscribe(
       res => {
@@ -239,5 +247,5 @@ export class ExploreComponent implements OnInit {
     this.searchAppList();
   }
 
-
+  // http://192.168.24.208:8000/search_app/?latitude=22.5402602&longitude=88.3821989
 }

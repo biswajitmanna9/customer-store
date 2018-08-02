@@ -5,13 +5,6 @@
             <Label class="Back-btn" text="Back" width="100%" (tap)="close()"></Label>
         </AbsoluteLayout>
         <Button class="current-location" text="Use Current location" (tap)="enableLocationServices()" *ngIf="!currentGeoLocation" height="50"></Button>
-        <!-- <StackLayout *ngIf="currentGeoLocation">
-            <Label text="Latitude: {{ currentGeoLocation.latitude }}"></Label>
-            <Label text="Longitude: {{ currentGeoLocation.longitude }}"></Label>
-            <Label text="Altitude: {{ currentGeoLocation.altitude }}"></Label>
-            <Label text="Direction: {{ currentGeoLocation.direction }}"></Label>
-        </StackLayout> -->
-        <!-- <TextField id="searchField" returnKeyType="done" hint="Search by Location" width="90%" (textChange)="searchFieldChanged($event)" height="50" class="input input-border search-filed" borderColor="#ababab" borderRadius="5" borderWidth="1"></TextField> -->
         <SearchBar hint="Search by Location" text="" (textChange)="searchFieldChanged($event)" 
             color="#000" textFieldBackgroundColor="white" textFieldHintColor="white" borderColor="#ababab" borderRadius="5" borderWidth="1"></SearchBar>
 
