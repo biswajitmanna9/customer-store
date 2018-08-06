@@ -1,16 +1,16 @@
 <GridLayout rows="*, auto" columns="auto" class="wallpaper">
     <StackLayout row="0" column="0" width="100%">
-        <ScrollView class="messages-area">
+        <ScrollView class="messages-area" #ScrollList>
             <FlexboxLayout class="messages">
                 <StackLayout [shadow]="2" cornerRadius="20" *ngFor="let message of messages; let idx = index" class="message-bubble" [class.myself]="message.sender">
                     <FlexboxLayout class="message-bubble-content">
                         <Label class="message-text" [text]="message.text" textWrap="true"></Label>
                         <FlexboxLayout class="meta">
                             <Label [text]="message.created | date: 'shortTime'" class="time"></Label>
-                            <Label *ngIf="message.sender" [text]="'fa-check' | fonticon" class="fa check" [class.blue]="isViewed(message)"></Label>
+                            <!-- <Label *ngIf="message.sender" [text]="'fa-check' | fonticon" class="fa check" [class.blue]="isViewed(message)"></Label> -->
                         </FlexboxLayout>
                     </FlexboxLayout>
-                </StackLayout>
+                </StackLayout>                
             </FlexboxLayout>
         </ScrollView>
     </StackLayout>

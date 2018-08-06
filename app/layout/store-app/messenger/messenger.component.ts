@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, NgZone, Inject } from "@angular/core";
+import { Component, OnInit, OnDestroy, NgZone, Inject, ViewChild, ElementRef } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { Location } from '@angular/common';
 import { StoreAppService } from "../../../core/services/store-app.service";
@@ -20,7 +20,7 @@ export class StoreAppMessengerComponent implements OnInit, OnDestroy {
     socket: any;
     messages: Array<any>;
     user_id: string;
-    uri: string;
+    @ViewChild("ScrollList") scrollList: ElementRef;
     constructor(
         private route: ActivatedRoute,
         private location: Location,
@@ -28,77 +28,73 @@ export class StoreAppMessengerComponent implements OnInit, OnDestroy {
         private router: RouterExtensions,
         private zone: NgZone
     ) {
-        
+
         this.messages = [];
         this.message = "";
-        // this.socket = new WebSocket("wss://echo.websocket.org:443", []);
-        // this.socket.onopen = (evt) => this.onOpen(evt)
-        // this.socket.onclose = (evt) => this.onClose(evt)
-        // this.socket.onmessage = (evt) => this.onMessage(evt)
-        // this.socket.onerror = (evt) => this.onError(evt)
+
     }
     ngOnInit() {
         var full_location = this.location.path().split('/');
         this.app_id = full_location[2].trim();
         this.user_id = getString('user_id');
-        // this.getAppDetails(this.app_id);
         this.createChatSession();
+        this.socket = new WebSocket("ws://132.148.147.239:8001/messages/?sender=" + this.user_id + "&sender_type=customer&receiver=" + this.app_id + "&receiver_type=app_master");
+        this.socket.onopen = (evt) => this.onOpen(evt)
+        this.socket.onclose = (evt) => this.onClose(evt)
+        this.socket.onmessage = (evt) => this.onMessage(evt)
+        this.socket.onerror = (evt) => this.onError(evt)
     }
 
     onOpen(evt) {
         console.log(evt)
-        this.zone.run(() => {
-            var data = {
-                text: "Welcome to the chat!",
-                created: new Date(),
-                sender: true
-            }
-            this.messages.push(data);
-        });
+        // this.zone.run(() => {
+        //     var data = {
+        //         text: "Welcome to the chat!",
+        //         created: new Date(),
+        //         sender: false
+        //     }
+        //     this.messages.push(data);
+        // });
+        console.log("Welcome to the chat!");
     }
 
     onClose(evt) {
-        this.zone.run(() => {
-            var data = {
-                text: "You have been disconnected",
-                created: new Date(),
-                sender: true
-            }
-            this.messages.push(data);
-        });
+        // this.zone.run(() => {
+        //     var data = {
+        //         text: "You have been disconnected",
+        //         created: new Date(),
+        //         sender: false
+        //     }
+        //     this.messages.push(data);
+        // });
+        console.log("You have been disconnected");
     }
 
     onMessage(evt) {
-        console.log(evt)
+        console.log(JSON.parse(evt.data))
+        var msgData = JSON.parse(evt.data)
         this.zone.run(() => {
             var data = {
-                text: evt.data,
-                created: new Date(),
-                sender: false
+                text: msgData.message,
+                created: msgData.datetime
+            }
+            if (msgData.chat_user == this.user_id) {
+                data['sender'] = true
+            }
+            else {
+                data['sender'] = false
             }
             this.messages.push(data);
+            this.scrollToBottom();
         });
     }
 
     onError(evt) {
-        console.log("The socket had an error", evt.error);
+        console.log("The socket had an error");
     }
 
     ngOnDestroy() {
         // this.socket.close();
-    }
-
-    getAppDetails(id) {
-        this.storeAppService.getStoreAppDetails(id).subscribe(
-            res => {
-                this.app_owner_details = res['user'];
-                this.visible_key = true;
-                console.log(res)
-            },
-            error => {
-                console.log(error)
-            }
-        )
     }
 
 
@@ -108,8 +104,12 @@ export class StoreAppMessengerComponent implements OnInit, OnDestroy {
 
     send() {
         if (this.message) {
-            // this.socket.send(this.message);
-            this.sendMessageToApp();
+            var data = {
+                chat_user: this.user_id,
+                chat_user_type: "customer",
+                message: this.message
+            }
+            this.socket.send(JSON.stringify(data));
             this.message = "";
         }
     }
@@ -117,16 +117,16 @@ export class StoreAppMessengerComponent implements OnInit, OnDestroy {
 
     createChatSession() {
         var data = {
-            sender: this.user_id,
-            sender_type: "customer",
-            receiver: this.app_id,
-            receiver_type: "app_master"
+            chat_user: '',
+            message: '',
+            chat_user_type: ''
         }
-        this.storeAppService.createChatSessionView(data).subscribe(
+        var param = "?sender=" + this.user_id + "&sender_type=customer&receiver=" + this.app_id + "&receiver_type=app_master"
+        this.storeAppService.createChatSessionView(param, data).subscribe(
             res => {
                 console.log(res)
-                this.uri = res['uri'];
-                this.getMessageList();
+                var thread = res['thread']
+                this.getMessageList(thread);
             },
             error => {
                 console.log(error)
@@ -134,40 +134,25 @@ export class StoreAppMessengerComponent implements OnInit, OnDestroy {
         )
     }
 
-    // connectToApp(uri) {
-    //     var data = {
-    //         user_id: this.app_id,
-    //         user_type: "app_master"
-    //     }
-    //     this.storeAppService.connectToApp(data, uri).subscribe(
-    //         res => {
-    //             console.log(res)
-    //             this.getMessageList();
-    //         },
-    //         error => {
-    //             console.log(error)
-    //         }
-    //     )
-    // }
 
-
-    getMessageList() {
-        this.storeAppService.getMessageListByApp(this.uri).subscribe(
-            res => {
+    getMessageList(thread) {
+        this.storeAppService.getMessageListByApp(thread).subscribe(
+            (res: any[]) => {
                 console.log(res)
-                res['messages'].forEach(x => {
-                    var type = x['user_type'];
+                res.forEach(x => {
                     var data = {
-                        text: '',
-                        created: new Date(),
-                        sender: false
+                        text: x.message,
+                        created: x.datetime
                     }
-                    data.text = x['message']
-                    if(type.toLowerCase() == "customer"){
-                        data.sender = true;
+                    if (x.chat_user == this.user_id) {
+                        data['sender'] = true
+                    }
+                    else {
+                        data['sender'] = false
                     }
                     this.messages.push(data)
-                    
+                    console.log(this.messages)
+                    this.scrollToBottom();
                 })
             },
             error => {
@@ -176,26 +161,9 @@ export class StoreAppMessengerComponent implements OnInit, OnDestroy {
         )
     }
 
-    sendMessageToApp() {
-        var data = {
-            user_id: this.user_id,
-            user_type: "customer",
-            message: this.message
-        }
-        this.storeAppService.messageToApp(data, this.uri).subscribe(
-            res => {
-                console.log(res)
-                var data = {
-                    text: '',
-                    created: new Date(),
-                    sender: true
-                }
-                data.text = res['message'];                
-                this.messages.push(data)
-            },
-            error => {
-                console.log(error)
-            }
-        )
+    scrollToBottom() {
+        setTimeout(() => {
+            this.scrollList.nativeElement.scrollToVerticalOffset(100000);
+        }, 1000);
     }
 }
