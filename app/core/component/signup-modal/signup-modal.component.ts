@@ -81,7 +81,7 @@ export class SignUpModalComponent implements OnInit {
                     }
                     setString('contact_no', res.contact_no)
                     setString('user_id', res.user_id.toString())
-                    this.actionBarComponent.setIsLogin();
+                    // this.actionBarComponent.setIsLogin();
                     this.params.closeCallback(res);
                 },
                 error => {

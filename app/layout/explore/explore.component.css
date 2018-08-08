@@ -26,8 +26,8 @@
 }
 
 .list-group {
-    background: url(~/images/dashboard-bg.jpg) no-repeat 0 0;
-    background-size: cover;
+    /* background: url(~/images/dashboard-bg.jpg) no-repeat 0 0; */
+    /* background-size: cover; */
 }
 
 .list-group .list-group-item {
