@@ -2,7 +2,7 @@
     align-items: center;
     flex-direction: column;
     /* background: #b17340; */
-    background: url(~/images/dashboard-bg.jpg) no-repeat 0 0;
+    /* background: url(~/images/dashboard-bg.jpg) no-repeat 0 0; */
     background-size: cover;
 }
 
