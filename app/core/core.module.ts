@@ -25,6 +25,8 @@ import { LoginModalComponent } from './component/login-modal/login-modal.compone
 import { SignUpModalComponent } from './component/signup-modal/signup-modal.component';
 import { LocationModalComponent } from './component/location-modal/location-modal.component';
 import { AppMenuBarComponent } from './component/app-menu-bar/app-menu-bar.component';
+import { AppActionBarComponent } from './component/app-action-bar/app-action-bar.component';
+
 @NgModule({
     imports: [
         NativeScriptCommonModule,
@@ -48,7 +50,8 @@ import { AppMenuBarComponent } from './component/app-menu-bar/app-menu-bar.compo
         SignUpModalComponent,
         LocationModalComponent,
         AppMenuBarComponent,
-        CarouselDirective
+        CarouselDirective,
+        AppActionBarComponent
     ],
     exports: [
         TNSFontIconModule,
@@ -62,7 +65,8 @@ import { AppMenuBarComponent } from './component/app-menu-bar/app-menu-bar.compo
         ReactiveFormsModule,
         MenuBarComponent,
         AppMenuBarComponent,
-        CarouselDirective
+        CarouselDirective,
+        AppActionBarComponent
     ],
     entryComponents: [
         LoginModalComponent,
