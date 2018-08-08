@@ -1,13 +1,13 @@
 .login-page {
     align-items: center;
     flex-direction: column;
-    background: url(~/images/login-bg.jpg) no-repeat 0 0;
+    background: #b17340;
     background-size: cover;
 }
 
 .logo {
     margin-top: 15;
-    height: 90;
+    height: 200;
     font-weight: bold;
 }
 
