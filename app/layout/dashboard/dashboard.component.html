@@ -1,15 +1,20 @@
-<ScrollView row="0">
-    <StackLayout class="full-dashboard">
-        <FlexboxLayout flexWrap="wrap" justifyContent="space-around" alignItems="flex-start">
-            <CardView *ngFor="let item of user_app_list" class="card" elevation="0" radius="0" shadowOpacity="0" shadowOffsetWidth="0" shadowOffsetHeight="0" width="250px" height="250px" alignSelf="flex-start" [nsRouterLink]="['/store-app/', item.id, 'about-us']">
-                <StackLayout orientation="vertical">
-                    <StackLayout class="app-icon">
-                        <Image [src]="base_url + item.logo" *ngIf="item.logo != ''"></Image>
-                        <Image src="~/images/no-logo.png" *ngIf="item.logo == ''"></Image>
+<action-bar></action-bar>
+<GridLayout rows="*,60">
+    <ScrollView row="0">
+        <StackLayout class="full-dashboard">
+            <FlexboxLayout flexWrap="wrap" justifyContent="space-around" alignItems="flex-start">
+                <CardView *ngFor="let item of user_app_list" class="card" elevation="0" radius="0" shadowOpacity="0" shadowOffsetWidth="0"
+                    shadowOffsetHeight="0" width="250px" height="250px" alignSelf="flex-start" [nsRouterLink]="['/store-app/', item.id, 'about-us']">
+                    <StackLayout orientation="vertical">
+                        <StackLayout class="app-icon">
+                            <Image [src]="base_url + item.logo" *ngIf="item.logo != ''"></Image>
+                            <Image src="~/images/no-logo.png" *ngIf="item.logo == ''"></Image>
+                        </StackLayout>
+                        <Label class="app-name" [text]="item.business_name"></Label>
                     </StackLayout>
-                    <Label class="app-name" [text]="item.business_name"></Label>
-                </StackLayout>
-            </CardView>
-        </FlexboxLayout>
-    </StackLayout>
-</ScrollView>
+                </CardView>
+            </FlexboxLayout>
+        </StackLayout>
+    </ScrollView>
+    <menu-bar></menu-bar>
+</GridLayout>

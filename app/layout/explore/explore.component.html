@@ -1,34 +1,41 @@
-<DockLayout stretchLastChild="true">
-    <GridLayout rows="auto, auto" dock="top">
-        <StackLayout background="#41bffe" padding="20" row="0">
-            <FilterSelect [items]="category_list" (change)="onCategoryChange($event)" hint="Search by Category" modal_title="Category" search_param="category_name" primary_key="id" class="category_dropdown" borderRadius="5">
-                <ng-template let-category="item">
-                    <GridLayout columns="*" rows="*">
-                        <Label col="0" row="0" [text]="category.category_name" class="list-group-item-heading"></Label>
-                    </GridLayout>
-                </ng-template>
-            </FilterSelect>
-            <TextField borderRadius="5" hint="Search by Location" width="100%" (tap)="searchLocation($event)" backgroundColor="#fff" height="50" class="m-t-10" [(ngModel)]="location"></TextField>
-        </StackLayout>
-        <StackLayout row="1" background="#f2f2f2" padding="10">
-            <Button class="btn" id="button" text="Search" (tap)="search()" backgroundColor="#41bffe" color="#fff" height="60" width="40%"></Button>
-        </StackLayout>
-    </GridLayout>
-    <GridLayout rows="*">
-        <ScrollView row="0">
-            <StackLayout padding="10" class="list-group" orientation="vertical">
-                <StackLayout borderWidth="1" borderColor="#ccc" *ngFor="let app of app_list" style="margin-bottom: 10px;">
-                    <CardView class="whiteCard">
-                        <GridLayout columns="*,*,*" rows="*" class="list-group-item">
-                            <Image col="0" row="0" [src]="app.logo" class="thumb img-circle" *ngIf="app.logo != null"></Image>
-                            <StackLayout orientation="vertical" col="1" row="0">
-                                <Label [text]="app.business_name" class="list-group-item-heading"></Label>
-                            </StackLayout>
-                            <Button verticalAlignment="center" orientation="vertical" col="2" row="0" class="btn add-btn" id="button" color="#fff" [ngClass]="{'active-btn': app.isDashboard}" height="30" width="10%" (tap)="addToDashboard(app.id)"></Button>
+<action-bar></action-bar>
+<GridLayout rows="*,60">
+    <DockLayout stretchLastChild="true">
+        <GridLayout rows="auto, auto" dock="top">
+            <StackLayout background="#41bffe" padding="20" row="0">
+                <FilterSelect [items]="category_list" (change)="onCategoryChange($event)" hint="Search by Category" modal_title="Category"
+                    search_param="category_name" primary_key="id" class="category_dropdown" borderRadius="5">
+                    <ng-template let-category="item">
+                        <GridLayout columns="*" rows="*">
+                            <Label col="0" row="0" [text]="category.category_name" class="list-group-item-heading"></Label>
                         </GridLayout>
-                    </CardView>
-                </StackLayout>
+                    </ng-template>
+                </FilterSelect>
+                <TextField borderRadius="5" hint="Search by Location" width="100%" (tap)="searchLocation($event)" backgroundColor="#fff"
+                    height="50" class="m-t-10" [(ngModel)]="location"></TextField>
             </StackLayout>
-        </ScrollView>
-    </GridLayout>
-</DockLayout>
+            <StackLayout row="1" background="#f2f2f2" padding="10">
+                <Button class="btn" id="button" text="Search" (tap)="search()" backgroundColor="#41bffe" color="#fff" height="60" width="40%"></Button>
+            </StackLayout>
+        </GridLayout>
+        <GridLayout rows="*">
+            <ScrollView row="0">
+                <StackLayout padding="10" class="list-group" orientation="vertical">
+                    <StackLayout borderWidth="1" borderColor="#ccc" *ngFor="let app of app_list" style="margin-bottom: 10px;">
+                        <CardView class="whiteCard">
+                            <GridLayout columns="*,*,*" rows="*" class="list-group-item">
+                                <Image col="0" row="0" [src]="app.logo" class="thumb img-circle" *ngIf="app.logo != null"></Image>
+                                <StackLayout orientation="vertical" col="1" row="0">
+                                    <Label [text]="app.business_name" class="list-group-item-heading"></Label>
+                                </StackLayout>
+                                <Button verticalAlignment="center" orientation="vertical" col="2" row="0" class="btn add-btn" id="button" color="#fff" [ngClass]="{'active-btn': app.isDashboard}"
+                                    height="30" width="10%" (tap)="addToDashboard(app.id)"></Button>
+                            </GridLayout>
+                        </CardView>
+                    </StackLayout>
+                </StackLayout>
+            </ScrollView>
+        </GridLayout>
+    </DockLayout>
+    <menu-bar></menu-bar>
+</GridLayout>
