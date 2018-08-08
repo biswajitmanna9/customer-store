@@ -1,0 +1,29 @@
+.full-dashboard {
+    /* background: url(~/images/dashboard-bg.jpg) no-repeat 0 0;
+    background-size: cover; */
+    padding: 30 0 30;
+}
+
+.card {
+    background-color: transparent;
+    color: #ffffff;
+    margin: 15 15 0;
+}
+
+.app-icon {
+    border-radius: 12;
+    /* background: #ffffff; */
+    background: url(~/images/apps-bg.jpg) no-repeat 0 0;
+    padding: 30px 25px;
+}
+
+.app-icon Image {
+    width: 120px;
+    height: 120px;
+}
+
+.app-name {
+    font-size: 12;
+    text-align: center;
+    margin-top: 5;
+}
