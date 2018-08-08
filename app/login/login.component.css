@@ -1,31 +1,30 @@
 .login-page {
     align-items: center;
     flex-direction: column;
-    background: #f9ece3;
-    /* background: url(~/images/dashboard-bg.jpg) no-repeat 0 0; */
-    background-size: cover;
+    background: #fff;
 }
 
 .logo {
-    margin-top: 15;
+    margin-top: 0;
     font-weight: bold;
     width: 300;
+    margin-bottom: 4%;
 }
 
 .full-content {
-    margin-top: 20%;
+    margin-top: 4%;
 }
 
 .apps-container {
     width: 90%;
-    background: #f1f1f1;
+    background: #f9ece3;
     border-radius: 5;
     -webkit-box-shadow: 0 0 18 3 rgba(0, 0, 0, 0.61);
     -moz-box-shadow: 0 0 18 3 rgba(0, 0, 0, 0.61);
     box-shadow: 0 0 18 3 rgba(0, 0, 0, 0.61);
-    height: 60%;
-    margin: 3% auto;
-    padding: 25;
+    height: 80%;
+    margin: 0 auto;
+    padding: 15, 15, 75, 15;
 }
 
 .head-line {
@@ -35,11 +34,19 @@
     font-weight: 600;
 }
 
+.head-line-store {
+    color: #989898;
+    text-align: center;
+    font-size: 25;
+    font-weight: 600;
+    margin-bottom: 50;
+}
+
 .tag-line-grey {
     color: #b3b1b5;
     text-align: center;
     font-size: 15;
-    font-weight: 600;
+    padding-bottom: 15%;
 }
 
 .skip-text {

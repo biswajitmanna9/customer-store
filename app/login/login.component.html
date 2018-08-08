@@ -3,24 +3,31 @@
     <StackLayout class="full-content">
         <Image class="logo m-t-20" src="~/images/logo.png"></Image>
 
+        <!-- <StackLayout aria-orientation="" class=" m-b-10 m-t-10 ">
+          
+        </StackLayout> -->
+
         <StackLayout class="apps-container" aria-orientation="">
 
 
             <StackLayout class="form" [formGroup]="form" novalidate>
+
+                <label class="head-line-store" text="Banao.Customer App Store"></label>
+
                 <label class="head-line" text="SIGN IN"></label>
                 <!-- <label class="tag-line m-t-20" text="Log in using your email id/mobile number."></label> -->
                 <GridLayout rows="auto, auto">
                     <StackLayout class="input-filld" row="0">
-                        <TextField hint="Email id / Mobile Number " class="input input-border cyan-border m-t-10" borderColor="#6c6969" returnKeyType="next" [isEnabled]="!processing" formControlName="username" [ngClass]="displayFieldCss('username')"></TextField>
+                        <TextField borderRadius="5" backgroundColor="#fff" hint="Email id / Mobile Number " class="input input-border cyan-border m-t-10" borderColor="#6c6969" returnKeyType="next" [isEnabled]="!processing" formControlName="username" [ngClass]="displayFieldCss('username')"></TextField>
                         <StackLayout *ngIf="isFieldValid('username')" class="invalid-feedback">
                             <Label text="User name is required"></Label>
                         </StackLayout>
                     </StackLayout>
 
                     <StackLayout class="input-filld" row="1">
-                        <TextField hint="Password" class="input input-border cyan-border m-t-10" borderColor="#6c6969" secure="true" returnKeyType="done" [isEnabled]="!processing" formControlName="password" [ngClass]="displayFieldCss('password')"></TextField>
+                        <TextField backgroundColor="#fff" hint="Password" class="input input-border cyan-border m-t-10" borderRadius="5" borderColor="#6c6969" secure="true" returnKeyType="done" [isEnabled]="!processing" formControlName="password" [ngClass]="displayFieldCss('password')"></TextField>
                         <StackLayout *ngIf="isFieldValid('password')" class="invalid-feedback">
-                            <Label text="Password is required"></Label>
+                            <Label borderRadius="5" text="Password is required"></Label>
                         </StackLayout>
                     </StackLayout>
                     <ActivityIndicator [busy]="processing"></ActivityIndicator>
@@ -28,12 +35,15 @@
 
                 <Button class="btn" text="Sign In" [isEnabled]="!processing" (tap)="signIn()" backgroundColor="#6c6969" color="#fff" width="50%" height="60">
             </Button>
+                <StackLayout class="hr-light pading-gap m-b-10 m-t-10"></StackLayout>
 
-                <StackLayout orientation="vertical">
-                    <Label text="Forgot your password?" class="tag-line-grey" dock="left" (tap)="forgotPassword()"></Label>
+                <AbsoluteLayout>
 
-                    <Label text="Don't have an account sign up" dock="left" class="tag-line-grey" [nsRouterLink]="['/signup']"></Label>
-                </StackLayout>
+                    <Label text="Forgot your password?" class="tag-line-grey" (tap)="forgotPassword()"></Label>
+
+                    <Label left="270" text="New User? Sign up" class="tag-line-grey" [nsRouterLink]="['/signup']"></Label>
+
+                </AbsoluteLayout>
                 <!-- <Button class="btn" text="facebook" (tap)="onTap($event)" backgroundColor="#4267B2" color="#fff" width="100%">
             </Button>
 
@@ -41,11 +51,14 @@
             </Button> -->
                 <StackLayout class="hr-light pading-gap m-b-10 m-t-10"></StackLayout>
 
-                <Label class="skip-text" text="Skip" (tap)="skip()"></Label>
+                <Label style="font-weight: 600" class="tag-line-grey" text="SKIP & PROCEED" (tap)="skip()"></Label>
 
             </StackLayout>
 
         </StackLayout>
+
+
+
 
     </StackLayout>
 </FlexboxLayout>
