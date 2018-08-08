@@ -1,44 +1,49 @@
 <FlexboxLayout class="login-page">
-    <Image class="logo" src="~/images/logo.png"></Image>
-    <StackLayout class="apps-container">
 
-        <StackLayout class="form" [formGroup]="form" novalidate>
-            <label class="head-line" text="Log In"></label>
-            <label class="tag-line m-t-20" text="Log in using your email id/mobile number."></label>
-            <GridLayout rows="auto, auto">
-                <StackLayout class="input-filld" row="0">
-                    <TextField hint="User Name" class="input input-border cyan-border m-t-10" borderColor="#49ddff" returnKeyType="next" [isEnabled]="!processing"
-                        formControlName="username" [ngClass]="displayFieldCss('username')"></TextField>
-                    <StackLayout *ngIf="isFieldValid('username')" class="invalid-feedback">
-                        <Label text="User name is required"></Label>
+    <StackLayout class="full-content">
+        <Image class="logo m-t-20" src="~/images/logo.png"></Image>
+
+        <StackLayout class="apps-container" aria-orientation="">
+
+
+            <StackLayout class="form" [formGroup]="form" novalidate>
+                <label class="head-line" text="SIGN IN"></label>
+                <!-- <label class="tag-line m-t-20" text="Log in using your email id/mobile number."></label> -->
+                <GridLayout rows="auto, auto">
+                    <StackLayout class="input-filld" row="0">
+                        <TextField hint="Email id / Mobile Number " class="input input-border cyan-border m-t-10" borderColor="#49ddff" returnKeyType="next" [isEnabled]="!processing" formControlName="username" [ngClass]="displayFieldCss('username')"></TextField>
+                        <StackLayout *ngIf="isFieldValid('username')" class="invalid-feedback">
+                            <Label text="User name is required"></Label>
+                        </StackLayout>
                     </StackLayout>
-                </StackLayout>
 
-                <StackLayout class="input-filld" row="1">
-                    <TextField hint="Password" class="input input-border cyan-border m-t-10" borderColor="#49ddff" secure="true" returnKeyType="done"
-                        [isEnabled]="!processing" formControlName="password" [ngClass]="displayFieldCss('password')"></TextField>
-                    <StackLayout *ngIf="isFieldValid('password')" class="invalid-feedback">
-                        <Label text="Password is required"></Label>
+                    <StackLayout class="input-filld" row="1">
+                        <TextField hint="Password" class="input input-border cyan-border m-t-10" borderColor="#49ddff" secure="true" returnKeyType="done" [isEnabled]="!processing" formControlName="password" [ngClass]="displayFieldCss('password')"></TextField>
+                        <StackLayout *ngIf="isFieldValid('password')" class="invalid-feedback">
+                            <Label text="Password is required"></Label>
+                        </StackLayout>
                     </StackLayout>
-                </StackLayout>
-                <ActivityIndicator [busy]="processing"></ActivityIndicator>
-            </GridLayout>
+                    <ActivityIndicator [busy]="processing"></ActivityIndicator>
+                </GridLayout>
 
-            <Button class="btn" text="Sign In" [isEnabled]="!processing" (tap)="signIn()" backgroundColor="#41bffe" color="#fff" width="100%">
+                <Button class="btn" text="Sign In" [isEnabled]="!processing" (tap)="signIn()" backgroundColor="#6c6969" color="#fff" width="100%">
             </Button>
 
-            <Label text="Forgot your password?" class="tag-line-grey" (tap)="forgotPassword()"></Label>
-            <StackLayout class="hr-light pading-gap m-b-10 m-t-10"></StackLayout>
-            <Label text="don't have an account sign up" class="tag-line-grey" [nsRouterLink]="['/signup']"></Label>
+                <Label text="Forgot your password?" class="tag-line-grey" (tap)="forgotPassword()"></Label>
+                <StackLayout class="hr-light pading-gap m-b-10 m-t-10"></StackLayout>
+                <Label text="Don't have an account sign up" class="tag-line-grey" [nsRouterLink]="['/signup']"></Label>
 
-            <!-- <Button class="btn" text="facebook" (tap)="onTap($event)" backgroundColor="#4267B2" color="#fff" width="100%">
+                <!-- <Button class="btn" text="facebook" (tap)="onTap($event)" backgroundColor="#4267B2" color="#fff" width="100%">
             </Button>
 
             <Button class="btn" text="Google" (tap)="onTap($event)" backgroundColor="#EA4335" color="#fff" width="100%">
             </Button> -->
 
-            <Label class="skip-text" text="Skip" (tap)="skip()"></Label>
+                <Label class="skip-text" text="Skip" (tap)="skip()"></Label>
+
+            </StackLayout>
 
         </StackLayout>
+
     </StackLayout>
 </FlexboxLayout>
