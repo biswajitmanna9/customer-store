@@ -76,7 +76,7 @@ export class StoreAppMessengerComponent implements OnInit, OnDestroy {
         this.zone.run(() => {
             var data = {
                 text: msgData.message,
-                created: msgData.datetime
+                created: new Date()
             }
             if (msgData.chat_user == this.user_id) {
                 data['sender'] = true
