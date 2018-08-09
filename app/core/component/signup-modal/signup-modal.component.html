@@ -1,4 +1,4 @@
-<FlexboxLayout>
+<FlexboxLayout background="#f9ece3">
     <StackLayout class="apps-container">
         <StackLayout class="form" [formGroup]="form" novalidate>
 
@@ -9,28 +9,29 @@
             <label class="head-line" text="Sign Up"></label>
             <GridLayout rows="auto, auto, auto, auto">
                 <StackLayout class="input-filld" row="0">
-                    <TextField hint="Name" class="input input-border cyan-border m-t-20" borderColor="#49ddff" returnKeyType="next" [isEnabled]="!processing" formControlName="customer_name" [ngClass]="displayFieldCss('customer_name')"></TextField>
+                    <TextField hint="Name" class="input input-border cyan-border m-t-20" borderColor="#6c6969" background="#fff" borderRadius="5" returnKeyType="next" [isEnabled]="!processing" formControlName="customer_name" [ngClass]="displayFieldCss('customer_name')"></TextField>
                     <StackLayout *ngIf="isFieldValid('customer_name')" class="invalid-feedback">
                         <Label text="Name is required"></Label>
                     </StackLayout>
                 </StackLayout>
 
                 <StackLayout class="input-filld" row="1">
-                    <TextField hint="Phone number" class="input input-border cyan-border m-t-10" borderColor="#49ddff" returnKeyType="next" keyboardType="number" [isEnabled]="!processing" formControlName="contact_no" [ngClass]="displayFieldCss('contact_no')"></TextField>
+                    <TextField hint="Phone number" class="input input-border cyan-border m-t-10" borderColor="#6c6969" background="#fff" borderRadius="5" returnKeyType="next" keyboardType="number" [isEnabled]="!processing" formControlName="contact_no" [ngClass]="displayFieldCss('contact_no')"></TextField>
                     <StackLayout class="invalid-feedback" *ngIf="isFieldValid('contact_no')">
                         <Label text="Please enter valid phone number"></Label>
                     </StackLayout>
                 </StackLayout>
 
                 <StackLayout class="input-filld" row="2">
-                    <TextField hint="Email id" class="input input-border cyan-border m-t-10" borderColor="#49ddff" autocorrect="false" autocapitalizationType="none" returnKeyType="next" keyboardType="email" [isEnabled]="!processing" formControlName="email" [ngClass]="displayFieldCss('email')"></TextField>
+                    <TextField hint="Email id" class="input input-border cyan-border m-t-10" borderColor="#6c6969" background="#fff" borderRadius="5" autocorrect="false" autocapitalizationType="none" returnKeyType="next" keyboardType="email" [isEnabled]="!processing" formControlName="email"
+                        [ngClass]="displayFieldCss('email')"></TextField>
                     <StackLayout class="invalid-feedback" *ngIf="form.controls['email'].hasError('pattern') && !form.controls['email'].hasError('required')">
                         <Label text="Please enter a valid email address"></Label>
                     </StackLayout>
                 </StackLayout>
 
                 <StackLayout class="input-filld" row="3">
-                    <TextField hint="Password" class="input input-border cyan-border m-t-10" borderColor="#49ddff" secure="true" returnKeyType="done" [isEnabled]="!processing" formControlName="password" [ngClass]="displayFieldCss('password')"></TextField>
+                    <TextField hint="Password" class="input input-border cyan-border m-t-10" borderColor="#6c6969" background="#fff" borderRadius="5" secure="true" returnKeyType="done" [isEnabled]="!processing" formControlName="password" [ngClass]="displayFieldCss('password')"></TextField>
                     <StackLayout *ngIf="isFieldValid('password')" class="invalid-feedback">
                         <Label text="Password is required"></Label>
                     </StackLayout>
@@ -38,10 +39,21 @@
                 <ActivityIndicator rowSpan="3" [busy]="processing"></ActivityIndicator>
             </GridLayout>
 
-            <Button class="btn" text="Sign Up" [isEnabled]="!processing" (tap)="signUp()" backgroundColor="#41bffe" color="#fff" width="100%">
+            <Button class="btn" text="Sign Up" [isEnabled]="!processing" (tap)="signUp()" backgroundColor="#6c6969" color="#fff" width="50%" height="60">
                 </Button>
+            <StackLayout class="hr-light pading-gap m-b-10 m-t-10"></StackLayout>
 
             <Label text="Back to login" class="tag-line-grey" (tap)="signIn()"></Label>
+
+            <!-- <AbsoluteLayout>
+
+                <Label text="Forgot your password?" class="tag-line-grey" (tap)="forgotPassword()"></Label>
+
+                <Label left="280" text="New User? Sign up" class="tag-line-grey" (tap)="signUp()"></Label>
+
+                
+
+            </AbsoluteLayout> -->
 
         </StackLayout>
     </StackLayout>
