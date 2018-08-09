@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, ViewContainerRef, ViewChild, ElementRef } from '@angular/core';
 import { registerElement } from 'nativescript-angular/element-registry';
 import { FilterSelect } from 'nativescript-filter-select';
 registerElement('FilterSelect', () => FilterSelect);
@@ -9,6 +9,8 @@ import { LoginModalComponent } from '../../core/component/login-modal/login-moda
 import { SignUpModalComponent } from '../../core/component/signup-modal/signup-modal.component';
 import { LocationModalComponent } from '../../core/component/location-modal/location-modal.component';
 import { getString, setString, getBoolean, setBoolean, clear } from "application-settings";
+
+
 @Component({
   selector: "explore",
   moduleId: module.id,
@@ -29,6 +31,7 @@ export class ExploreComponent implements OnInit {
   user_app_list: any = [];
   latitude: any;
   longitude: any;
+  @ViewChild('myfilter') myfilter: ElementRef;
   constructor(
     private exploreService: ExploreService,
     private modal: ModalDialogService,
@@ -49,7 +52,7 @@ export class ExploreComponent implements OnInit {
       this.getMostViewAppList();
     }
 
-  }
+  }  
 
   getDashboardAppList() {
     this.exploreService.getUserDashboardAppList(this.user_id).subscribe(
@@ -69,8 +72,8 @@ export class ExploreComponent implements OnInit {
 
   getCategoryList() {
     this.exploreService.getCategoryList().subscribe(
-      res => {
-        this.category_list = res;
+      (res: any[]) => {
+        this.category_list = res;        
         console.log(res)
       },
       error => {
