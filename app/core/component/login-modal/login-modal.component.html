@@ -4,40 +4,33 @@
             <DockLayout stretchLastChild="false">
                 <Label (tap)="close()" [text]="'fa-times' | fonticon" class="fa materialdesign actionbaricon close-btn" dock="right"></Label>
             </DockLayout>
-            <label class="head-line" text="Sign In"></label>
-            <!-- <label class="tag-line m-t-20" text="Log in using your email id/mobile number."></label> -->
+            <label class="head-line-store hedding-font" text="Sign In"></label>
             <GridLayout rows="auto, auto">
                 <StackLayout class="input-filld" row="0">
-
-                    <TextField hint="User Name" class="input input-border cyan-border m-t-10" borderColor="#6c6969" background="#fff" borderRadius="5" returnKeyType="next" [isEnabled]="!processing" formControlName="username" [ngClass]="displayFieldCss('username')"></TextField>
+                    <TextField hint="User Name" class="input input-border cyan-border m-t-10" borderRadius="2" borderColor="#6c6969" height="40" padding="10" fontSize="12" returnKeyType="next" [isEnabled]="!processing" formControlName="username" [ngClass]="displayFieldCss('username')"></TextField>
                     <StackLayout *ngIf="isFieldValid('username')" class="invalid-feedback">
-                        <Label text="User name is required"></Label>
+                        <Label fontSize="8" text="User name is required"></Label>
                     </StackLayout>
                 </StackLayout>
-
                 <StackLayout class="input-filld" row="1">
-                    <TextField hint="Password" class="input input-border cyan-border m-t-10" borderColor="#6c6969" background="#fff" borderRadius="5" secure="true" returnKeyType="done" [isEnabled]="!processing" formControlName="password" [ngClass]="displayFieldCss('password')"></TextField>
+                    <TextField hint="Password" class="input input-border cyan-border m-t-10" borderRadius="2" borderColor="#6c6969" secure="true" returnKeyType="done" [isEnabled]="!processing" formControlName="password" [ngClass]="displayFieldCss('password')" height="40"
+                        padding="10" fontSize="12"></TextField>
                     <StackLayout *ngIf="isFieldValid('password')" class="invalid-feedback">
-                        <Label text="Password is required"></Label>
-                    </StackLayout>
+                        <Label fontSize="8" text="Password is required"></Label> </StackLayout>
                 </StackLayout>
                 <ActivityIndicator rowSpan="3" [busy]="processing"></ActivityIndicator>
             </GridLayout>
-
-            <Button class="btn" text="Sign In" [isEnabled]="!processing" (tap)="signIn()" backgroundColor="#6c6969" color="#fff" width="50%" height="60">
-            </Button>
+            <Button class="btn btn-primary" text="Sign In" [isEnabled]="!processing" (tap)="signIn()" backgroundColor="#6c6969" color="#fff" width="50%"> </Button>
             <StackLayout class="hr-light pading-gap m-b-10 m-t-10"></StackLayout>
             <!-- <Label text="don't have an account sign up" class="tag-line-grey" (tap)="signUp()"></Label>
  -->
-
-            <AbsoluteLayout>
-
-                <Label text="Forgot your password?" class="tag-line-grey" (tap)="forgotPassword()"></Label>
-
-                <Label left="280" text="New User? Sign up" class="tag-line-grey" (tap)="signUp()"></Label>
-
-            </AbsoluteLayout>
-
+            <Label text="Forgot your password?" class="tag-line-grey m-b-10 m-t-10" (tap)="forgotPassword()"></Label>
+            <Label class="tag-line-grey m-b-10 m-t-10" (tap)="signUp()">
+     <FormattedString>
+         <Span text="New User? "></Span>
+         <Span text="Sign up" class="bold-tag" ></Span>
+     </FormattedString>
+ </Label>
         </StackLayout>
     </StackLayout>
 </FlexboxLayout>

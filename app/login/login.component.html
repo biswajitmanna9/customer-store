@@ -7,16 +7,15 @@
                 <label class="head-line-store hedding-font" text="App Store"></label>
                 <GridLayout rows="auto, auto">
                     <StackLayout class="input-filld" row="0">
-                        <TextField borderRadius="2" hint="Email id / Mobile Number " class="input input-border cyan-border m-t-10"
-                            borderColor="#6c6969" returnKeyType="next" [isEnabled]="!processing" formControlName="username" [ngClass]="displayFieldCss('username')" height="40" padding="10" fontSize="12"></TextField>
+                        <TextField borderRadius="2" hint="Email id / Mobile Number " returnKeyType="next" [isEnabled]="!processing" formControlName="username" [ngClass]="displayFieldCss('username')" height="40" padding="10" fontSize="12"></TextField>
                         <StackLayout *ngIf="isFieldValid('username')" class="invalid-feedback">
                             <Label text="User name is required"></Label>
                         </StackLayout>
                     </StackLayout>
 
                     <StackLayout class="input-filld" row="1">
-                        <TextField hint="Password" class="input input-border cyan-border m-t-10" borderRadius="2" borderColor="#6c6969"
-                            secure="true" returnKeyType="done" [isEnabled]="!processing" formControlName="password" [ngClass]="displayFieldCss('password')" height="40" padding="10" fontSize="12"></TextField>
+                        <TextField hint="Password" class="input input-border cyan-border m-t-10" borderRadius="2" borderColor="#6c6969" secure="true" returnKeyType="done" [isEnabled]="!processing" formControlName="password" [ngClass]="displayFieldCss('password')" height="40"
+                            padding="10" fontSize="12"></TextField>
                         <StackLayout *ngIf="isFieldValid('password')" class="invalid-feedback">
                             <Label borderRadius="5" text="Password is required"></Label>
                         </StackLayout>
@@ -28,7 +27,7 @@
                 </Button>
                 <StackLayout class="hr-light pading-gap m-b-10 m-t-10"></StackLayout>
                 <Label text="Forgot your password?" class="tag-line-grey m-b-10 m-t-10" (tap)="forgotPassword()"></Label>
-                
+
                 <Label class="tag-line-grey m-b-10 m-t-10" [nsRouterLink]="['/signup']">
                     <FormattedString>
                         <Span text="New User? "></Span>
