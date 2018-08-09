@@ -3,6 +3,11 @@ import { ActivatedRoute } from "@angular/router";
 import { StoreAppService } from "../../../core/services/store-app.service";
 import * as Globals from '../../../core/globals';
 import { Location } from '@angular/common';
+import { registerElement } from 'nativescript-angular/element-registry';
+import { StarRating } from 'nativescript-star-ratings-ext';
+registerElement('StarRating', () => StarRating);
+import { getString, setString, getBoolean, setBoolean, clear } from "application-settings";
+
 @Component({
   selector: 'about-us',
   moduleId: module.id,
@@ -15,6 +20,9 @@ export class StoreAppAboutUsComponent implements OnInit {
   visible_key: boolean;
   gallery_images: Array<any> = [];
   gallery_visible_key: boolean;
+  value: number;
+  max: number;
+  user_id: string;
   constructor(
     private route: ActivatedRoute,
     private storeAppService: StoreAppService,
@@ -27,6 +35,9 @@ export class StoreAppAboutUsComponent implements OnInit {
     var full_location = this.location.path().split('/');
     this.app_id = full_location[2].trim();
     this.getAppDetails(this.app_id)
+    this.value = 1;
+    this.max = 15;
+    this.user_id = getString('user_id');
     // console.log(this.app_id)
   }
 
@@ -54,5 +65,25 @@ export class StoreAppAboutUsComponent implements OnInit {
   }
   toggleGallery() {
     this.gallery_visible_key = !this.gallery_visible_key;
+  }
+
+  rateApp() {
+    var data = {
+      app_master: this.app_id,
+      customer: this.user_id,
+      rating: this.value
+    }
+    this.storeAppService.appRate(data).subscribe(
+      res => {
+        console.log(res)
+      },
+      error => {
+        console.log(error)
+      }
+    )
+  }
+
+  getAppRatingValue(){
+
   }
 }
