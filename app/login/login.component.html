@@ -1,31 +1,22 @@
 <FlexboxLayout class="login-page">
 
     <StackLayout class="full-content">
-        <Image class="logo m-t-20" src="~/images/logo.png"></Image>
-
-        <!-- <StackLayout aria-orientation="" class=" m-b-10 m-t-10 ">
-          
-        </StackLayout> -->
-
-        <StackLayout class="apps-container" aria-orientation="">
-
-
+        <Image class="logo" src="~/images/logo.png"></Image>
+        <StackLayout class="apps-container">
             <StackLayout class="form" [formGroup]="form" novalidate>
-
-                <label class="head-line-store" text="Banao.Customer App Store"></label>
-
-                <label class="head-line" text="SIGN IN"></label>
-                <!-- <label class="tag-line m-t-20" text="Log in using your email id/mobile number."></label> -->
+                <label class="head-line-store hedding-font" text="App Store"></label>
                 <GridLayout rows="auto, auto">
                     <StackLayout class="input-filld" row="0">
-                        <TextField borderRadius="5" backgroundColor="#fff" hint="Email id / Mobile Number " class="input input-border cyan-border m-t-10" borderColor="#6c6969" returnKeyType="next" [isEnabled]="!processing" formControlName="username" [ngClass]="displayFieldCss('username')"></TextField>
+                        <TextField borderRadius="2" hint="Email id / Mobile Number " class="input input-border cyan-border m-t-10"
+                            borderColor="#6c6969" returnKeyType="next" [isEnabled]="!processing" formControlName="username" [ngClass]="displayFieldCss('username')" height="40" padding="10" fontSize="12"></TextField>
                         <StackLayout *ngIf="isFieldValid('username')" class="invalid-feedback">
                             <Label text="User name is required"></Label>
                         </StackLayout>
                     </StackLayout>
 
                     <StackLayout class="input-filld" row="1">
-                        <TextField backgroundColor="#fff" hint="Password" class="input input-border cyan-border m-t-10" borderRadius="5" borderColor="#6c6969" secure="true" returnKeyType="done" [isEnabled]="!processing" formControlName="password" [ngClass]="displayFieldCss('password')"></TextField>
+                        <TextField hint="Password" class="input input-border cyan-border m-t-10" borderRadius="2" borderColor="#6c6969"
+                            secure="true" returnKeyType="done" [isEnabled]="!processing" formControlName="password" [ngClass]="displayFieldCss('password')" height="40" padding="10" fontSize="12"></TextField>
                         <StackLayout *ngIf="isFieldValid('password')" class="invalid-feedback">
                             <Label borderRadius="5" text="Password is required"></Label>
                         </StackLayout>
@@ -33,30 +24,26 @@
                     <ActivityIndicator [busy]="processing"></ActivityIndicator>
                 </GridLayout>
 
-                <Button class="btn" text="Sign In" [isEnabled]="!processing" (tap)="signIn()" backgroundColor="#6c6969" color="#fff" width="50%" height="60">
-            </Button>
+                <Button class="btn btn-primary" text="Sign In" [isEnabled]="!processing" (tap)="signIn()" backgroundColor="#6c6969" color="#fff" width="50%">
+                </Button>
                 <StackLayout class="hr-light pading-gap m-b-10 m-t-10"></StackLayout>
-
-                <AbsoluteLayout>
-
-                    <Label text="Forgot your password?" class="tag-line-grey" (tap)="forgotPassword()"></Label>
-
-                    <Label left="270" text="New User? Sign up" class="tag-line-grey" [nsRouterLink]="['/signup']"></Label>
-
-                </AbsoluteLayout>
+                <Label text="Forgot your password?" class="tag-line-grey m-b-10 m-t-10" (tap)="forgotPassword()"></Label>
+                
+                <Label class="tag-line-grey m-b-10 m-t-10" [nsRouterLink]="['/signup']">
+                    <FormattedString>
+                        <Span text="New User? "></Span>
+                        <Span text="Sign up" class="bold-tag" ></Span>
+                    </FormattedString>
+                </Label>
                 <!-- <Button class="btn" text="facebook" (tap)="onTap($event)" backgroundColor="#4267B2" color="#fff" width="100%">
-            </Button>
+                </Button>
 
-            <Button class="btn" text="Google" (tap)="onTap($event)" backgroundColor="#EA4335" color="#fff" width="100%">
-            </Button> -->
-                <StackLayout class="hr-light pading-gap m-b-10 m-t-10"></StackLayout>
-
-                <Label style="font-weight: 600" class="tag-line-grey" text="SKIP & PROCEED" (tap)="skip()"></Label>
-
+                <Button class="btn" text="Google" (tap)="onTap($event)" backgroundColor="#EA4335" color="#fff" width="100%">
+                </Button> -->
             </StackLayout>
 
         </StackLayout>
-
+        <Label class="tag-line-grey m-t-30 skip-text" text="SKIP & PROCEED" (tap)="skip()"></Label>
 
 
 

@@ -1,6 +1,7 @@
-<ActionBar title="Shyam Future Store">
-    <GridLayout rows="*" columns="40,40" verticalAlignment="center">
+<ActionBar title="">
+    <GridLayout rows="*" columns="100,*,40" verticalAlignment="center">
         <Image src="~/images/shyam-wheel.png" class="action-image" row="0" col="0" verticalAlignment="center"></Image>
-        <Label class="fa logout-label" (tap)="logout()" [text]="'fa-sign-out' | fonticon" *ngIf="isLoggedin" row="0" col="1" verticalAlignment="center"></Label>
+        <Label text="" class="action-label" color="#00aff0" row="0" col="1" verticalAlignment="center"></Label>
+        <Label class="fa logout-label" (tap)="logout()" [text]="'fa-sign-out' | fonticon" *ngIf="isLoggedin" row="0" col="2" verticalAlignment="center"></Label>
     </GridLayout>
 </ActionBar>
