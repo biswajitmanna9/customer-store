@@ -28,7 +28,15 @@ export class StoreAppService {
 
   getMessageListByApp(thread) {
     return this.http.get(Globals.apiEndpoint + 'messages/' + thread + "/")
-  }  
+  }
+
+  getAppRating(param) {
+    return this.http.get(Globals.apiEndpoint + 'add_rating/' + param)
+  }
+
+  appRate(data) {
+    return this.http.post(Globals.apiEndpoint + 'add_rating/', data)
+  }
 
 }
 

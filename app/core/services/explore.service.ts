@@ -22,6 +22,10 @@ export class ExploreService {
     return this.http.get(Globals.apiEndpoint + 'most_viewed_app/')
   }
 
+  getRatedAppList(): Observable<any> {
+    return this.http.get(Globals.apiEndpoint + 'most_viewed_app/')
+  }
+
   getAllAppList(params): Observable<any> {
     return this.http.get(Globals.apiEndpoint + 'search_app/' + params)
   }

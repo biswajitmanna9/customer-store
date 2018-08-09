@@ -1,8 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { registerElement } from 'nativescript-angular/element-registry';
-import { CardView } from 'nativescript-cardview';
-registerElement('CardView', () => CardView);
-
 import { ExploreService } from "../../core/services/explore.service";
 import { getString, setString, getBoolean, setBoolean, clear } from "application-settings";
 import * as Globals from '../../core/globals';
@@ -13,9 +9,10 @@ import * as Globals from '../../core/globals';
     styleUrls: ['./all-app.component.css']
 })
 export class AllAppComponent implements OnInit {
-    user_id: string;
     user_app_list: any = [];
     base_url: string = Globals.img_base_url;
+    app_list: any = [];
+    visible_key: boolean
     constructor(
         private exploreService: ExploreService
     ) {
@@ -23,19 +20,20 @@ export class AllAppComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.user_id = getString('user_id');
-        this.getDashboardAppList();
+        this.getRatedAppList();
     }
 
-    getDashboardAppList() {
-        this.exploreService.getUserDashboardAppList(this.user_id).subscribe(
+
+    getRatedAppList() {
+        this.exploreService.getRatedAppList().subscribe(
             res => {
-                this.user_app_list = res['app_master']
-                console.log(res);
+                this.app_list = res;
+                this.visible_key = true;
+                console.log(res)
             },
             error => {
                 console.log(error)
             }
         )
-    }
+    }    
 }
