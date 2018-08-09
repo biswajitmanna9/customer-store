@@ -1,5 +1,5 @@
 <action-bar></action-bar>
-<GridLayout rows="*,60">
+<GridLayout rows="*,50">
     <ScrollView row="0">
         <StackLayout padding="10" class="list-group" orientation="vertical" *ngIf="visible_key">
             <StackLayout borderWidth="1" borderColor="#ccc" *ngFor="let app of app_list" style="margin-bottom: 10px;" [nsRouterLink]="['/all-app/details/', app.id]">

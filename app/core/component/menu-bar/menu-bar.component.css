@@ -1,5 +1,20 @@
-.bottom-nav Button {
-    color: #3cacfe;
-    font-size: 25px;
-    border-color: transparent;
+.bottom-nav {
+    padding: 9 0;
+    background: #f9ece3;
+}
+
+.bottom-nav Label {
+    color: #adadad;
+}
+
+.bottom-nav .fa {
+    font-size: 18;
+}
+
+.menu-label {
+    font-size: 10;
+}
+
+.bottom-nav .active-link Label {
+    color: #000;
 }
