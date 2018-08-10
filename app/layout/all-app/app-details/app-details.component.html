@@ -2,7 +2,7 @@
 <ActionBar [title]="app_details?.business_name">
     <NavigationButton icon="~/images/back.png" (tap)="goBack()"></NavigationButton>
 </ActionBar>
-<GridLayout rows="*,50">
+<GridLayout rows="*,60">
     <ScrollView row="0">
         <StackLayout padding="10" *ngIf="visible_key">
             <FlexboxLayout flexDirection="column" alignItems="center">
@@ -14,7 +14,7 @@
             <Button class="btn" [text]="gallery_visible_key? 'Hide Gallery' : 'View Gallery'" backgroundColor="#41bffe" color="#fff"
                 width="50%" (tap)="toggleGallery()" *ngIf="gallery_images.length > 0">
             </Button>
-            <GridLayout [carousel]="gallery_images" carouselLabelOverlay="true" carouselSpeed="2000" *ngIf="gallery_visible_key && gallery_images.length > 0"></GridLayout>
+            <GridLayout [carousel]="gallery_images" carouselArrows="bold" carouselLabelOverlay="true" carouselSpeed="2000" *ngIf="gallery_visible_key && gallery_images.length > 0"></GridLayout>
         </StackLayout>
     </ScrollView>
     <menu-bar></menu-bar>
