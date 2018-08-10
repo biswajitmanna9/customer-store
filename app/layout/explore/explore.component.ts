@@ -32,6 +32,7 @@ export class ExploreComponent implements OnInit {
   latitude: any;
   longitude: any;
   @ViewChild('myfilter') myfilter: ElementRef;
+  rating: any = [1,2,3,4,5]
   constructor(
     private exploreService: ExploreService,
     private modal: ModalDialogService,
@@ -96,12 +97,14 @@ export class ExploreComponent implements OnInit {
             else {
               x['isDashboard'] = false;
             }
+            x['avg_rating'] = Math.round(x['avg_rating'])
             this.app_list.push(x);
           })
         }
         else {
           res.forEach(x => {
             x['isDashboard'] = false;
+            x['avg_rating'] = Math.round(x['avg_rating'])
             this.app_list.push(x);
           })
         }
@@ -232,12 +235,14 @@ export class ExploreComponent implements OnInit {
             else {
               x['isDashboard'] = false;
             }
+            x['avg_rating'] = Math.round(x['avg_rating'])
             this.app_list.push(x);
           })
         }
         else {
           res.forEach(x => {
             x['isDashboard'] = false;
+            x['avg_rating'] = Math.round(x['avg_rating'])
             this.app_list.push(x);
           })
         }

@@ -23,7 +23,7 @@ export class ExploreService {
   }
 
   getRatedAppList(): Observable<any> {
-    return this.http.get(Globals.apiEndpoint + 'most_viewed_app/')
+    return this.http.get(Globals.apiEndpoint + 'most_rated_apps/')
   }
 
   getAllAppList(params): Observable<any> {

@@ -1,29 +1,41 @@
-.full-dashboard {
-    /* background: url(~/images/dashboard-bg.jpg) no-repeat 0 0;
-    background-size: cover; */
-    padding: 30 0 30;
+.add-btn {
+    color: gray;
+    font-size: 20;
 }
 
-.card {
-    background-color: transparent;
-    color: #ffffff;
-    margin: 15 15 0;
+.active-btn {
+    color: green;
 }
 
-.app-icon {
-    border-radius: 12;
-    /* background: #ffffff; */
-    background: url(~/images/apps-bg.jpg) no-repeat 0 0;
-    padding: 30px 25px;
+.list-group {
+    padding: 10;
 }
 
-.app-icon Image {
-    width: 120px;
-    height: 120px;
+.list-group .list-group-item {
+    background: #fff;
+    padding: 0 20 0 10;
 }
 
-.app-name {
+.img-circle{
+    background: #f9ece3;
+}
+
+.list-group-item-heading{
     font-size: 12;
-    text-align: center;
-    margin-top: 5;
+}
+
+.section_heading{
+    color: #000;
+    text-align: left;
+    font-size: 20;
+    font-weight: 600;
+    margin-bottom: 10;
+}
+
+.rating{
+    color: gray;
+    font-size: 10;
+}
+.rating.active{
+    color: green;
 }

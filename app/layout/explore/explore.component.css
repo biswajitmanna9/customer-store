@@ -1,15 +1,9 @@
 .add-btn {
-    /* background: url(~/images/ready-to-add.png) no-repeat 0 0;
-    background-size: contain; */
     color: gray;
-    /* background: #fff; */
     font-size: 20;
 }
 
 .active-btn {
-    /* background: url(~/images/active-add.png) no-repeat 0 0;
-    background-size: contain; */
-    /* background: #000; */
     color: green;
 }
 
@@ -46,4 +40,12 @@
     font-weight: 600;
     margin-bottom: 10;
     padding: 0 12;
+}
+
+.rating{
+    color: gray;
+    font-size: 10;
+}
+.rating.active{
+    color: green;
 }
