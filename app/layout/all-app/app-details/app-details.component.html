@@ -1,4 +1,7 @@
-<action-bar></action-bar>
+<!-- <action-bar></action-bar> -->
+<ActionBar [title]="app_details?.business_name">
+    <NavigationButton icon="~/images/back.png" (tap)="goBack()"></NavigationButton>
+</ActionBar>
 <GridLayout rows="*,50">
     <ScrollView row="0">
         <StackLayout padding="10" *ngIf="visible_key">

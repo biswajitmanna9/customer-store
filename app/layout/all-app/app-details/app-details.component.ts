@@ -30,7 +30,7 @@ export class AppDetailsComponent implements OnInit {
     }
 
     goBack() {
-        this.routerExtensions.backToPreviousPage();
+        this.routerExtensions.back();
     }
 
     getAppDetails(id) {

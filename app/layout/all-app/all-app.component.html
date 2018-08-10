@@ -1,14 +1,21 @@
 <action-bar></action-bar>
 <GridLayout rows="*,50">
     <ScrollView row="0">
-        <StackLayout padding="10" class="list-group" orientation="vertical" *ngIf="visible_key">
-            <StackLayout borderWidth="1" borderColor="#ccc" *ngFor="let app of app_list" style="margin-bottom: 10px;" [nsRouterLink]="['/all-app/details/', app.id]">
-                <CardView class="whiteCard">
-                    <GridLayout columns="*,*,*" rows="*" class="list-group-item">
-                        <Image col="0" row="0" [src]="app.logo" class="thumb img-circle" *ngIf="app.logo != null"></Image>
-                        <StackLayout orientation="vertical" col="1" row="0">
+        <StackLayout class="list-group" orientation="vertical" background="#f9ece3">
+            <label class="section_heading" text="Apps"></label>
+            <StackLayout marginBottom="3" *ngFor="let app of app_list" [nsRouterLink]="['/all-app/details/', app.id]">
+                <CardView class="whiteCard" elevation="25">
+                    <GridLayout columns="auto,*,*,auto" rows="*" class="list-group-item" verticalAlignment="center">
+                        <Image col="0" row="0" [src]="app.logo" class="thumb img-circle" *ngIf="app.logo != null" verticalAlignment="center"></Image>
+                        <Image col="0" row="0" src="~/images/no-image-logo.jpg" class="thumb img-circle" *ngIf="app.logo == null" verticalAlignment="center"></Image>
+                        <StackLayout orientation="vertical" col="1" row="0" verticalAlignment="center">
                             <Label [text]="app.business_name" class="list-group-item-heading"></Label>
                         </StackLayout>
+                        <StackLayout orientation="horizontal" col="2" row="0" verticalAlignment="center">
+                            <Label class="fa rating" [text]="'fa-star' | fonticon" *ngFor="let rat of rating; let i = index" [ngClass]="[i <= app.avg_rating -1 ? 'active' : '']"></Label>
+                        </StackLayout>
+                        <Label class="fa add-btn" [text]="'fa-plus-circle' | fonticon" verticalAlignment="center" orientation="vertical" col="3"
+                            row="0" [ngClass]="{'active-btn': app.isDashboard}" (tap)="addToDashboard(app.id)"></Label>
                     </GridLayout>
                 </CardView>
             </StackLayout>

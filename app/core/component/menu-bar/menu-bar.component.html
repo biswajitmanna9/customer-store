@@ -1,4 +1,4 @@
-<StackLayout row="1" orientation="horizontal" class="bottom-nav">
+<StackLayout row="1" orientation="horizontal" class="bottom-nav" borderTopColor="#adadad" borderTopWidth="1">
     <StackLayout orientation="vertical" width="33.33%" (tap)="goTodashboard()" [ngClass]="[current_url === 'dashboard' ? 'active-link' : '']">
         <Label class="fa" [text]="'fa-desktop' | fonticon" horizontalAlignment="center"></Label>
         <Label text="Dashboard" horizontalAlignment="center" class="menu-label"></Label>

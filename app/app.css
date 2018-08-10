@@ -54,7 +54,7 @@ FilterSelect{
 }
 
 .filter-select-tag {
-    margin: 5;
+    margin-left: 5;
     border-width: 1;
     border-color: #ccc;
     border-radius: 5;
