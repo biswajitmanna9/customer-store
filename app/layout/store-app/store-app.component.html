@@ -3,11 +3,11 @@
     <ScrollView row="0">
         <DockLayout stretchLastChild="true">
             <GridLayout rows="auto" dock="top">
-                <StackLayout background="#41bffe" padding="10" row="0">
+                <StackLayout backgroundColor="#fff" padding="10" row="0">
                     <app-menu-bar [appId]="app_id"></app-menu-bar>
                 </StackLayout>
             </GridLayout>
-            <GridLayout rows="*">
+            <GridLayout rows="*" backgroundColor="#f9ece3">
                 <router-outlet></router-outlet>
             </GridLayout>
         </DockLayout>

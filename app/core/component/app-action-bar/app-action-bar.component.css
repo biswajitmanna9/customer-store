@@ -1,5 +1,7 @@
 .action-image {
-    
+    border-radius: 50%;
+    background: #f9ece3;
+    padding-right: 5%;
 }
 
 .action-label {
