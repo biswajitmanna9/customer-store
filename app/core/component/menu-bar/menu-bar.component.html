@@ -1,11 +1,11 @@
 <StackLayout row="1" orientation="horizontal" class="bottom-nav">
     <StackLayout orientation="vertical" width="33.33%" (tap)="goTodashboard()" [ngClass]="[current_url === 'dashboard' ? 'active-link' : '']">
-        <Label class="fa" [text]="'fa-tachometer' | fonticon" horizontalAlignment="center"></Label>
+        <Label class="fa" [text]="'fa-desktop' | fonticon" horizontalAlignment="center"></Label>
         <Label text="Dashboard" horizontalAlignment="center" class="menu-label"></Label>
     </StackLayout>
     <StackLayout orientation="vertical" width="33.33%" [nsRouterLink]="['/explore']" nsRouterLinkActive="active-link">
-        <Label class="fa" [text]="'fa-compass' | fonticon" horizontalAlignment="center"></Label>
-        <Label text="Explore" horizontalAlignment="center" class="menu-label"></Label>
+        <Label class="fa" [text]="'fa-search' | fonticon" horizontalAlignment="center"></Label>
+        <Label text="Search" horizontalAlignment="center" class="menu-label"></Label>
     </StackLayout>
     <StackLayout orientation="vertical" width="33.33%" [nsRouterLink]="['/all-app']" nsRouterLinkActive="active-link">
         <Label class="fa" [text]="'fa-th-large' | fonticon" horizontalAlignment="center"></Label>

@@ -188,11 +188,13 @@ export class ExploreComponent implements OnInit {
         this.location = "Current Location";
         this.latitude = res.place.latitude;
         this.longitude = res.place.longitude;
+        this.searchAppList();
       }
       else if (res.current == false) {
         this.location = res.place.name;
         this.latitude = res.place.latitude;
         this.longitude = res.place.longitude;
+        this.searchAppList();
       }
     })
   }
@@ -204,6 +206,7 @@ export class ExploreComponent implements OnInit {
       SelectedCat.push(element.id)
     });
     this.selected_category = SelectedCat.toString();
+    this.searchAppList();
   }
 
   searchAppList() {
