@@ -1,4 +1,4 @@
-<StackLayout row="1" class="tab-view-fonts" orientation="horizontal" *ngIf="visible_key && product_list.length > 0">
+<StackLayout class="tab-view-fonts" orientation="horizontal" *ngIf="visible_key && product_list.length > 0">
     <StackLayout orientation="vertical" width="33.33%" [nsRouterLink]="['/store-app/', appId , 'about-us']" nsRouterLinkActive="active-link">
         <!-- <Label class="fa" [text]="'fa-info' | fonticon" horizontalAlignment="center"></Label> -->
         <Label text="About Us" horizontalAlignment="center"></Label>
@@ -12,7 +12,7 @@
         <Label text="Contact Us" horizontalAlignment="center"></Label>
     </StackLayout>
 </StackLayout>
-<StackLayout row="1" orientation="horizontal" *ngIf="visible_key && product_list.length == 0">
+<StackLayout orientation="horizontal" *ngIf="visible_key && product_list.length == 0">
     <StackLayout orientation="vertical" width="50%" [nsRouterLink]="['/store-app/', appId , 'about-us']" nsRouterLinkActive="active-link">
         <!-- <Label class="fa" [text]="'fa-info' | fonticon" horizontalAlignment="center"></Label> -->
         <Label text="About Us" horizontalAlignment="center"></Label>
