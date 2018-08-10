@@ -2,8 +2,8 @@
 <GridLayout rows="*,50">
     <ScrollView row="0">
         <StackLayout class="full-dashboard">
-            <FlexboxLayout flexWrap="wrap" justifyContent="space-around" alignItems="flex-start">
-                <CardView *ngFor="let item of user_app_list" class="card" elevation="0" borderColor="#6c6969" shadowOffsetWidth="0" shadowOffsetHeight="0" alignSelf="flex-start" width="100" height="110" [nsRouterLink]="['/store-app/', item.id, 'about-us']">
+            <FlexboxLayout flexWrap="wrap" alignItems="flex-start">
+                <CardView *ngFor="let item of user_app_list" class="card" elevation="0" borderColor="#6c6969" shadowOffsetWidth="0" shadowOffsetHeight="0" alignSelf="flex-start" [nsRouterLink]="['/store-app/', item.id, 'about-us']">
                     <StackLayout orientation="vertical">
                         <StackLayout class="app-icon">
                             <Image class="dash-image" [src]="base_url + item.logo" *ngIf="item.logo != ''"></Image>
