@@ -3,8 +3,8 @@
     <DockLayout stretchLastChild="true" background="#f9ece3">
         <GridLayout rows="auto,auto,auto" dock="top">
             <StackLayout padding="10" paddingBottom="0" row="0">
-                <FilterSelect [items]="category_list" (change)="onCategoryChange($event)" hint="Search by Category" [selectText]="'fa-search' | fonticon" modal_title="Category"
-                    search_param="category_name" primary_key="id" class="category_dropdown" borderRadius="5">
+                <FilterSelect [items]="category_list" (change)="onCategoryChange($event)" hint="Search by Category" [selectText]="'fa-search' | fonticon"
+                    modal_title="Category" search_param="category_name" primary_key="id" class="category_dropdown" borderRadius="5">
                     <ng-template let-category="item">
                         <GridLayout columns="*" rows="*">
                             <Label col="0" row="0" [text]="category.category_name" class="list-group-item-heading"></Label>
@@ -21,15 +21,16 @@
         <GridLayout rows="*">
             <ScrollView row="0">
                 <StackLayout class="list-group" orientation="vertical">
-                    <StackLayout  marginBottom="3" *ngFor="let app of app_list">
+                    <StackLayout marginBottom="3" *ngFor="let app of app_list">
                         <CardView class="whiteCard" elevation="25">
                             <GridLayout columns="auto,*,auto" rows="*" class="list-group-item" verticalAlignment="center">
                                 <Image col="0" row="0" [src]="app.logo" class="thumb img-circle" *ngIf="app.logo != null" verticalAlignment="center"></Image>
+                                <Image col="0" row="0" src="~/images/no-image-logo.jpg" class="thumb img-circle" *ngIf="app.logo == null" verticalAlignment="center"></Image>
                                 <StackLayout orientation="vertical" col="1" row="0" verticalAlignment="center">
                                     <Label [text]="app.business_name" class="list-group-item-heading"></Label>
                                 </StackLayout>
-                                <Label class="fa add-btn" [text]="'fa-plus-circle' | fonticon" verticalAlignment="center" orientation="vertical" col="2" row="0" [ngClass]="{'active-btn': app.isDashboard}"
-                                 (tap)="addToDashboard(app.id)"></Label>
+                                <Label class="fa add-btn" [text]="'fa-plus-circle' | fonticon" verticalAlignment="center" orientation="vertical" col="2"
+                                    row="0" [ngClass]="{'active-btn': app.isDashboard}" (tap)="addToDashboard(app.id)"></Label>
                                 <!-- <Button verticalAlignment="center" orientation="vertical" col="2" row="0" class="btn add-btn" id="button" color="#fff" [ngClass]="{'active-btn': app.isDashboard}"
                                     height="30" width="10%" (tap)="addToDashboard(app.id)" verticalAlignment="center"></Button> -->
                             </GridLayout>

@@ -7,7 +7,7 @@
                     <StackLayout orientation="vertical">
                         <StackLayout class="app-icon">
                             <Image class="dash-image" [src]="base_url + item.logo" *ngIf="item.logo != ''"></Image>
-                            <Image class="dash-image" src="~/images/no-logo.png" *ngIf="item.logo == ''"></Image>
+                            <Image class="dash-image" src="~/images/no-image-logo.jpg" *ngIf="item.logo == ''"></Image>
                         </StackLayout>
                         <Label class="app-name" [text]="item.business_name"></Label>
                     </StackLayout>
