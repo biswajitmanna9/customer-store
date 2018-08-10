@@ -5,9 +5,22 @@
 
 .business_name {
     font-weight: 600;
+}
+
+.business_name {
+    font-weight: 600;
     text-transform: uppercase;
+}
+
+.business_address {
+    text-decoration: underline;
+    font-weight: 600;
 }
 
 .owner_designation {
     font-weight: 600;
+}
+
+.button-center {
+    margin-top: 70;
 }
