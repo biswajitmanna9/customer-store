@@ -32,7 +32,7 @@ export class StoreAppContactUsComponent implements OnInit {
     getAppDetails(id) {
         this.storeAppService.getStoreAppDetails(id).subscribe(
             res => {
-                this.app_owner_details = res['user'];
+                this.app_owner_details = res;
                 this.visible_key = true;
                 console.log(res)
             },
