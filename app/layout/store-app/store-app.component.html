@@ -1,16 +1,14 @@
 <app-action-bar [appId]="app_id"></app-action-bar>
 <GridLayout rows="*,60">
-    <ScrollView row="0">
-        <DockLayout stretchLastChild="true">
-            <GridLayout rows="auto" dock="top">
-                <StackLayout backgroundColor="#fff" padding="10" row="0">
-                    <app-menu-bar [appId]="app_id"></app-menu-bar>
-                </StackLayout>
-            </GridLayout>
-            <GridLayout rows="*" backgroundColor="#f9ece3">
-                <router-outlet></router-outlet>
-            </GridLayout>
-        </DockLayout>
-    </ScrollView>
+    <DockLayout stretchLastChild="true">
+        <GridLayout rows="auto" dock="top">
+            <StackLayout backgroundColor="#fff" padding="10" row="0">
+                <app-menu-bar [appId]="app_id"></app-menu-bar>
+            </StackLayout>
+        </GridLayout>
+        <GridLayout rows="*" backgroundColor="#f9ece3">
+            <router-outlet></router-outlet>
+        </GridLayout>
+    </DockLayout>
     <menu-bar></menu-bar>
 </GridLayout>
