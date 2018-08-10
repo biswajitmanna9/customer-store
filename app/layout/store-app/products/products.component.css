@@ -1,34 +1,41 @@
-.category_product_accordian{
+.category_product_accordian {
     margin: 10;
 }
 
-.category_heading{
+.category_heading {
     padding: 10;
     color: #000;
+    font-size: 15;
 }
 
-.product_list{
-    padding: 10;
+.product_list {
+    /* padding: 10; */
+    border-bottom: 1px solid #000;
 }
-.discounted_price{
+
+.discounted_price {
     font-weight: 600;
     color: #000;
 }
-.original_price{    
+
+.original_price {
     color: #ccc;
     padding: 0 5;
 }
 
-.original_price.isDiscount{
+.original_price.isDiscount {
     text-decoration: line-through;
 }
-.discount{
+
+.discount {
     color: #ccc;
 }
-.product_name{
+
+.product_name {
     /* font-size: 18; */
 }
-.quantity{
+
+.quantity {
     text-align: center;
     padding: 10 0;
 }
