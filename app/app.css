@@ -111,3 +111,14 @@ FilterSelect{
     padding-right: 10;
     text-align: right;
 }
+
+/* slider */
+.arrow-left, .arrow-right{
+    vertical-align: middle;    
+}
+.arrow Label{
+    font-size: 30;
+}
+.slider-image{
+    width: 100;
+}

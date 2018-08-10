@@ -48,7 +48,7 @@ export class StoreAppAboutUsComponent implements OnInit {
         if (this.app_details.app_imgs.length > 0) {
           this.app_details.app_imgs.forEach(x => {
             var data = {
-              title: this.app_details.business_name,
+              // title: this.app_details.business_name,
               url: Globals.img_base_url + x.app_img
             }
             this.gallery_images.push(data)

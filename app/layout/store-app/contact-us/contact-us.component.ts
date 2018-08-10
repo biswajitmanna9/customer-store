@@ -12,7 +12,7 @@ import { Router } from "@angular/router";
 })
 export class StoreAppContactUsComponent implements OnInit {
     app_id: string;
-    app_owner_details: any;
+    app_details: any;
     visible_key: boolean
     constructor(
         private route: ActivatedRoute,
@@ -32,7 +32,7 @@ export class StoreAppContactUsComponent implements OnInit {
     getAppDetails(id) {
         this.storeAppService.getStoreAppDetails(id).subscribe(
             res => {
-                this.app_owner_details = res;
+                this.app_details = res;
                 this.visible_key = true;
                 console.log(res)
             },

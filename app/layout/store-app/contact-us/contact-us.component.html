@@ -1,26 +1,18 @@
 <ScrollView row="0">
     <StackLayout padding="10" *ngIf="visible_key">
         <FlexboxLayout class="m-t-30" flexDirection="column" alignItems="center">
-            <Image [src]="app_owner_details.user.user_details[0].users_pic" class="app_logo img-rounded" height="90" *ngIf="app_owner_details.user.user_details[0].users_pic != null"></Image>
-            <Image src="~/images/no-image-user.jpg" class="app_logo img-rounded" height="90" *ngIf="app_owner_details.user.user_details[0].users_pic == null"></Image>
+            <Image [src]="app_details.user.user_details[0].users_pic" class="app_logo img-rounded" height="90" *ngIf="app_details.user.user_details[0].users_pic != null"></Image>
+            <Image src="~/images/no-image-user.jpg" class="app_logo img-rounded" height="90" *ngIf="app_details.user.user_details[0].users_pic == null"></Image>
 
-            <Label [text]="app_owner_details.user.first_name" fontSize="15" class="business_name m-t-10" textWrap="true"></Label>
-
-            <Label [text]="app_owner_details.designation_details.designation_name" class="owner_desigi" textWrap="true"></Label>
-
-
-
+            <Label [text]="app_details.user.first_name" fontSize="15" class="business_name m-t-10" textWrap="true"></Label>
+            <Label [text]="app_details.designation_details.designation_name" class="owner_desigi" textWrap="true"></Label>
             <Label text="Business Address" class="owner_desigi business_address m-t-30" textWrap="true"></Label>
-
-            <Label text="Shyam future tech, Shyam Towers, EN 32, Sector V, 
-            Salt Lake, Kolkata-700091" class="owner_desigi m-t-5" textWrap="true"></Label>
-
-
+            <Label [text]="app_details.store_address" class="owner_desigi m-t-5" textWrap="true"></Label>
         </FlexboxLayout>
 
         <FlexboxLayout class="button-center">
             <Button class="btn btn-primary" backgroundColor="#6c6969" color="#fff" width="50%" text="Chat" (tap)="massage()"></Button>
-            <Button class="btn btn-primary" backgroundColor="#6c6969" color="#fff" width="50%" text="Call" (tap)="call(app_owner_details.user.user_details[0].contact_no)" *ngIf="app_owner_details.user.user_details[0].contact_no != null"></Button>
+            <Button class="btn btn-primary" backgroundColor="#6c6969" color="#fff" width="50%" text="Call" (tap)="call(app_details.user.user_details[0].contact_no)" *ngIf="app_details.user.user_details[0].contact_no != null"></Button>
         </FlexboxLayout>
 
     </StackLayout>

@@ -1,25 +1,21 @@
-<GridLayout rows="*, auto" columns="auto" class="wallpaper">
-    <StackLayout row="0" column="0" width="100%">
-        <ScrollView class="messages-area" #ScrollList>
-            <FlexboxLayout class="messages">
-                <StackLayout [shadow]="2" cornerRadius="20" *ngFor="let message of messages; let idx = index" class="message-bubble" [class.myself]="message.sender">
-                    <FlexboxLayout class="message-bubble-content">
-                        <Label class="message-text" [text]="message.text" textWrap="true"></Label>
-                        <FlexboxLayout class="meta">                         
-                            <Label [text]="message.created | date: 'shortTime'" class="time"></Label>
-                            <!-- <Label *ngIf="message.sender" [text]="'fa-check' | fonticon" class="fa check" [class.blue]="isViewed(message)"></Label> -->
-                        </FlexboxLayout>
-                    </FlexboxLayout>
-                </StackLayout>                
-            </FlexboxLayout>
-        </ScrollView>
-    </StackLayout>
-    <StackLayout row="1" column="0" width="100%">
-        <FlexboxLayout class="message-box">
-            <FlexboxLayout class="text-area">
-                <TextField [(ngModel)]="message" hint="Type a message" class="text-view" borderColor="#fff" borderRadius="1" borderWidth="1"></TextField>
-                <Button [text]="'fa-paper-plane' | fonticon" class="fa send" (tap)="send()" backgroundColor="#fff" borderColor="#fff" borderWidth="1"></Button>
-            </FlexboxLayout>
+<DockLayout stretchLastChild="true" class="wallpaper">
+    <FlexboxLayout class="message-box" dock="bottom">
+        <FlexboxLayout class="text-area">
+            <TextField [(ngModel)]="message" hint="Type a message" class="text-view" borderColor="#fff" borderRadius="1" borderWidth="1"></TextField>
+            <Button [text]="'fa-paper-plane' | fonticon" class="fa send" (tap)="send()" backgroundColor="#fff" borderColor="#fff" borderWidth="1"></Button>
         </FlexboxLayout>
-    </StackLayout>
-</GridLayout>
+    </FlexboxLayout>
+    <ScrollView class="messages-area" #ScrollList>
+        <FlexboxLayout class="messages">
+            <StackLayout [shadow]="2" cornerRadius="20" *ngFor="let message of messages; let idx = index" class="message-bubble" [class.myself]="message.sender">
+                <FlexboxLayout class="message-bubble-content">
+                    <Label class="message-text" [text]="message.text" textWrap="true"></Label>
+                    <FlexboxLayout class="meta">
+                        <Label [text]="message.created | date: 'shortTime'" class="time"></Label>
+                        <!-- <Label *ngIf="message.sender" [text]="'fa-check' | fonticon" class="fa check" [class.blue]="isViewed(message)"></Label> -->
+                    </FlexboxLayout>
+                </FlexboxLayout>
+            </StackLayout>
+        </FlexboxLayout>
+    </ScrollView>
+</DockLayout>

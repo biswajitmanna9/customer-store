@@ -3,7 +3,7 @@
     <ScrollView row="0">
         <StackLayout class="list-group" orientation="vertical" background="#f9ece3">
             <label class="section_heading" text="Apps"></label>
-            <StackLayout marginBottom="3" *ngFor="let app of app_list" [nsRouterLink]="['/all-app/details/', app.id]">
+            <StackLayout marginBottom="3" *ngFor="let app of app_list">
                 <CardView class="whiteCard" elevation="25">
                     <GridLayout columns="auto,*,*,auto" rows="*" class="list-group-item" verticalAlignment="center">
                         <Image col="0" row="0" [src]="app.logo" class="thumb img-circle" *ngIf="app.logo != null" verticalAlignment="center"></Image>
@@ -23,3 +23,5 @@
     </ScrollView>
     <menu-bar></menu-bar>
 </GridLayout>
+
+<!-- [nsRouterLink]="['/all-app/details/', app.id]" -->
