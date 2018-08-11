@@ -1,16 +1,7 @@
-.category_product_accordian {
-    margin: 10;
-}
-
 .category_heading {
     padding: 10;
     color: #000;
     font-size: 15;
-}
-
-.product_list {
-    /* padding: 10; */
-    border-bottom: 1px solid #000;
 }
 
 .discounted_price {
@@ -29,13 +20,4 @@
 
 .discount {
     color: #ccc;
-}
-
-.product_name {
-    /* font-size: 18; */
-}
-
-.quantity {
-    text-align: center;
-    padding: 10 0;
 }

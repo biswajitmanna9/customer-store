@@ -1,17 +1,26 @@
 <ScrollView row="0">
-    <StackLayout padding="10" *ngIf="visible_key">
-        <FlexboxLayout class="m-t-30" flexDirection="column" alignItems="center">
+    <StackLayout padding="10" *ngIf="visible_key" orientation="vertical">
+        <FlexboxLayout class="m-t-30" flexDirection="column" alignItems="center" horizontalAlignment="center">
             <Image [src]="app_details.logo" class="app_logo img-rounded" height="90" *ngIf="app_details.logo != null"></Image>
             <Image src="~/images/no-image-logo.jpg" class="app_logo img-rounded" height="90" *ngIf="app_details.logo == null"></Image>
             <Label [text]="app_details.business_name" fontSize="15" class="business_name m-t-10" textWrap="true"></Label>
 
             <Label [text]="app_details.business_description" class="business_desc m-t-30" textWrap="true"></Label>
         </FlexboxLayout>
-        <!-- <StarRating emptyBorderColor="white" emptyColor="white" filledBorderColor="black" filledColor="red" value="{{value}}" max="{{max}}" isindicator="false"></StarRating> -->
-        <Button class="btn btn-primary" [text]="gallery_visible_key? 'Hide Gallery' : 'View Gallery'" backgroundColor="#6c6969" color="#fff" width="40%" (tap)="toggleGallery()" *ngIf="gallery_images.length > 0">
-        </Button>
-        <GridLayout [carousel]="gallery_images" carouselLabelOverlay="true" carouselSpeed="2000" *ngIf="gallery_visible_key && gallery_images.length > 0"></GridLayout>
 
+        <!-- <StarRating emptyBorderColor="red" emptyColor="white" filledBorderColor="black" filledColor="red" value="{{value}}" max="{{max}}"
+            isindicator="false" id="rating"></StarRating> -->
+        <!-- <StarRating emptyBorderColor="white" emptyColor="white" filledBorderColor="black" filledColor="red" value="{{value}}" max="{{max}}" isindicator="false"></StarRating> -->
+        <Button class="btn btn-primary" [text]="gallery_visible_key? 'Hide Gallery' : 'View Gallery'" backgroundColor="#6c6969" color="#fff"
+            width="40%" (tap)="toggleGallery()" *ngIf="gallery_images.length > 0" horizontalAlignment="center">
+        </Button>
+        <GridLayout [carousel]="gallery_images" carouselLabelOverlay="true" carouselSpeed="2000" *ngIf="gallery_visible_key && gallery_images.length > 0"
+            horizontalAlignment="center"></GridLayout>
+
+        <StackLayout orientation="horizontal" textAlignment="center" horizontalAlignment="center" class="m-t-10">
+            <Label class="fa rating" [text]="'fa-star' | fonticon" *ngFor="let rat of rating; let i = index" [ngClass]="[i <= rating_value -1 ? 'active' : '']"
+                (tap)="rateApp(rat)" fontSize="20" horizontalAlignment="center"></Label>
+        </StackLayout>
 
     </StackLayout>
 </ScrollView>

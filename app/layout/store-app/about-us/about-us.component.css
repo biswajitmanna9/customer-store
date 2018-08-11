@@ -7,3 +7,11 @@
     font-weight: 600;
     text-transform: uppercase;
 }
+
+.rating{
+    color: gray;
+    font-size: 10;
+}
+.rating.active{
+    color: green;
+}

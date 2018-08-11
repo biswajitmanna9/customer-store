@@ -29,13 +29,17 @@ export class StoreAppService {
   getMessageListByApp(thread) {
     return this.http.get(Globals.apiEndpoint + 'messages/' + thread + "/")
   }
-
-  getAppRating(param) {
-    return this.http.get(Globals.apiEndpoint + 'add_rating/' + param)
+  
+  getAppRating(customer, app_master) {
+    return this.http.get(Globals.apiEndpoint + 'search_rating/?customer=' + customer + '&app_master=' + app_master)
   }
 
   appRate(data) {
     return this.http.post(Globals.apiEndpoint + 'add_rating/', data)
+  }
+
+  paytmFormValue(order_amount): Observable<any> {
+    return this.http.get(Globals.apiEndpoint + 'get_payment_details/?order_amount=' + order_amount + '&type=app')
   }
 
 }

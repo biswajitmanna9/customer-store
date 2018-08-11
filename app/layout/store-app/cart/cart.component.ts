@@ -5,6 +5,12 @@ import { SecureStorage } from "nativescript-secure-storage";
 import { getString, setString, getBoolean, setBoolean, clear } from "application-settings";
 import { StoreAppService, OrderModule, OrderDetails } from "../../../core/services/store-app.service";
 import { Router } from "@angular/router";
+import {
+  Paytm,
+  Order,
+  TransactionCallback,
+  IOSCallback
+} from "@nstudio/nativescript-paytm";
 @Component({
   selector: "cart",
   moduleId: module.id,
@@ -22,6 +28,19 @@ export class StoreAppCartComponent {
   total_price: number;
   all_cart_data: any;
   order: OrderModule;
+  paytmFormDetails: any;
+  paytm: Paytm;
+  orderToPaytm: Order = {
+    MID: "",
+    ORDER_ID: "",
+    CUST_ID: "",
+    INDUSTRY_TYPE_ID: "",
+    CHANNEL_ID: "",
+    TXN_AMOUNT: "",
+    WEBSITE: "",
+    CALLBACK_URL: "",
+    CHECKSUMHASH: ""
+  };
   constructor(
     private route: ActivatedRoute,
     private location: Location,
@@ -37,6 +56,7 @@ export class StoreAppCartComponent {
     this.app_id = full_location[2].trim();
     this.user_id = getString('user_id');
     this.populateData();
+    this.paytm = new Paytm();
   }
 
   populateData() {
@@ -131,7 +151,7 @@ export class StoreAppCartComponent {
   }
 
 
-  pay() {
+  orderPlace() {
     this.order.customer = this.user_id;
     this.order.price = this.total_item_price + this.total_packing_price;
     var details_data = new OrderDetails();
@@ -167,9 +187,78 @@ export class StoreAppCartComponent {
         console.log(error)
       }
     )
+    this.getPaytmFormValue(this.order.price)
   }
 
-  shop(){
-    this.router.navigate(['/store-app/', this.app_id , 'products'])
+  shop() {
+    this.router.navigate(['/store-app/', this.app_id, 'products'])
+  }
+
+  getPaytmFormValue(amount: number) {
+    this.storeAppService.paytmFormValue(amount).subscribe(
+      res => {
+        console.log(res)
+        this.paytmFormDetails = res;
+        this.payViaPaytm();
+      },
+      error => {
+        console.log(error)
+      }
+    )
+  }
+
+  // paytm
+  payViaPaytm() {
+    this.paytm.setIOSCallbacks({
+      didFinishedResponse: function (response) {
+        console.log(response);
+      },
+      didCancelTransaction: function () {
+        console.log("User cancelled transaction");
+      },
+      errorMissingParameterError: function (error) {
+        console.log(error);
+      }
+    });
+    this.orderToPaytm = {
+      MID: this.paytmFormDetails['MID'],
+      ORDER_ID: this.paytmFormDetails['ORDER_ID'],
+      CUST_ID: this.paytmFormDetails['CUST_ID'],
+      INDUSTRY_TYPE_ID: this.paytmFormDetails['INDUSTRY_TYPE_ID'],
+      CHANNEL_ID: this.paytmFormDetails['CHANNEL_ID'],
+      TXN_AMOUNT: this.paytmFormDetails['TXN_AMOUNT'],
+      WEBSITE: this.paytmFormDetails['WEBSITE'],
+      CALLBACK_URL: this.paytmFormDetails['CALLBACK_URL'],
+      CHECKSUMHASH: this.paytmFormDetails['CHECKSUMHASH']
+    };
+    this.paytm.createOrder(this.orderToPaytm);
+    this.paytm.initialize("STAGING");
+    this.paytm.startPaymentTransaction({
+      someUIErrorOccurred: function (inErrorMessage) {
+        console.log(inErrorMessage);
+      },
+      onTransactionResponse: function (inResponse) {
+        console.log(inResponse);
+      },
+      networkNotAvailable: function () {
+        console.log("Network not available");
+      },
+      clientAuthenticationFailed: function (inErrorMessage) {
+        console.log(inErrorMessage);
+      },
+      onErrorLoadingWebPage: function (
+        iniErrorCode,
+        inErrorMessage,
+        inFailingUrl
+      ) {
+        console.log(iniErrorCode, inErrorMessage, inFailingUrl);
+      },
+      onBackPressedCancelTransaction: function () {
+        console.log("User cancelled transaction by pressing back button");
+      },
+      onTransactionCancel: function (inErrorMessage, inResponse) {
+        console.log(inErrorMessage, inResponse);
+      }
+    });
   }
 }
