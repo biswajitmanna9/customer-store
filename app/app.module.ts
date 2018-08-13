@@ -1,5 +1,6 @@
 import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
 import { NativeScriptModule } from "nativescript-angular/nativescript.module";
+import { NSModuleFactoryLoader } from "nativescript-angular/router";
 import { AppRoutingModule } from "./app.routing";
 import { AppComponent } from "./app.component";
 import { CoreModule } from "./core/core.module";
@@ -23,6 +24,7 @@ import { CoreModule } from "./core/core.module";
         AppComponent
     ],
     providers: [
+        { provide: NSModuleFactoryLoader, useClass: NSModuleFactoryLoader }
     ],
     schemas: [
         NO_ERRORS_SCHEMA

@@ -9,8 +9,8 @@ import { LoginModalComponent } from '../../core/component/login-modal/login-moda
 import { SignUpModalComponent } from '../../core/component/signup-modal/signup-modal.component';
 import { LocationModalComponent } from '../../core/component/location-modal/location-modal.component';
 import { getString, setString, getBoolean, setBoolean, clear } from "application-settings";
-
-
+import { LoadingIndicator } from "nativescript-loading-indicator";
+// var gestures = require("ui/gestures");
 @Component({
   selector: "explore",
   moduleId: module.id,
@@ -31,8 +31,33 @@ export class ExploreComponent implements OnInit {
   user_app_list: any = [];
   latitude: any;
   longitude: any;
+  loader = new LoadingIndicator();
+  lodaing_options = {
+    message: 'Loading...',
+    progress: 0.65,
+    android: {
+      indeterminate: true,
+      cancelable: true,
+      cancelListener: function (dialog) { console.log("Loading cancelled") },
+      max: 100,
+      progressNumberFormat: "%1d/%2d",
+      progressPercentFormat: 0.53,
+      progressStyle: 1,
+      secondaryProgress: 1
+    },
+    ios: {
+      details: "Additional detail note!",
+      margin: 10,
+      dimBackground: true,
+      color: "#4B9ED6",
+      backgroundColor: "yellow",
+      userInteractionEnabled: false,
+      hideBezel: true,
+    }
+  }
   @ViewChild('myfilter') myfilter: ElementRef;
-  rating: any = [1, 2, 3, 4, 5]
+  rating: any = [1, 2, 3, 4, 5];
+  @ViewChild("scrollView") scrollView: ElementRef;
   constructor(
     private exploreService: ExploreService,
     private modal: ModalDialogService,
@@ -42,6 +67,7 @@ export class ExploreComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loader.show(this.lodaing_options);
     this.user_id = getString('user_id');
     console.log(getString('user_id'))
     this.getCategoryList();
@@ -54,6 +80,7 @@ export class ExploreComponent implements OnInit {
     }
 
   }
+  
 
   getDashboardAppList() {
     this.exploreService.getUserDashboardAppList(this.user_id).subscribe(
@@ -100,6 +127,7 @@ export class ExploreComponent implements OnInit {
             x['avg_rating'] = Math.round(x['avg_rating'])
             this.app_list.push(x);
           })
+          this.loader.hide();
         }
         else {
           res.forEach(x => {
@@ -107,10 +135,12 @@ export class ExploreComponent implements OnInit {
             x['avg_rating'] = Math.round(x['avg_rating'])
             this.app_list.push(x);
           })
+          this.loader.hide();
         }
         console.log(res)
       },
       error => {
+        this.loader.hide();
         console.log(error)
       }
     )
@@ -166,6 +196,7 @@ export class ExploreComponent implements OnInit {
   }
 
   appAttachAndDisattach(app, user) {
+    this.loader.show(this.lodaing_options);
     var index = this.app_list.findIndex(x => x.id == app)
     if (index != -1) {
       this.app_list[index].isDashboard = !this.app_list[index].isDashboard;
@@ -175,9 +206,11 @@ export class ExploreComponent implements OnInit {
       }
       this.exploreService.appAttachAndDisattachToDashboard(data).subscribe(
         res => {
+          this.loader.hide()
           console.log(res)
         },
         error => {
+          this.loader.hide()
           console.log(error)
         }
       )
@@ -219,6 +252,7 @@ export class ExploreComponent implements OnInit {
   }
 
   searchAppList() {
+    this.loader.show(this.lodaing_options);
     let params = '';
     if (this.location != '' && this.selected_category != '') {
       params = '?latitude=' + this.latitude + '&longitude=' + this.longitude + '&category=' + this.selected_category;
@@ -233,7 +267,7 @@ export class ExploreComponent implements OnInit {
       res => {
         this.app_list = [];
         if (this.user_app_list.length > 0) {
-          res.forEach(x => {
+          res.results.forEach(x => {
             var index = this.user_app_list.findIndex(y => y.id == x.id)
             if (index != -1) {
               x['isDashboard'] = true;
@@ -244,6 +278,7 @@ export class ExploreComponent implements OnInit {
             x['avg_rating'] = Math.round(x['avg_rating'])
             this.app_list.push(x);
           })
+          this.loader.hide()
         }
         else {
           res.forEach(x => {
@@ -251,10 +286,12 @@ export class ExploreComponent implements OnInit {
             x['avg_rating'] = Math.round(x['avg_rating'])
             this.app_list.push(x);
           })
+          this.loader.hide()
         }
         console.log(res)
       },
       error => {
+        this.loader.hide()
         console.log(error)
       }
     )

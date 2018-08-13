@@ -154,6 +154,7 @@ export class StoreAppCartComponent {
   orderPlace() {
     this.order.customer = this.user_id;
     this.order.price = this.total_item_price + this.total_packing_price;
+    this.order.appmaster = this.app_id
     var details_data = new OrderDetails();
     var all_details_data = []
     this.customer_cart_data.forEach(x => {
@@ -181,7 +182,7 @@ export class StoreAppCartComponent {
     this.storeAppService.createOrder(this.order).subscribe(
       res => {
         console.log(res)
-        this.router.navigate(['/store-app/', this.app_id , 'payment'])
+        this.router.navigate(['/store-app/', this.app_id, 'payment'])
       },
       error => {
         console.log(error)

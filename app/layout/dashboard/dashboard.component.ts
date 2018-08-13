@@ -38,4 +38,21 @@ export class DashboardComponent implements OnInit {
             }
         )
     }
+
+
+    removeFromDashboard(app_id) {
+        var data = {
+            "customer": this.user_id,
+            "app_master": app_id
+        }
+        this.exploreService.appAttachAndDisattachToDashboard(data).subscribe(
+            res => {
+                this.getDashboardAppList();
+                console.log(res)
+            },
+            error => {
+                console.log(error)
+            }
+        )
+    }
 }
