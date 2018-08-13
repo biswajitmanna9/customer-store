@@ -48,6 +48,7 @@ export class StoreAppService {
 export class OrderModule {
   customer: string;
   price: number;
+  appmaster: string;
   order_details: OrderDetails[]
 }
 export class OrderDetails {

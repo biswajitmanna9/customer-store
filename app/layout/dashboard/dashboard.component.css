@@ -32,3 +32,6 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
+.close{
+    color: red;
+}
