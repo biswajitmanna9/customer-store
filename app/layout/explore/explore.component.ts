@@ -10,7 +10,7 @@ import { SignUpModalComponent } from '../../core/component/signup-modal/signup-m
 import { LocationModalComponent } from '../../core/component/location-modal/location-modal.component';
 import { getString, setString, getBoolean, setBoolean, clear } from "application-settings";
 import { LoadingIndicator } from "nativescript-loading-indicator";
-// var gestures = require("ui/gestures");
+
 @Component({
   selector: "explore",
   moduleId: module.id,
@@ -57,7 +57,8 @@ export class ExploreComponent implements OnInit {
   }
   @ViewChild('myfilter') myfilter: ElementRef;
   rating: any = [1, 2, 3, 4, 5];
-  @ViewChild("scrollView") scrollView: ElementRef;
+  page: number = 0;
+  next_page: string;
   constructor(
     private exploreService: ExploreService,
     private modal: ModalDialogService,
@@ -80,7 +81,6 @@ export class ExploreComponent implements OnInit {
     }
 
   }
-  
 
   getDashboardAppList() {
     this.exploreService.getUserDashboardAppList(this.user_id).subscribe(
@@ -230,13 +230,13 @@ export class ExploreComponent implements OnInit {
         this.location = "Current Location";
         this.latitude = res.place.latitude;
         this.longitude = res.place.longitude;
-        this.searchAppList();
+        this.search();
       }
       else if (res.current == false) {
         this.location = res.place.name;
         this.latitude = res.place.latitude;
         this.longitude = res.place.longitude;
-        this.searchAppList();
+        this.search();
       }
     })
   }
@@ -248,24 +248,29 @@ export class ExploreComponent implements OnInit {
       SelectedCat.push(element.id)
     });
     this.selected_category = SelectedCat.toString();
-    this.searchAppList();
+    this.search();
   }
 
   searchAppList() {
-    this.loader.show(this.lodaing_options);
     let params = '';
     if (this.location != '' && this.selected_category != '') {
-      params = '?latitude=' + this.latitude + '&longitude=' + this.longitude + '&category=' + this.selected_category;
+      params = '?latitude=' + this.latitude + '&longitude=' + this.longitude + '&category=' + this.selected_category + '&page=' + this.page;
     }
     else if (this.location == '' && this.selected_category != '') {
-      params = '?category=' + this.selected_category;
+      params = '?category=' + this.selected_category + '&page=' + this.page;
     }
     else if (this.location != '' && this.selected_category == '') {
-      params = '?latitude=' + this.latitude + '&longitude=' + this.longitude;
+      params = '?latitude=' + this.latitude + '&longitude=' + this.longitude + '&page=' + this.page;
+    }
+    else {
+      params = '?page=' + this.page;
     }
     this.exploreService.getAllAppList(params).subscribe(
       res => {
-        this.app_list = [];
+        this.next_page = res.next;
+        if (this.page == 1) {
+          this.app_list = [];
+        }
         if (this.user_app_list.length > 0) {
           res.results.forEach(x => {
             var index = this.user_app_list.findIndex(y => y.id == x.id)
@@ -298,7 +303,20 @@ export class ExploreComponent implements OnInit {
   }
 
   search() {
+    this.loader.show(this.lodaing_options);
+    this.page = 1;
     this.searchAppList();
+  }
+
+  onScroll(e) {
+    if (this.next_page != null) {
+      var num_arr = this.next_page.split('=');
+      var count = +num_arr[num_arr.length - 1]
+      if (this.page == count - 1) {
+        this.page = count;
+        this.searchAppList();
+      }
+    }
   }
 
   // http://192.168.24.208:8000/search_app/?latitude=22.5402602&longitude=88.3821989

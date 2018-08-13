@@ -1,6 +1,6 @@
 <action-bar></action-bar>
 <GridLayout rows="*,60">
-    <ScrollView row="0">
+    <ScrollView row="0" (scroll)="onScroll($event)">
         <StackLayout class="list-group" orientation="vertical" background="#f9ece3">
             <label class="section_heading" text="Apps"></label>
             <StackLayout marginBottom="3" *ngFor="let app of app_list">

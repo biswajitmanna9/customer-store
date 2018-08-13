@@ -25,7 +25,9 @@ export class AllAppComponent implements OnInit {
     user_id: string;
     user_app_list: any = [];
     visible_key: boolean;
-    rating: any = [1, 2, 3, 4, 5]
+    rating: any = [1, 2, 3, 4, 5];
+    page: number = 1;
+    next_page: string;
     constructor(
         private exploreService: ExploreService,
         private modal: ModalDialogService,
@@ -60,10 +62,15 @@ export class AllAppComponent implements OnInit {
 
 
     getRatedAppList() {
-        this.exploreService.getRatedAppList().subscribe(
+        let params = '';
+        params = '?page=' + this.page;
+        this.exploreService.getRatedAppList(params).subscribe(
             (res) => {
                 console.log(res)
-                this.app_list = [];
+                this.next_page = res.next;
+                if (this.page == 1) {
+                    this.app_list = [];
+                }
                 if (this.user_app_list.length > 0) {
                     res.results.forEach(x => {
                         var index = this.user_app_list.findIndex(y => y.id == x.id)
@@ -158,6 +165,18 @@ export class AllAppComponent implements OnInit {
                     console.log(error)
                 }
             )
+        }
+    }
+
+    onScroll(e) {
+        console.log(e)
+        if (this.next_page != null) {
+            var num_arr = this.next_page.split('=');
+            var count = +num_arr[num_arr.length - 1]
+            if (this.page == count - 1) {
+                this.page = count;
+                this.getRatedAppList();
+            }
         }
     }
 }

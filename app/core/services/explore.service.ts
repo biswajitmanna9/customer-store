@@ -22,8 +22,8 @@ export class ExploreService {
     return this.http.get(Globals.apiEndpoint + 'most_viewed_app/')
   }
 
-  getRatedAppList(): Observable<any> {
-    return this.http.get(Globals.apiEndpoint + 'most_rated_apps/')
+  getRatedAppList(params): Observable<any> {
+    return this.http.get(Globals.apiEndpoint + 'most_rated_apps/' + params)
   }
 
   getAllAppList(params): Observable<any> {
@@ -34,7 +34,7 @@ export class ExploreService {
     return this.http.get(Globals.apiEndpoint + 'customer_dashbord/' + id + '/')
   }
 
-  appAttachAndDisattachToDashboard(data){
+  appAttachAndDisattachToDashboard(data) {
     return this.http.post(Globals.apiEndpoint + 'mapping_app_and_customer/', data)
   }
 
