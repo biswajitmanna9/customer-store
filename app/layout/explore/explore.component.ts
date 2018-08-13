@@ -32,7 +32,7 @@ export class ExploreComponent implements OnInit {
   latitude: any;
   longitude: any;
   @ViewChild('myfilter') myfilter: ElementRef;
-  rating: any = [1,2,3,4,5]
+  rating: any = [1, 2, 3, 4, 5]
   constructor(
     private exploreService: ExploreService,
     private modal: ModalDialogService,
@@ -53,7 +53,7 @@ export class ExploreComponent implements OnInit {
       this.getMostViewAppList();
     }
 
-  }  
+  }
 
   getDashboardAppList() {
     this.exploreService.getUserDashboardAppList(this.user_id).subscribe(
@@ -74,7 +74,7 @@ export class ExploreComponent implements OnInit {
   getCategoryList() {
     this.exploreService.getCategoryList().subscribe(
       (res: any[]) => {
-        this.category_list = res;        
+        this.category_list = res;
         console.log(res)
       },
       error => {
@@ -120,11 +120,14 @@ export class ExploreComponent implements OnInit {
   openLoginModal(app_id) {
     this.modal.showModal(LoginModalComponent, this.options).then(res => {
       console.log(res);
-      if (res.signup) {
-        this.openSignupModal(app_id);
-      }
-      else if (res.success == 1) {
-        this.appAttachAndDisattach(app_id, res.user_id)
+      if (res != undefined) {
+        if (res.signup) {
+          this.openSignupModal(app_id);
+        }
+        else if (res.success == 1) {
+          this.user_id = res.user_id;
+          this.appAttachAndDisattach(app_id, this.user_id)
+        }
       }
       else {
         var index = this.app_list.findIndex(x => x.id == app_id);
@@ -136,11 +139,14 @@ export class ExploreComponent implements OnInit {
   openSignupModal(app_id) {
     this.modal.showModal(SignUpModalComponent, this.options).then(res => {
       console.log(res);
-      if (res.signin) {
-        this.openLoginModal(app_id);
-      }
-      else if (res.success == 1) {
-        this.appAttachAndDisattach(app_id, res.user_id)
+      if (res != undefined) {
+        if (res.signin) {
+          this.openLoginModal(app_id);
+        }
+        else if (res.success == 1) {
+          this.user_id = res.id;
+          this.appAttachAndDisattach(app_id, this.user_id)
+        }
       }
       else {
         var index = this.app_list.findIndex(x => x.id == app_id);

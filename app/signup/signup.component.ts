@@ -65,11 +65,11 @@ export class SignupComponent implements OnInit {
           this.processing = false;
           clear();
           setBoolean("isLoggedin", true)
-          if(res.email != ""){
+          if(res.email != null){
             setString('email', res.email)
           }          
           setString('contact_no', res.contact_no)
-          setString('user_id', res.user_id.toString())
+          setString('user_id', res.id.toString())
           this.router.navigate(['/'])
         },
         error => {

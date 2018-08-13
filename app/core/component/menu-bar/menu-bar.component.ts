@@ -41,7 +41,7 @@ export class MenuBarComponent implements OnInit{
                 this.openSignupModal();
             }
             else if (res.success == 1) {
-                // console.log(getBoolean('isLoggedin'))
+                console.log("ggggg")
                 this.router.navigate(['/dashboard'])
             }
         })

@@ -65,7 +65,9 @@ export class LoginModalComponent implements OnInit {
                     console.log(res)
                     this.processing = false;
                     setBoolean("isLoggedin", true)
-                    setString('email', res.email)
+                    if (res.email != null) {
+                        setString('email', res.email)
+                    }
                     setString('contact_no', res.contact_no)
                     setString('user_id', res.user_id.toString())
                     // this.actionBarComponent.setIsLogin();
