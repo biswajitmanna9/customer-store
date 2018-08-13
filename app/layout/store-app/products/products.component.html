@@ -15,24 +15,17 @@
                                         <Label [text]="getDiscount(item.price,item.discounted_price)" class="discount" textWrap="true" *ngIf="item.discounted_price > 0"></Label>
                                     </StackLayout>
                                 </StackLayout>
-                                <StackLayout horizontalAlignment="right" verticalAlignment="center" (tap)="addToCart(item)" *ngIf="!item.isCart" col="1"
-                                    row="0" backgroundColor="#fff" borderColor="#00a008" borderWidth="1" borderRadius="3">
+                                <StackLayout horizontalAlignment="right" verticalAlignment="center" (tap)="addToCart(item)" *ngIf="!item.isCart" col="1" row="0" backgroundColor="#fff" borderColor="#00a008" borderWidth="1" borderRadius="3">
                                     <GridLayout rows="*" columns="80,40" verticalAlignment="center">
-                                        <Label text="Add" row="0" col="0" verticalAlignment="center" textAlignment="center" width="80" height="40" paddingTop="10"
-                                            color="#00a008" borderRightColor="#00a008" borderRightWidth="1"></Label>
-                                        <Label class="fa" [text]="'fa-plus' | fonticon" row="0" col="1" verticalAlignment="center" textAlignment="center" width="40"
-                                            height="40" backgroundColor="#d5edd5" paddingTop="15" color="#00a008"></Label>
+                                        <Label text="Add" row="0" col="0" verticalAlignment="center" textAlignment="center" width="80" height="40" paddingTop="10" color="#00a008" borderRightColor="#00a008" borderRightWidth="1"></Label>
+                                        <Label class="fa" [text]="'fa-plus' | fonticon" row="0" col="1" verticalAlignment="center" textAlignment="center" width="40" height="40" backgroundColor="#d5edd5" paddingTop="15" color="#00a008"></Label>
                                     </GridLayout>
                                 </StackLayout>
-                                <StackLayout row="0" col="1" verticalAlignment="center" orientation="vertical" *ngIf="item.isCart" horizontalAlignment="right"
-                                    backgroundColor="#fff" borderColor="#00a008" borderWidth="1" borderRadius="3">
+                                <StackLayout row="0" col="1" verticalAlignment="center" orientation="vertical" *ngIf="item.isCart" horizontalAlignment="right" backgroundColor="#fff" borderColor="#00a008" borderWidth="1" borderRadius="3">
                                     <GridLayout rows="*" columns="40,40,40" verticalAlignment="center">
-                                        <Label class="fa" [text]="'fa-minus' | fonticon" paddingTop="15" color="#00a008" borderRightColor="#00a008" borderRightWidth="1"
-                                            row="0" col="0" (tap)="decrement(item)" textAlignment="center" width="40" height="40"></Label>
-                                        <Label [text]="item.quantity" paddingTop="10" color="#00a008" borderRightColor="#00a008" borderRightWidth="1" row="0" col="1"
-                                            textAlignment="center" width="40" height="40"></Label>
-                                        <Label class="fa" [text]="'fa-plus' | fonticon" paddingTop="15" color="#00a008" row="0" col="2" (tap)="increment(item)" textAlignment="center"
-                                            width="40" height="40"></Label>
+                                        <Label class="fa" [text]="'fa-minus' | fonticon" paddingTop="15" color="#00a008" borderRightColor="#00a008" borderRightWidth="1" row="0" col="0" (tap)="decrement(item)" textAlignment="center" width="40" height="40"></Label>
+                                        <Label [text]="item.quantity" paddingTop="10" color="#00a008" borderRightColor="#00a008" borderRightWidth="1" row="0" col="1" textAlignment="center" width="40" height="40"></Label>
+                                        <Label class="fa" [text]="'fa-plus' | fonticon" paddingTop="15" color="#00a008" row="0" col="2" (tap)="increment(item)" textAlignment="center" width="40" height="40"></Label>
                                     </GridLayout>
                                 </StackLayout>
                             </GridLayout>
@@ -54,28 +47,31 @@
                             <Label [text]="getDiscount(item.price,item.discounted_price)" class="discount" textWrap="true" *ngIf="item.discounted_price > 0"></Label>
                         </StackLayout>
                     </StackLayout>
-                    <StackLayout horizontalAlignment="right" verticalAlignment="center" (tap)="addToCart(item)" *ngIf="!item.isCart" col="1"
-                        row="0" backgroundColor="#fff" borderColor="#00a008" borderWidth="1" borderRadius="3">
+                    <StackLayout horizontalAlignment="right" verticalAlignment="center" (tap)="addToCart(item)" *ngIf="!item.isCart" col="1" row="0" backgroundColor="#fff" borderColor="#00a008" borderWidth="1" borderRadius="3">
                         <GridLayout rows="*" columns="80,40" verticalAlignment="center">
-                            <Label text="Add" row="0" col="0" verticalAlignment="center" textAlignment="center" width="80" height="40" paddingTop="10"
-                                color="#00a008" borderRightColor="#00a008" borderRightWidth="1"></Label>
-                            <Label class="fa" [text]="'fa-plus' | fonticon" row="0" col="1" verticalAlignment="center" textAlignment="center" width="40"
-                                height="40" backgroundColor="#d5edd5" paddingTop="15" color="#00a008"></Label>
+                            <Label text="Add" row="0" col="0" verticalAlignment="center" textAlignment="center" width="80" height="40" paddingTop="10" color="#00a008" borderRightColor="#00a008" borderRightWidth="1"></Label>
+                            <Label class="fa" [text]="'fa-plus' | fonticon" row="0" col="1" verticalAlignment="center" textAlignment="center" width="40" height="40" backgroundColor="#d5edd5" paddingTop="15" color="#00a008"></Label>
                         </GridLayout>
                     </StackLayout>
-                    <StackLayout row="0" col="1" verticalAlignment="center" orientation="vertical" *ngIf="item.isCart" horizontalAlignment="right"
-                        backgroundColor="#fff" borderColor="#00a008" borderWidth="1" borderRadius="3">
+                    <StackLayout row="0" col="1" verticalAlignment="center" orientation="vertical" *ngIf="item.isCart" horizontalAlignment="right" backgroundColor="#fff" borderColor="#00a008" borderWidth="1" borderRadius="3">
                         <GridLayout rows="*" columns="40,40,40" verticalAlignment="center">
-                            <Label class="fa" [text]="'fa-minus' | fonticon" paddingTop="15" color="#00a008" borderRightColor="#00a008" borderRightWidth="1"
-                                row="0" col="0" (tap)="decrement(item)" textAlignment="center" width="40" height="40"></Label>
-                            <Label [text]="item.quantity" paddingTop="10" color="#00a008" borderRightColor="#00a008" borderRightWidth="1" row="0" col="1"
-                                textAlignment="center" width="40" height="40"></Label>
-                            <Label class="fa" [text]="'fa-plus' | fonticon" paddingTop="15" color="#00a008" row="0" col="2" (tap)="increment(item)" textAlignment="center"
-                                width="40" height="40"></Label>
+                            <Label class="fa" [text]="'fa-minus' | fonticon" paddingTop="15" color="#00a008" borderRightColor="#00a008" borderRightWidth="1" row="0" col="0" (tap)="decrement(item)" textAlignment="center" width="40" height="40"></Label>
+                            <Label [text]="item.quantity" paddingTop="10" color="#00a008" borderRightColor="#00a008" borderRightWidth="1" row="0" col="1" textAlignment="center" width="40" height="40"></Label>
+                            <Label class="fa" [text]="'fa-plus' | fonticon" paddingTop="15" color="#00a008" row="0" col="2" (tap)="increment(item)" textAlignment="center" width="40" height="40"></Label>
                         </GridLayout>
                     </StackLayout>
+
+
                 </GridLayout>
+
+
+
             </CardView>
+
         </StackLayout>
+
+
+        <Button class="btn btn-primary" backgroundColor="#6c6969" color="#fff" width="50%" text="View Cart" [nsRouterLink]="['/store-app/', app_id , 'cart']"></Button>
+
     </StackLayout>
 </ScrollView>
