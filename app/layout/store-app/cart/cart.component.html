@@ -4,7 +4,7 @@
             <CardView class="card" elevation="0" radius="0" shadowOpacity="0" shadowOffsetWidth="0" shadowOffsetHeight="0">
 
 
-                <GridLayout rows="*" columns="*,*,*,40" padding="10" verticalAlignment="center">
+                <GridLayout rows="*" columns="*,*,120,40" padding="8 10" verticalAlignment="center">
 
                     <StackLayout row="0" col="0" verticalAlignment="center" orientation="vertical" horizontalAlignment="left">
 
@@ -23,15 +23,21 @@
 
 
                     <GridLayout rows="*" columns="40,40,40" verticalAlignment="center" row="0" col="2">
-                        <Button class="fa" [text]="'fa-minus' | fonticon" backgroundColor="#fff" color="#00a008" borderColor="#00a008" borderWidth="1" row="0" col="0" (tap)="decrement(i)"></Button>
-                        <Label [text]="item.quantity" borderTopWidth="1" borderBottomWidth="1" borderBottomColor="#00a008" borderColor="#00a008" Color="#00a008" row="0" col="1" class="quantity" lineHeight="40"></Label>
-                        <Button class="fa" [text]="'fa-plus' | fonticon" backgroundColor="#fff" color="#00a008" borderColor="#00a008" borderWidth="1" row="0" col="2" (tap)="increment(i)"></Button>
+                        <Button borderTopLeftRadius="2" borderBottomLeftRadius="2" class="fa" [text]="'fa-minus' | fonticon" backgroundColor="#fff" color="#00a008" borderColor="#00a008" borderWidth="1" row="0" col="0" (tap)="decrement(i)" width="40" height="40"></Button>
+                        <Label [text]="item.quantity" borderTopWidth="1" borderBottomWidth="1" borderBottomColor="#00a008" borderColor="#00a008" Color="#00a008" row="0" col="1" class="quantity" width="40" height="40"></Label>
+                        <Button borderTopRightRadius="2" borderBottomRightRadius="2" class="fa" [text]="'fa-plus' | fonticon" backgroundColor="#fff" color="#00a008" borderColor="#00a008" borderWidth="1" row="0" col="2" (tap)="increment(i)" width="40" height="40"></Button>
+
+
+
+
                     </GridLayout>
-                    <Button class="fa" [text]="'fa-times' | fonticon" col="3" row="0" verticalAlignment="center" backgroundColor="#fff" color="#7e7a77" borderColor="#7e7a77" borderWidth="1" (tap)="remove(item.product_id)"></Button>
+
+                    <Button borderRadius="2" class="fa pull-right" [text]="'fa-trash' | fonticon" row="0" col="3" verticalAlignment="center" backgroundColor="#999999" borderColor="#999999" color="#fff" borderWidth="1" (tap)="remove(item.product_id)" width="30" height="40"
+                        padding="2"></Button>
                 </GridLayout>
             </CardView>
         </StackLayout>
-        <StackLayout class="hr-light m-10"></StackLayout>
+
         <StackLayout padding="10">
             <GridLayout rows="*,*,*,*" columns="*,*" verticalAlignment="center">
                 <StackLayout verticalAlignment="center" col="0" row="0">
@@ -55,6 +61,7 @@
                 </StackLayout>
             </GridLayout>
         </StackLayout>
+        <StackLayout class="hr-light m-10"></StackLayout>
         <StackLayout>
             <Button class="btn btn-primary pull-right" backgroundColor="#6c6969" color="#fff" width="50%" text="Place Order" (tap)="orderPlace()"></Button>
         </StackLayout>
