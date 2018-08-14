@@ -7,6 +7,7 @@ import { NativeScriptHttpClientModule } from "nativescript-angular/http-client";
 import { TNSFontIconModule } from 'nativescript-ngx-fonticon';
 import { DropDownModule } from "nativescript-drop-down/angular";
 import { AccordionModule } from "nativescript-accordion/angular";
+import { TNSCheckBoxModule } from 'nativescript-checkbox/angular';
 // directive
 import { MinLengthDirective, MaxLengthDirective, IsEmailDirective } from "./directive/input.directive";
 import { CarouselDirective } from "./directive/carousel.directive";
@@ -38,7 +39,8 @@ import { AppActionBarComponent } from './component/app-action-bar/app-action-bar
             'fa': './css/font-awesome.min.css'
         }),
         DropDownModule,
-        AccordionModule
+        AccordionModule,
+        TNSCheckBoxModule
     ],
     declarations: [
         MinLengthDirective,
@@ -57,6 +59,7 @@ import { AppActionBarComponent } from './component/app-action-bar/app-action-bar
         TNSFontIconModule,
         DropDownModule,
         AccordionModule,
+        TNSCheckBoxModule,
         MinLengthDirective,
         MaxLengthDirective,
         IsEmailDirective,

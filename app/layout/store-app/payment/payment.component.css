@@ -1,0 +1,29 @@
+.discounted_price{
+    font-weight: 600;
+    color: #000;
+}
+.original_price{    
+    color: #ccc;
+    padding: 0 5;
+}
+
+.original_price.isDiscount{
+    text-decoration: line-through;
+}
+.discount{
+    color: #ccc;
+}
+
+.quantity{
+    text-align: center;
+    padding: 10 0;
+}
+
+.section_heading{
+    color: #000;
+    text-align: left;
+    font-size: 20;
+    font-weight: 600;
+    margin-bottom: 10;
+    padding: 0 12;
+}

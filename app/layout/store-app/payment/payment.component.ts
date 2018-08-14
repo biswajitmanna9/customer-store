@@ -3,8 +3,11 @@ import { ActivatedRoute } from "@angular/router";
 import { Location } from '@angular/common';
 import { SecureStorage } from "nativescript-secure-storage";
 import { getString, setString, getBoolean, setBoolean, clear } from "application-settings";
-import { StoreAppService, OrderModule, OrderDetails } from "../../../core/services/store-app.service";
+import { StoreAppService, OrderModule, OrderDetails, RadioOption } from "../../../core/services/store-app.service";
 import { Router } from "@angular/router";
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { SelectedIndexChangedEventData, ValueList } from "nativescript-drop-down";
+import { LoadingIndicator } from "nativescript-loading-indicator";
 import {
     Paytm,
     Order,
@@ -41,11 +44,42 @@ export class StoreAppPaymentComponent implements OnInit {
         CALLBACK_URL: "",
         CHECKSUMHASH: ""
     };
+
+    radioOptions?: Array<RadioOption>;
+    customer_adress_list: any = [];
+    state_list: ValueList<string>;
+    form: FormGroup;
+    address_box_key: boolean;
+    loader = new LoadingIndicator();
+    lodaing_options = {
+        message: 'Loading...',
+        progress: 0.65,
+        android: {
+            indeterminate: true,
+            cancelable: true,
+            cancelListener: function (dialog) { console.log("Loading cancelled") },
+            max: 100,
+            progressNumberFormat: "%1d/%2d",
+            progressPercentFormat: 0.53,
+            progressStyle: 1,
+            secondaryProgress: 1
+        },
+        ios: {
+            details: "Additional detail note!",
+            margin: 10,
+            dimBackground: true,
+            color: "#4B9ED6",
+            backgroundColor: "yellow",
+            userInteractionEnabled: false,
+            hideBezel: true,
+        }
+    }
     constructor(
         private route: ActivatedRoute,
         private location: Location,
         private storeAppService: StoreAppService,
-        private router: Router
+        private router: Router,
+        private formBuilder: FormBuilder
     ) {
         this.secureStorage = new SecureStorage();
         this.order = new OrderModule();
@@ -57,6 +91,34 @@ export class StoreAppPaymentComponent implements OnInit {
         this.user_id = getString('user_id');
         this.populateData();
         this.paytm = new Paytm();
+        this.getCustomerAdressList(this.user_id);
+        this.getStateList();
+        this.form = this.formBuilder.group({
+            address: ['', Validators.required],
+            state: ['', Validators.required],
+            pincode: ['', Validators.required],
+            customer: [this.user_id, Validators.required]
+        });
+        this.radioOptions = [
+            new RadioOption("Radio option 1"),
+            new RadioOption("Radio option 2"),
+            new RadioOption("Radio option 3")
+        ];
+    }
+
+    changeCheckedRadio(radioOption: RadioOption): void {
+        radioOption.selected = !radioOption.selected;
+
+        if (!radioOption.selected) {
+            return;
+        }
+
+        // uncheck all other options
+        this.radioOptions.forEach(option => {
+            if (option.text !== radioOption.text) {
+                option.selected = false;
+            }
+        });
     }
 
     populateData() {
@@ -81,34 +143,41 @@ export class StoreAppPaymentComponent implements OnInit {
         );
     }
 
-    // getDiscount(price, discounted_price) {
-    //     return Math.floor(((price - discounted_price) * 100) / price) + '%';
-    // }
+    getCustomerAdressList(id) {
+        this.storeAppService.getCustomerAddress(id).subscribe(
+            (res: any[]) => {
+                console.log(res);
+                this.customer_adress_list = res;
+            },
+            error => {
+                console.log(error)
+            }
+        )
+    }
 
-    // increment(i) {
-    //     var qty = this.customer_cart_data[i].quantity;
-    //     this.customer_cart_data[i].quantity = qty + 1;
-    //     var index = this.all_cart_data.findIndex(x => x.customer_id == this.user_id && x.app_id == this.app_id && x.product_id == this.customer_cart_data[i].product_id);
-    //     if (index != -1) {
-    //         this.all_cart_data[index].quantity = qty + 1;
-    //         this.setCartData()
-    //     }
-    // }
+    getStateList() {
+        this.storeAppService.getStateList().subscribe(
+            (res: any[]) => {
+                console.log(res);
+                this.state_list = new ValueList<string>();
+                for (let i = 0; i < res.length; i++) {
+                    this.state_list.push({
+                        value: res[i]['id'],
+                        display: res[i]['state_name'],
+                    });
+                }
+            },
+            error => {
+                console.log(error)
+            }
+        )
+    }
 
-    // decrement(i) {
-    //     var qty = this.customer_cart_data[i].quantity;
-    //     if (qty > 1) {
-    //         this.customer_cart_data[i].quantity = qty - 1;
-    //         var index = this.all_cart_data.findIndex(x => x.customer_id == this.user_id && x.app_id == this.app_id && x.product_id == this.customer_cart_data[i].product_id);
-    //         if (index != -1) {
-    //             this.all_cart_data[index].quantity = qty - 1;
-    //             this.setCartData()
-    //         }
-    //     }
-    //     else {
-    //         this.remove(this.customer_cart_data[i].product_id)
-    //     }
-    // }
+    getDiscount(price, discounted_price) {
+        return Math.floor(((price - discounted_price) * 100) / price) + '%';
+    }
+
+
 
     getTotalItemPrice() {
         this.total_item_price = 0;
@@ -129,15 +198,7 @@ export class StoreAppPaymentComponent implements OnInit {
         })
     }
 
-    // remove(id) {
-    //     var index = this.all_cart_data.findIndex(x => x.customer_id == this.user_id && x.app_id == this.app_id && x.product_id == id);
-    //     console.log(index)
-    //     if (index != -1) {
-    //         this.all_cart_data.splice(index, 1);
-    //         this.customer_cart_data.splice(index, 1);
-    //         this.setCartData()
-    //     }
-    // }
+
 
     setCartData() {
         this.secureStorage.set({
@@ -150,8 +211,60 @@ export class StoreAppPaymentComponent implements OnInit {
         });
     }
 
+    onchange(args: SelectedIndexChangedEventData) {
+        this.form.patchValue({
+            state: this.state_list.getValue(args.newIndex)
+        })
+    }
 
-    orderPlace() {
+    addAdressBox() {
+        this.address_box_key = true;
+    }
+
+    addAdress() {
+        console.log(this.form.value)
+        if (this.form.valid) {
+            this.loader.show(this.lodaing_options);
+            this.storeAppService.addCustomerAddress(this.form.value).subscribe(
+                res => {
+                    this.loader.hide();
+                    console.log(res)
+                    this.address_box_key = false;
+                    this.getCustomerAdressList(this.user_id);
+                },
+                error => {
+                    console.log(error)
+                }
+            )
+
+        }
+        else {
+            this.markFormGroupTouched(this.form)
+        }
+    }
+
+    isFieldValid(field: string) {
+        return !this.form.get(field).valid && (this.form.get(field).dirty || this.form.get(field).touched);
+    }
+
+    displayFieldCss(field: string) {
+        return {
+            'is-invalid': this.form.get(field).invalid && (this.form.get(field).dirty || this.form.get(field).touched),
+            'is-valid': this.form.get(field).valid && (this.form.get(field).dirty || this.form.get(field).touched)
+        };
+    }
+
+    markFormGroupTouched(formGroup: FormGroup) {
+        (<any>Object).values(formGroup.controls).forEach(control => {
+            control.markAsTouched();
+            if (control.controls) {
+                control.controls.forEach(c => this.markFormGroupTouched(c));
+            }
+        });
+    }
+
+
+    orderPay() {
         this.order.customer = this.user_id;
         this.order.price = this.total_item_price + this.total_packing_price;
         this.order.appmaster = this.app_id
@@ -189,7 +302,7 @@ export class StoreAppPaymentComponent implements OnInit {
         //     }
         // )
         // this.getPaytmFormValue(this.order.price)
-    }    
+    }
 
     getPaytmFormValue(amount: number) {
         this.storeAppService.paytmFormValue(amount).subscribe(
