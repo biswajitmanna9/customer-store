@@ -1,8 +1,10 @@
 <ActionBar title="">
-    <GridLayout rows="*" columns="40,*,40" verticalAlignment="center">
+    <GridLayout rows="*" columns="40,*,80,40" verticalAlignment="center">
         <Image [src]="app_details?.logo" class="action-image" row="0" col="0" verticalAlignment="center" *ngIf="app_details?.logo != null"></Image>
         <Image src="~/images/no-image-logo.jpg" class="action-image" row="0" col="0" *ngIf="app_details?.logo == null"></Image>
         <Label [text]="app_details?.business_name" class="action-label" color="#333131" fontSize="12" row="0" col="1" verticalAlignment="center"></Label>
-        <Label class="fa cart-label" [text]="'fa-shopping-cart' | fonticon" [nsRouterLink]="['/store-app/', appId , 'cart']" *ngIf="visible_key && product_list.length > 0" row="0" col="2" verticalAlignment="center"></Label>
+        <Label text="My Order" class="action-label" color="#333131" fontSize="12" row="0" col="2" verticalAlignment="center" *ngIf="visible_key && product_list.length > 0" [nsRouterLink]="['/store-app/', appId , 'order-list']"></Label>
+        <Label class="fa cart-label" [text]="'fa-shopping-cart' | fonticon" [nsRouterLink]="['/store-app/', appId , 'cart']" *ngIf="visible_key && product_list.length > 0"
+            row="0" col="3" verticalAlignment="center"></Label>
     </GridLayout>
 </ActionBar>
