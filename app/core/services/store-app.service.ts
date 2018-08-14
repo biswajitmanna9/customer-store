@@ -29,7 +29,7 @@ export class StoreAppService {
   getMessageListByApp(thread) {
     return this.http.get(Globals.apiEndpoint + 'messages/' + thread + "/")
   }
-  
+
   getAppRating(customer, app_master) {
     return this.http.get(Globals.apiEndpoint + 'search_rating/?customer=' + customer + '&app_master=' + app_master)
   }
@@ -42,6 +42,18 @@ export class StoreAppService {
     return this.http.get(Globals.apiEndpoint + 'get_payment_details/?order_amount=' + order_amount + '&type=app')
   }
 
+  getCustomerAddress(customer) {
+    return this.http.get(Globals.apiEndpoint + 'customer_address/' + customer + '/')
+  }
+
+  addCustomerAddress(data) {
+    return this.http.post(Globals.apiEndpoint + 'customer_address/', data)
+  }
+
+  getStateList() {
+    return this.http.get(Globals.apiEndpoint + 'states_dropdown/')
+  }
+
 }
 
 
@@ -51,6 +63,7 @@ export class OrderModule {
   appmaster: string;
   order_details: OrderDetails[]
 }
+
 export class OrderDetails {
   quantity: number;
   unit_price: string;
@@ -60,4 +73,13 @@ export class OrderDetails {
   uom: string;
   appmaster: number;
   product: number
+}
+
+export class RadioOption {
+  text: string;
+  selected: boolean = false;
+
+  constructor(text: string) {
+    this.text = text;
+  }
 }

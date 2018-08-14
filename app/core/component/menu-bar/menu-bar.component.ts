@@ -12,7 +12,7 @@ import { Location } from '@angular/common';
     templateUrl: "./menu-bar.component.html",
     styleUrls: ['./menu-bar.component.css']
 })
-export class MenuBarComponent implements OnInit{
+export class MenuBarComponent implements OnInit {
     options = {
         context: {},
         fullscreen: false,
@@ -28,7 +28,7 @@ export class MenuBarComponent implements OnInit{
 
     }
 
-    ngOnInit(){
+    ngOnInit() {
         var full_location = this.location.path().split('/');
         console.log(full_location)
         this.current_url = full_location[1];
@@ -37,24 +37,29 @@ export class MenuBarComponent implements OnInit{
     openLoginModal() {
         this.modal.showModal(LoginModalComponent, this.options).then(res => {
             console.log(res);
-            if (res.signup) {
-                this.openSignupModal();
+            if (res != undefined) {
+                if (res.signup) {
+                    this.openSignupModal();
+                }
+                else if (res.success == 1) {
+                    console.log("ggggg")
+                    this.router.navigate(['/dashboard'])
+                }
             }
-            else if (res.success == 1) {
-                console.log("ggggg")
-                this.router.navigate(['/dashboard'])
-            }
+
         })
     }
 
     openSignupModal() {
         this.modal.showModal(SignUpModalComponent, this.options).then(res => {
             console.log(res);
-            if (res.signin) {
-                this.openLoginModal();
-            }
-            else if (res.success == 1) {
-                this.router.navigate(['/dashboard'])
+            if (res != undefined) {
+                if (res.signin) {
+                    this.openLoginModal();
+                }
+                else if (res.success == 1) {
+                    this.router.navigate(['/dashboard'])
+                }
             }
         })
     }

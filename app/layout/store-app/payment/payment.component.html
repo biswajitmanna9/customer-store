@@ -1,6 +1,95 @@
 <ScrollView row="0">
-    <StackLayout padding="10">
-        <Label [text]="app_id" textWrap="true"></Label>
-        <Label text="Payment page" textWrap="true"></Label>
+    <StackLayout padding="10" *ngIf="visible_key && customer_cart_data.length > 0">
+        <StackLayout *ngFor="let item of customer_cart_data;let i = index">
+            <CardView class="card" elevation="0" radius="0" shadowOpacity="0" shadowOffsetWidth="0" shadowOffsetHeight="0">
+                <GridLayout rows="*" columns="*,*" padding="10" verticalAlignment="center">
+                    <StackLayout row="0" col="0" verticalAlignment="center" orientation="vertical" horizontalAlignment="left">
+                        <Label [text]="item.product_name" textWrap="true" verticalAlignment="center" class="product_name"></Label>
+                        <StackLayout orientation="horizontal">
+                            <StackLayout verticalAlignment="center" orientation="horizontal">
+                                <Label [text]="item.quantity * item.discounted_price" class="discounted_price" textWrap="true" *ngIf="item.discounted_price > 0"></Label>
+                                <Label [text]="item.quantity * item.price" class="original_price" textWrap="true" [ngClass]="[item.discounted_price > 0 ? 'isDiscount' : '']"></Label>
+                                <Label [text]="getDiscount(item.price,item.discounted_price)" class="discount" textWrap="true" *ngIf="item.discounted_price > 0"></Label>
+                            </StackLayout>
+                        </StackLayout>
+                    </StackLayout>
+                    <GridLayout rows="*" columns="auto,40" verticalAlignment="center" row="0" col="1">
+                        <Label text="Quantity" Color="#00a008" row="0" col="0"></Label>
+                        <Label [text]="item.quantity" borderWidth="1" borderColor="#00a008" Color="#00a008" row="0" col="1" class="quantity"></Label>
+                    </GridLayout>
+                </GridLayout>
+            </CardView>
+        </StackLayout>
+        <StackLayout class="hr-light m-10"></StackLayout>
+        <StackLayout padding="10">
+            <GridLayout rows="*,*,*,*" columns="*,*" verticalAlignment="center">
+                <StackLayout verticalAlignment="center" col="0" row="0">
+                    <Label class="pull-left font-weight-bold" text="Total item price"></Label>
+                </StackLayout>
+                <StackLayout verticalAlignment="center" col="1" row="0">
+                    <Label class="pull-right font-weight-bold" [text]="total_item_price"></Label>
+                </StackLayout>
+                <StackLayout verticalAlignment="center" col="0" row="1">
+                    <Label class="pull-left font-weight-bold" text="Total packing charge"></Label>
+                </StackLayout>
+                <StackLayout verticalAlignment="center" col="1" row="1">
+                    <Label class="pull-right font-weight-bold" [text]="total_packing_price"></Label>
+                </StackLayout>
+                <StackLayout class="hr-light m-10" row="2" colSpan="2"></StackLayout>
+                <StackLayout verticalAlignment="center" col="0" row="3">
+                    <Label class="pull-left font-weight-bold" text="Total"></Label>
+                </StackLayout>
+                <StackLayout verticalAlignment="center" col="1" row="3">
+                    <Label class="pull-right font-weight-bold" [text]="total_item_price + total_packing_price"></Label>
+                </StackLayout>
+            </GridLayout>
+        </StackLayout>
+        <GridLayout rows="*" columns="*,*" verticalAlignment="center" row="0" col="1">
+            <Label class="section_heading" text="Shipping Address" row="0" col="0"></Label>
+            <Button class="btn btn-primary pull-right" backgroundColor="#6c6969" color="#fff" width="50%" text="Add" (tap)="addAdressBox()"
+                row="0" col="1"></Button>
+        </GridLayout>
+        <StackLayout class="address_list">
+            <StackLayout *ngFor="let option of radioOptions">
+                <StackLayout orientation="horizontal" verticalAlignment="center">
+                    <CheckBox #elem [checked]="option.selected" (checkedChange)="elem.checked !== option.selected && changeCheckedRadio(option)"
+                        class="checkbox" boxType="circle"></CheckBox>
+                    <StackLayout verticalAlignment="center">
+                        <Label [text]="option.text" textWrap="true" (tap)="changeCheckedRadio(option)"></Label>
+                    </StackLayout>
+                </StackLayout>
+            </StackLayout>
+        </StackLayout>
+        <StackLayout class="form" [formGroup]="form" novalidate *ngIf="address_box_key">
+            <GridLayout rows="auto, auto, auto">
+                <StackLayout class="input-filld" row="0">
+                    <TextField hint="Address" class="input input-border cyan-border m-t-10" borderColor="#49ddff" returnKeyType="next" formControlName="address"
+                        [ngClass]="displayFieldCss('address')"></TextField>
+                    <StackLayout *ngIf="isFieldValid('address')" class="invalid-feedback">
+                        <Label text="Address is required"></Label>
+                    </StackLayout>
+                </StackLayout>
+                <StackLayout class="input-filld" row="1">
+                    <DropDown #dd class="input input-border cyan-border m-t-10" borderColor="#49ddff" [items]="state_list" hint="Select State"
+                        (selectedIndexChanged)="onchange($event)" height="60"></DropDown>
+                    <StackLayout *ngIf="isFieldValid('state')" class="invalid-feedback">
+                        <Label text="State is required"></Label>
+                    </StackLayout>
+                </StackLayout>
+                <StackLayout class="input-filld" row="2">
+                    <TextField hint="Pincode" keyboardType="number" class="input input-border cyan-border m-t-10" borderColor="#49ddff" returnKeyType="done"
+                        formControlName="pincode"></TextField>
+                    <StackLayout *ngIf="isFieldValid('pincode')" class="invalid-feedback">
+                        <Label text="Pincode is required"></Label>
+                    </StackLayout>
+                </StackLayout>
+            </GridLayout>
+            <Button class="btn-primary pull-right" text="Save" (tap)="addAdress()" backgroundColor="#6c6969" color="#fff" width="50%">
+            </Button>
+        </StackLayout>
+        <StackLayout>
+            <StackLayout class="hr-light pading-gap m-b-10 m-t-10"></StackLayout>
+            <Button class="btn btn-primary pull-right" backgroundColor="#6c6969" color="#fff" width="50%" text="Pay Order" (tap)="orderPay()"></Button>
+        </StackLayout>
     </StackLayout>
 </ScrollView>
