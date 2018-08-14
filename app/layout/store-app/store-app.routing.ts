@@ -9,6 +9,8 @@ import { StoreAppAboutUsComponent } from './about-us/about-us.component';
 import { StoreAppCartComponent } from './cart/cart.component';
 import { StoreAppPaymentComponent } from './payment/payment.component';
 import { StoreAppMessengerComponent } from './messenger/messenger.component';
+import { StoreAppPaymentSuccessComponent } from './payment-success/payment-success.component';
+import { StoreAppOrderListComponent } from './order-list/order-list.component';
 
 const routes: Routes = [
     {
@@ -20,7 +22,9 @@ const routes: Routes = [
             { path: "contact-us", component: StoreAppContactUsComponent },
             { path: "cart", component: StoreAppCartComponent },
             { path: "payment", component: StoreAppPaymentComponent },
-            { path: "messenger", component: StoreAppMessengerComponent }
+            { path: "messenger", component: StoreAppMessengerComponent },
+            { path: "payment-success/:order", component: StoreAppPaymentSuccessComponent },
+            { path: "order-list", component: StoreAppOrderListComponent }
         ]
     }
 

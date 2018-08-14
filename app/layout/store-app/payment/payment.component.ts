@@ -14,6 +14,7 @@ import {
     TransactionCallback,
     IOSCallback
 } from "@nstudio/nativescript-paytm";
+import * as dialogs from "ui/dialogs";
 @Component({
     selector: 'payment',
     moduleId: module.id,
@@ -74,6 +75,7 @@ export class StoreAppPaymentComponent implements OnInit {
             hideBezel: true,
         }
     }
+    address_id: number;
     constructor(
         private route: ActivatedRoute,
         private location: Location,
@@ -99,16 +101,12 @@ export class StoreAppPaymentComponent implements OnInit {
             pincode: ['', Validators.required],
             customer: [this.user_id, Validators.required]
         });
-        this.radioOptions = [
-            new RadioOption("Radio option 1"),
-            new RadioOption("Radio option 2"),
-            new RadioOption("Radio option 3")
-        ];
+
     }
 
     changeCheckedRadio(radioOption: RadioOption): void {
         radioOption.selected = !radioOption.selected;
-
+        this.address_id = radioOption.id
         if (!radioOption.selected) {
             return;
         }
@@ -119,6 +117,7 @@ export class StoreAppPaymentComponent implements OnInit {
                 option.selected = false;
             }
         });
+        console.log(this.address_id)
     }
 
     populateData() {
@@ -148,6 +147,14 @@ export class StoreAppPaymentComponent implements OnInit {
             (res: any[]) => {
                 console.log(res);
                 this.customer_adress_list = res;
+                this.radioOptions = [];
+
+                this.customer_adress_list.forEach(x => {
+                    var d = new RadioOption(x.address, x.id)
+                    this.radioOptions.push(d)
+                })
+                // this.radioOptions[this.radioOptions.length - 1]['selected'] = true;
+                // this.address_id = this.radioOptions[this.radioOptions.length - 1]['id']
             },
             error => {
                 console.log(error)
@@ -265,43 +272,54 @@ export class StoreAppPaymentComponent implements OnInit {
 
 
     orderPay() {
-        this.order.customer = this.user_id;
-        this.order.price = this.total_item_price + this.total_packing_price;
-        this.order.appmaster = this.app_id
-        var details_data = new OrderDetails();
-        var all_details_data = []
-        this.customer_cart_data.forEach(x => {
-            details_data.appmaster = x.app_id;
-            if (x.discounted_price > 0) {
-                details_data.unit_price = x.discounted_price;
-            }
-            else {
-                details_data.unit_price = x.price;
-            }
-            details_data.quantity = x.quantity;
-            details_data.product = x.product_id;
-            details_data.packaging_cost = x.packing_charges;
-            details_data.uom = "0";
-            details_data.IGST = "0";
-            details_data.CGST = "0";
-            all_details_data.push(details_data);
-            var index = this.all_cart_data.findIndex(y => y.customer_id == this.user_id && y.app_id == this.app_id && y.product_id == x.product_id);
-            if (index != -1) {
-                this.all_cart_data.splice(index, 1);
-            }
-        })
-        this.order.order_details = all_details_data;
-        // this.setCartData();
-        // this.storeAppService.createOrder(this.order).subscribe(
-        //     res => {
-        //         console.log(res)
-        //         // this.router.navigate(['/store-app/', this.app_id, 'payment'])
-        //     },
-        //     error => {
-        //         console.log(error)
-        //     }
-        // )
-        // this.getPaytmFormValue(this.order.price)
+        if (this.address_id == undefined) {
+            dialogs.alert("Please Select Shipping Address").then(() => {
+                console.log("Dialog closed!");
+            });
+        }
+        else {
+            this.order.customer = this.user_id;
+            this.order.price = this.total_item_price + this.total_packing_price;
+            this.order.address = this.address_id;
+            this.order.appmaster = this.app_id
+            var details_data = new OrderDetails();
+            var all_details_data = [];
+            this.customer_cart_data.forEach(x => {
+                details_data.appmaster = x.app_id;
+                if (x.discounted_price > 0) {
+                    details_data.unit_price = x.discounted_price;
+                }
+                else {
+                    details_data.unit_price = x.price;
+                }
+                details_data.quantity = x.quantity;
+                details_data.product = x.product_id;
+                details_data.packaging_cost = x.packing_charges;
+                details_data.uom = "0";
+                details_data.IGST = "0";
+                details_data.CGST = "0";
+                all_details_data.push(details_data);
+                var index = this.all_cart_data.findIndex(y => y.customer_id == this.user_id && y.app_id == this.app_id && y.product_id == x.product_id);
+                if (index != -1) {
+                    this.all_cart_data.splice(index, 1);
+                }
+            })
+            this.order.order_details = all_details_data;
+            console.log(this.order)
+            // this.setCartData();
+            // this.storeAppService.createOrder(this.order).subscribe(
+            //     res => {
+            //         console.log(res)
+            //         this.router.navigate(['/store-app/', this.app_id, 'payment-success' , res.id])
+            //     },
+            //     error => {
+            //         console.log(error)
+            //     }
+            // )
+            // this.getPaytmFormValue(this.order.price)
+        }
+
+
     }
 
     getPaytmFormValue(amount: number) {

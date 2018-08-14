@@ -61,6 +61,7 @@ export class OrderModule {
   customer: string;
   price: number;
   appmaster: string;
+  address: number;
   order_details: OrderDetails[]
 }
 
@@ -77,9 +78,11 @@ export class OrderDetails {
 
 export class RadioOption {
   text: string;
+  id: number;
   selected: boolean = false;
 
-  constructor(text: string) {
+  constructor(text: string, id: number) {
     this.text = text;
+    this.id = id;
   }
 }
