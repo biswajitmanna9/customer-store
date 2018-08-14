@@ -40,7 +40,8 @@ export class LoginModalComponent implements OnInit {
     ngOnInit() {
         this.form = this.formBuilder.group({
             username: ['', Validators.required],
-            password: ['', Validators.required]
+            password: ['', Validators.required],
+            app_store_flag: [0]
         });
     }
 

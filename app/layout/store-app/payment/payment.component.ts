@@ -76,6 +76,8 @@ export class StoreAppPaymentComponent implements OnInit {
         }
     }
     address_id: number;
+    payment_type: number;
+    paymentOptions: Array<RadioOption>;
     constructor(
         private route: ActivatedRoute,
         private location: Location,
@@ -101,7 +103,29 @@ export class StoreAppPaymentComponent implements OnInit {
             pincode: ['', Validators.required],
             customer: [this.user_id, Validators.required]
         });
+        this.paymentOptions = [
+            new RadioOption("Paytm", 0),
+            new RadioOption("Cash On Delivery", 1)
+        ]
+        this.paymentOptions[0]['selected'] = true;
+        this.payment_type = this.paymentOptions[0]['id']
 
+    }
+
+    changeCheckedRadioPaymentMode(radioOption: RadioOption): void {
+        radioOption.selected = !radioOption.selected;
+        this.payment_type = radioOption.id
+        if (!radioOption.selected) {
+            return;
+        }
+
+        // uncheck all other options
+        this.paymentOptions.forEach(option => {
+            if (option.text !== radioOption.text) {
+                option.selected = false;
+            }
+        });
+        console.log(this.payment_type)
     }
 
     changeCheckedRadio(radioOption: RadioOption): void {
@@ -153,8 +177,8 @@ export class StoreAppPaymentComponent implements OnInit {
                     var d = new RadioOption(x.address, x.id)
                     this.radioOptions.push(d)
                 })
-                // this.radioOptions[this.radioOptions.length - 1]['selected'] = true;
-                // this.address_id = this.radioOptions[this.radioOptions.length - 1]['id']
+                this.radioOptions[0]['selected'] = true;
+                this.address_id = this.radioOptions[0]['id']
             },
             error => {
                 console.log(error)
@@ -278,13 +302,16 @@ export class StoreAppPaymentComponent implements OnInit {
             });
         }
         else {
+            this.loader.show(this.lodaing_options);
             this.order.customer = this.user_id;
             this.order.price = this.total_item_price + this.total_packing_price;
             this.order.address = this.address_id;
             this.order.appmaster = this.app_id
-            var details_data = new OrderDetails();
+            this.order.payment_type = this.payment_type;            
             var all_details_data = [];
             this.customer_cart_data.forEach(x => {
+                var details_data = new OrderDetails();
+                console.log(x)
                 details_data.appmaster = x.app_id;
                 if (x.discounted_price > 0) {
                     details_data.unit_price = x.discounted_price;
@@ -305,18 +332,25 @@ export class StoreAppPaymentComponent implements OnInit {
                 }
             })
             this.order.order_details = all_details_data;
-            console.log(this.order)
-            // this.setCartData();
-            // this.storeAppService.createOrder(this.order).subscribe(
-            //     res => {
-            //         console.log(res)
-            //         this.router.navigate(['/store-app/', this.app_id, 'payment-success' , res.id])
-            //     },
-            //     error => {
-            //         console.log(error)
-            //     }
-            // )
-            // this.getPaytmFormValue(this.order.price)
+            // console.log(JSON.stringify(this.order));
+            this.setCartData();
+            this.storeAppService.createOrder(this.order).subscribe(
+                res => {
+                    console.log(res)
+                    if (this.payment_type == 1) {
+                        this.loader.hide();
+                        this.router.navigate(['/store-app/', this.app_id, 'payment-success', res['id']])
+                    }
+                    else {
+                        this.getPaytmFormValue(this.order.price)
+                    }
+
+                },
+                error => {
+                    console.log(error)
+                }
+            )
+
         }
 
 
@@ -327,6 +361,7 @@ export class StoreAppPaymentComponent implements OnInit {
             res => {
                 console.log(res)
                 this.paytmFormDetails = res;
+                this.loader.hide();
                 this.payViaPaytm();
             },
             error => {
@@ -359,6 +394,7 @@ export class StoreAppPaymentComponent implements OnInit {
             CALLBACK_URL: this.paytmFormDetails['CALLBACK_URL'],
             CHECKSUMHASH: this.paytmFormDetails['CHECKSUMHASH']
         };
+        console.log(new Date());
         this.paytm.createOrder(this.orderToPaytm);
         this.paytm.initialize("STAGING");
         this.paytm.startPaymentTransaction({
