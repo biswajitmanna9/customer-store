@@ -42,12 +42,41 @@
                 <StackLayout verticalAlignment="center" col="1" row="3">
                     <Label class="pull-right font-weight-bold" [text]="total_item_price + total_packing_price"></Label>
                 </StackLayout>
+                <StackLayout class="hr-light m-t-25" row="3" colSpan="2"></StackLayout>
+
             </GridLayout>
         </StackLayout>
-        <GridLayout rows="*" columns="*,*" verticalAlignment="center" row="0" col="1">
+        <GridLayout rows="*,*" columns="*" verticalAlignment="center" row="0" col="0">
             <Label class="section_heading" text="Shipping Address" row="0" col="0"></Label>
-            <Button class="btn btn-primary pull-right" backgroundColor="#6c6969" color="#fff" width="50%" text="Add" (tap)="addAdressBox()" row="0" col="1"></Button>
+            <Button class="btn btn-primary pull-right " backgroundColor="#6c6969" color="#fff" width="50%" text="Add" (tap)="addAdressBox()" row="1" col="1"></Button>
         </GridLayout>
+
+        <StackLayout class="form" [formGroup]="form" novalidate *ngIf="address_box_key">
+            <GridLayout rows="auto, auto, auto">
+                <StackLayout class="input-filld" row="0">
+                    <TextField hint="Address" class="input input-border cyan-border m-t-10" borderColor="#6c6969" returnKeyType="next" formControlName="address" [ngClass]="displayFieldCss('address')"></TextField>
+                    <StackLayout *ngIf="isFieldValid('address')" class="invalid-feedback">
+                        <Label fontSize="8" text="Address is required"></Label>
+                    </StackLayout>
+                </StackLayout>
+                <StackLayout class="input-filld" row="1">
+                    <DropDown #dd class="input input-border cyan-border m-t-10" borderColor="#6c6969" [items]="state_list" hint="Select State" (selectedIndexChanged)="onchange($event)"></DropDown>
+                    <StackLayout *ngIf="isFieldValid('state')" class="invalid-feedback">
+                        <Label fontSize="8" text="State is required"></Label>
+                    </StackLayout>
+                </StackLayout>
+                <StackLayout class="input-filld" row="2">
+                    <TextField hint="Pincode" keyboardType="number" class="input input-border cyan-border m-t-10" borderColor="#6c6969" returnKeyType="done" formControlName="pincode"></TextField>
+                    <StackLayout *ngIf="isFieldValid('pincode')" class="invalid-feedback">
+                        <Label fontSize="8" text="Pincode is required"></Label>
+                    </StackLayout>
+                </StackLayout>
+            </GridLayout>
+            <Button class="btn-primary pull-right" text="Save" (tap)="addAdress()" backgroundColor="#6c6969" color="#fff" width="50%">
+            </Button>
+        </StackLayout>
+
+
         <StackLayout class="address_list">
             <StackLayout *ngFor="let option of radioOptions">
                 <StackLayout orientation="horizontal" verticalAlignment="center">
@@ -70,30 +99,7 @@
                 </StackLayout>
             </StackLayout>
         </StackLayout>
-        <StackLayout class="form" [formGroup]="form" novalidate *ngIf="address_box_key">
-            <GridLayout rows="auto, auto, auto">
-                <StackLayout class="input-filld" row="0">
-                    <TextField hint="Address" class="input input-border cyan-border m-t-10" borderColor="#49ddff" returnKeyType="next" formControlName="address" [ngClass]="displayFieldCss('address')"></TextField>
-                    <StackLayout *ngIf="isFieldValid('address')" class="invalid-feedback">
-                        <Label text="Address is required"></Label>
-                    </StackLayout>
-                </StackLayout>
-                <StackLayout class="input-filld" row="1">
-                    <DropDown #dd class="input input-border cyan-border m-t-10" borderColor="#49ddff" [items]="state_list" hint="Select State" (selectedIndexChanged)="onchange($event)" height="60"></DropDown>
-                    <StackLayout *ngIf="isFieldValid('state')" class="invalid-feedback">
-                        <Label text="State is required"></Label>
-                    </StackLayout>
-                </StackLayout>
-                <StackLayout class="input-filld" row="2">
-                    <TextField hint="Pincode" keyboardType="number" class="input input-border cyan-border m-t-10" borderColor="#49ddff" returnKeyType="done" formControlName="pincode"></TextField>
-                    <StackLayout *ngIf="isFieldValid('pincode')" class="invalid-feedback">
-                        <Label text="Pincode is required"></Label>
-                    </StackLayout>
-                </StackLayout>
-            </GridLayout>
-            <Button class="btn-primary pull-right" text="Save" (tap)="addAdress()" backgroundColor="#6c6969" color="#fff" width="50%">
-            </Button>
-        </StackLayout>
+
         <StackLayout>
             <StackLayout class="hr-light pading-gap m-b-10 m-t-10"></StackLayout>
             <Button class="btn btn-primary pull-right" backgroundColor="#6c6969" color="#fff" width="50%" text="Pay Order" (tap)="orderPay()"></Button>
