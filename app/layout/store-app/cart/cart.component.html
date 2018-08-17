@@ -23,17 +23,19 @@
 
 
                     <GridLayout rows="*" columns="40,40,40" verticalAlignment="center" row="0" col="2">
-                        <Button borderTopLeftRadius="2" borderBottomLeftRadius="2" class="fa" [text]="'fa-minus' | fonticon" backgroundColor="#fff" color="#00a008" borderColor="#00a008" borderWidth="1" row="0" col="0" (tap)="decrement(i)" width="40" height="40"></Button>
-                        <Label [text]="item.quantity" borderTopWidth="1" borderBottomWidth="1" borderBottomColor="#00a008" borderColor="#00a008" Color="#00a008" row="0" col="1" class="quantity" width="40" height="40"></Label>
-                        <Button borderTopRightRadius="2" borderBottomRightRadius="2" class="fa" [text]="'fa-plus' | fonticon" backgroundColor="#fff" color="#00a008" borderColor="#00a008" borderWidth="1" row="0" col="2" (tap)="increment(i)" width="40" height="40"></Button>
+                        <Button borderTopLeftRadius="2" borderBottomLeftRadius="2" class="fa" [text]="'fa-minus' | fonticon" backgroundColor="#fff" color="#00a008" borderColor="#00a008" borderWidth="1" row="0" col="0" (tap)="decrement(i)" backgroundColor="#d5edd5" paddingTop="12"
+                            width="40" height="35"></Button>
+                        <Label [text]="item.quantity" borderTopWidth="1" borderBottomWidth="1" borderBottomColor="#00a008" borderColor="#00a008" Color="#00a008" row="0" col="1" class="quantity" paddingTop="6" width="40" height="35"></Label>
+                        <Button borderTopRightRadius="2" borderBottomRightRadius="2" class="fa" [text]="'fa-plus' | fonticon" backgroundColor="#fff" color="#00a008" borderColor="#00a008" borderWidth="1" row="0" col="2" (tap)="increment(i)" paddingTop="12" backgroundColor="#d5edd5"
+                            width="40" height="35"></Button>
 
 
 
 
                     </GridLayout>
 
-                    <Button borderRadius="2" class="fa pull-right" [text]="'fa-trash' | fonticon" row="0" col="3" verticalAlignment="center" backgroundColor="#999999" borderColor="#999999" color="#fff" borderWidth="1" (tap)="remove(item.product_id)" width="30" height="40"
-                        padding="2"></Button>
+                    <Button borderRadius="2" paddingTop="6" class="fa pull-right" [text]="'fa-trash' | fonticon" row="0" col="3" verticalAlignment="center" backgroundColor="#999999" borderColor="#999999" color="#fff" borderWidth="1" (tap)="remove(item.product_id)" width="30"
+                        height="35" padding="2"></Button>
                 </GridLayout>
             </CardView>
         </StackLayout>
@@ -41,16 +43,16 @@
         <StackLayout padding="10">
             <GridLayout rows="*,*,*,*" columns="*,*" verticalAlignment="center">
                 <StackLayout verticalAlignment="center" col="0" row="0">
-                    <Label class="pull-left font-weight-bold" text="Total item price"></Label>
+                    <Label class="pull-left " text="Total item price"></Label>
                 </StackLayout>
                 <StackLayout verticalAlignment="center" col="1" row="0">
-                    <Label class="pull-right font-weight-bold" [text]="total_item_price"></Label>
+                    <Label class="pull-right " [text]="total_item_price"></Label>
                 </StackLayout>
                 <StackLayout verticalAlignment="center" col="0" row="1">
-                    <Label class="pull-left font-weight-bold" text="Total packing charge"></Label>
+                    <Label class="pull-left " text="Total packing charge"></Label>
                 </StackLayout>
                 <StackLayout verticalAlignment="center" col="1" row="1">
-                    <Label class="pull-right font-weight-bold" [text]="total_packing_price"></Label>
+                    <Label class="pull-right " [text]="total_packing_price"></Label>
                 </StackLayout>
                 <StackLayout class="hr-light m-10" row="2" colSpan="2"></StackLayout>
                 <StackLayout verticalAlignment="center" col="0" row="3">

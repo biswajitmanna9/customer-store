@@ -46,14 +46,12 @@
         </StackLayout>
         <GridLayout rows="*" columns="*,*" verticalAlignment="center" row="0" col="1">
             <Label class="section_heading" text="Shipping Address" row="0" col="0"></Label>
-            <Button class="btn btn-primary pull-right" backgroundColor="#6c6969" color="#fff" width="50%" text="Add" (tap)="addAdressBox()"
-                row="0" col="1"></Button>
+            <Button class="btn btn-primary pull-right" backgroundColor="#6c6969" color="#fff" width="50%" text="Add" (tap)="addAdressBox()" row="0" col="1"></Button>
         </GridLayout>
         <StackLayout class="address_list">
             <StackLayout *ngFor="let option of radioOptions">
                 <StackLayout orientation="horizontal" verticalAlignment="center">
-                    <CheckBox #elem [checked]="option.selected" (checkedChange)="elem.checked !== option.selected && changeCheckedRadio(option)"
-                        class="checkbox" boxType="circle"></CheckBox>
+                    <CheckBox #elem [checked]="option.selected" (checkedChange)="elem.checked !== option.selected && changeCheckedRadio(option)" class="checkbox" boxType="circle"></CheckBox>
                     <StackLayout verticalAlignment="center">
                         <Label [text]="option.text" textWrap="true" (tap)="changeCheckedRadio(option)"></Label>
                     </StackLayout>
@@ -65,8 +63,7 @@
             <Label class="section_heading" text="Payment Type" row="0" col="0"></Label>
             <StackLayout *ngFor="let option of paymentOptions">
                 <StackLayout orientation="horizontal" verticalAlignment="center">
-                    <CheckBox #elem [checked]="option.selected" (checkedChange)="elem.checked !== option.selected && changeCheckedRadioPaymentMode(option)"
-                        class="checkbox" boxType="circle"></CheckBox>
+                    <CheckBox #elem [checked]="option.selected" (checkedChange)="elem.checked !== option.selected && changeCheckedRadioPaymentMode(option)" class="checkbox" boxType="circle"></CheckBox>
                     <StackLayout verticalAlignment="center">
                         <Label [text]="option.text" textWrap="true" (tap)="changeCheckedRadioPaymentMode(option)"></Label>
                     </StackLayout>
@@ -76,22 +73,19 @@
         <StackLayout class="form" [formGroup]="form" novalidate *ngIf="address_box_key">
             <GridLayout rows="auto, auto, auto">
                 <StackLayout class="input-filld" row="0">
-                    <TextField hint="Address" class="input input-border cyan-border m-t-10" borderColor="#49ddff" returnKeyType="next" formControlName="address"
-                        [ngClass]="displayFieldCss('address')"></TextField>
+                    <TextField hint="Address" class="input input-border cyan-border m-t-10" borderColor="#49ddff" returnKeyType="next" formControlName="address" [ngClass]="displayFieldCss('address')"></TextField>
                     <StackLayout *ngIf="isFieldValid('address')" class="invalid-feedback">
                         <Label text="Address is required"></Label>
                     </StackLayout>
                 </StackLayout>
                 <StackLayout class="input-filld" row="1">
-                    <DropDown #dd class="input input-border cyan-border m-t-10" borderColor="#49ddff" [items]="state_list" hint="Select State"
-                        (selectedIndexChanged)="onchange($event)" height="60"></DropDown>
+                    <DropDown #dd class="input input-border cyan-border m-t-10" borderColor="#49ddff" [items]="state_list" hint="Select State" (selectedIndexChanged)="onchange($event)" height="60"></DropDown>
                     <StackLayout *ngIf="isFieldValid('state')" class="invalid-feedback">
                         <Label text="State is required"></Label>
                     </StackLayout>
                 </StackLayout>
                 <StackLayout class="input-filld" row="2">
-                    <TextField hint="Pincode" keyboardType="number" class="input input-border cyan-border m-t-10" borderColor="#49ddff" returnKeyType="done"
-                        formControlName="pincode"></TextField>
+                    <TextField hint="Pincode" keyboardType="number" class="input input-border cyan-border m-t-10" borderColor="#49ddff" returnKeyType="done" formControlName="pincode"></TextField>
                     <StackLayout *ngIf="isFieldValid('pincode')" class="invalid-feedback">
                         <Label text="Pincode is required"></Label>
                     </StackLayout>

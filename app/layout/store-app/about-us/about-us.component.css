@@ -8,10 +8,11 @@
     text-transform: uppercase;
 }
 
-.rating{
+.rating {
     color: gray;
     font-size: 10;
 }
-.rating.active{
+
+.rating.active {
     color: green;
 }

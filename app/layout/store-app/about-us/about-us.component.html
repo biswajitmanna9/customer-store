@@ -11,16 +11,14 @@
         <!-- <StarRating emptyBorderColor="red" emptyColor="white" filledBorderColor="black" filledColor="red" value="{{value}}" max="{{max}}"
             isindicator="false" id="rating"></StarRating> -->
         <!-- <StarRating emptyBorderColor="white" emptyColor="white" filledBorderColor="black" filledColor="red" value="{{value}}" max="{{max}}" isindicator="false"></StarRating> -->
-        <Button class="btn btn-primary" [text]="gallery_visible_key? 'Hide Gallery' : 'View Gallery'" backgroundColor="#6c6969" color="#fff"
-            width="40%" (tap)="toggleGallery()" *ngIf="gallery_images.length > 0" horizontalAlignment="center">
+        <Button class="btn btn-primary" [text]="gallery_visible_key? 'Hide Gallery' : 'View Gallery'" backgroundColor="#6c6969" color="#fff" width="40%" (tap)="toggleGallery()" *ngIf="gallery_images.length > 0" horizontalAlignment="center">
         </Button>
-        <GridLayout [carousel]="gallery_images" carouselLabelOverlay="true" carouselSpeed="2000" *ngIf="gallery_visible_key && gallery_images.length > 0"
-            horizontalAlignment="center"></GridLayout>
 
         <StackLayout orientation="horizontal" textAlignment="center" horizontalAlignment="center" class="m-t-10">
-            <Label class="fa rating" [text]="'fa-star' | fonticon" *ngFor="let rat of rating; let i = index" [ngClass]="[i <= rating_value -1 ? 'active' : '']"
-                (tap)="rateApp(rat)" fontSize="20" horizontalAlignment="center"></Label>
+            <Label class="fa rating" [text]="'fa-star' | fonticon" *ngFor="let rat of rating; let i = index" [ngClass]="[i <= rating_value -1 ? 'active' : '']" (tap)="rateApp(rat)" fontSize="20" horizontalAlignment="center"></Label>
         </StackLayout>
+        <GridLayout [carousel]="gallery_images" carouselLabelOverlay="true" carouselSpeed="2000" *ngIf="gallery_visible_key && gallery_images.length > 0" horizontalAlignment="center"></GridLayout>
+
 
     </StackLayout>
 </ScrollView>
