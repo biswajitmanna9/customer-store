@@ -54,6 +54,14 @@ export class StoreAppService {
     return this.http.get(Globals.apiEndpoint + 'states_dropdown/')
   }
 
+  getCustomerDetails(id) {
+    return this.http.get(Globals.apiEndpoint + 'customer_details/' + id + '/')
+  }
+
+  getCustomerOrderListByApp(params) {
+    return this.http.get(Globals.apiEndpoint + 'order_details_by_customer_app/' + params )
+  }
+
 }
 
 
@@ -62,6 +70,7 @@ export class OrderModule {
   price: number;
   appmaster: string;
   address: number;
+  payment_type: number;
   order_details: OrderDetails[]
 }
 

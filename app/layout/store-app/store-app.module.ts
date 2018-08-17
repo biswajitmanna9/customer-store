@@ -11,6 +11,7 @@ import { StoreAppPaymentComponent } from './payment/payment.component';
 import { StoreAppMessengerComponent } from './messenger/messenger.component';
 import { StoreAppPaymentSuccessComponent } from './payment-success/payment-success.component';
 import { StoreAppOrderListComponent } from './order-list/order-list.component';
+import { StoreAppMyAccountComponent } from './my-account/my-account.component';
 
 import { CoreModule } from "../../core/core.module";
 
@@ -29,7 +30,8 @@ import { CoreModule } from "../../core/core.module";
         StoreAppPaymentComponent,
         StoreAppMessengerComponent,
         StoreAppPaymentSuccessComponent,
-        StoreAppOrderListComponent
+        StoreAppOrderListComponent,
+        StoreAppMyAccountComponent
     ],
     schemas: [
         NO_ERRORS_SCHEMA

@@ -11,7 +11,7 @@ import { StoreAppPaymentComponent } from './payment/payment.component';
 import { StoreAppMessengerComponent } from './messenger/messenger.component';
 import { StoreAppPaymentSuccessComponent } from './payment-success/payment-success.component';
 import { StoreAppOrderListComponent } from './order-list/order-list.component';
-
+import { StoreAppMyAccountComponent } from './my-account/my-account.component';
 const routes: Routes = [
     {
         path: ':id',
@@ -24,7 +24,8 @@ const routes: Routes = [
             { path: "payment", component: StoreAppPaymentComponent },
             { path: "messenger", component: StoreAppMessengerComponent },
             { path: "payment-success/:order", component: StoreAppPaymentSuccessComponent },
-            { path: "order-list", component: StoreAppOrderListComponent }
+            { path: "order-list", component: StoreAppOrderListComponent },
+            { path: "my-account", component: StoreAppMyAccountComponent }
         ]
     }
 

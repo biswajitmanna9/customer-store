@@ -65,7 +65,8 @@ export class SignupComponent implements OnInit {
         Validators.minLength(10),
         Validators.maxLength(12)
       ]],
-      password: ['', Validators.required]
+      password: ['', Validators.required],
+      app_store_flag: [0]
     });
 
   }

@@ -14,7 +14,7 @@
                         </StackLayout>
                     </StackLayout>
                     <GridLayout rows="*" columns="auto,auto" verticalAlignment="center" row="0" col="1">
-                        <Label text="Quantity" Color="#00a008" row="0" col="0" verticalAlignment="center"></Label>
+                        <Label text="Quantity - " Color="#00a008" row="0" col="0" verticalAlignment="center"></Label>
                         <Label [text]="item.quantity" row="0" col="1" class="quantity" verticalAlignment="center"></Label>
                     </GridLayout>
                 </GridLayout>
@@ -56,6 +56,19 @@
                         class="checkbox" boxType="circle"></CheckBox>
                     <StackLayout verticalAlignment="center">
                         <Label [text]="option.text" textWrap="true" (tap)="changeCheckedRadio(option)"></Label>
+                    </StackLayout>
+                </StackLayout>
+            </StackLayout>
+        </StackLayout>
+        <StackLayout class="hr-light pading-gap m-b-10 m-t-10"></StackLayout>
+        <StackLayout class="paymonet_mode">
+            <Label class="section_heading" text="Payment Type" row="0" col="0"></Label>
+            <StackLayout *ngFor="let option of paymentOptions">
+                <StackLayout orientation="horizontal" verticalAlignment="center">
+                    <CheckBox #elem [checked]="option.selected" (checkedChange)="elem.checked !== option.selected && changeCheckedRadioPaymentMode(option)"
+                        class="checkbox" boxType="circle"></CheckBox>
+                    <StackLayout verticalAlignment="center">
+                        <Label [text]="option.text" textWrap="true" (tap)="changeCheckedRadioPaymentMode(option)"></Label>
                     </StackLayout>
                 </StackLayout>
             </StackLayout>
