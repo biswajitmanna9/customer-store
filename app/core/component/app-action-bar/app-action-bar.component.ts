@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { RouterExtensions } from "nativescript-angular/router";
 import { getString, setString, getBoolean, setBoolean, clear } from "application-settings";
 import { StoreAppService } from "../../services/store-app.service";
+
 @Component({
     selector: "app-action-bar",
     moduleId: module.id,
@@ -12,15 +13,21 @@ export class AppActionBarComponent implements OnInit {
     app_details: any;
     product_list: any = [];
     @Input('appId') appId: string;
-    visible_key: boolean
+    visible_key: boolean;
+    isLoggedin: boolean;
     constructor(
         private _routerExtensions: RouterExtensions,
-        private storeAppService: StoreAppService
+        private storeAppService: StoreAppService,
+        private routerExtensions: RouterExtensions
     ) {
 
     }
 
     ngOnInit() {
+        if(getBoolean('isLoggedin')){
+            this.isLoggedin = getBoolean('isLoggedin');
+            // alert(this.isLoggedin)
+        }
         this.getAppDetails(this.appId);
     }    
 
@@ -42,4 +49,13 @@ export class AppActionBarComponent implements OnInit {
             }
         )
     }
+    goBack() {
+        this.routerExtensions.back();
+    }
+
+    logout(){
+        clear();
+        this._routerExtensions.navigate(["/login"], { clearHistory: true });
+    }
+
 }

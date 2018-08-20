@@ -5,6 +5,7 @@ import { Location } from '@angular/common';
 import { SecureStorage } from "nativescript-secure-storage";
 import { getString, setString, getBoolean, setBoolean, clear } from "application-settings";
 import { Observable } from "tns-core-modules/data/observable";
+import { LoadingIndicator } from "nativescript-loading-indicator";
 @Component({
     selector: 'products',
     moduleId: module.id,
@@ -21,6 +22,30 @@ export class StoreAppProductsComponent implements OnInit {
     customer_cart_data: any;
     secureStorage: SecureStorage;
     user_id: string;
+    loader = new LoadingIndicator();
+    lodaing_options = {
+        message: 'Loading...',
+        progress: 0.65,
+        android: {
+            indeterminate: true,
+            cancelable: false,
+            cancelListener: function (dialog) { console.log("Loading cancelled") },
+            max: 100,
+            progressNumberFormat: "%1d/%2d",
+            progressPercentFormat: 0.53,
+            progressStyle: 1,
+            secondaryProgress: 1
+        },
+        ios: {
+            details: "Additional detail note!",
+            margin: 10,
+            dimBackground: true,
+            color: "#4B9ED6",
+            backgroundColor: "yellow",
+            userInteractionEnabled: false,
+            hideBezel: true,
+        }
+    }
     constructor(
         private route: ActivatedRoute,
         private storeAppService: StoreAppService,
@@ -56,6 +81,7 @@ export class StoreAppProductsComponent implements OnInit {
     }
 
     getAppDetails(id) {
+        this.loader.show(this.lodaing_options);
         this.storeAppService.getStoreAppDetails(id).subscribe(
             res => {
                 this.app_details = res;
@@ -85,9 +111,11 @@ export class StoreAppProductsComponent implements OnInit {
                     this.list_view_key = true;
                 }
                 console.log(res)
+                this.loader.hide();
             },
             error => {
                 console.log(error)
+                this.loader.hide();
             }
         )
     }

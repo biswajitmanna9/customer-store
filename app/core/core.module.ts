@@ -4,7 +4,7 @@ import { NativeScriptRouterModule } from "nativescript-angular/router";
 import { NativeScriptFormsModule } from "nativescript-angular/forms";
 import { ReactiveFormsModule } from "@angular/forms";
 import { NativeScriptHttpClientModule } from "nativescript-angular/http-client";
-import { TNSFontIconModule } from 'nativescript-ngx-fonticon';
+import { TNSFontIconModule,TNSFontIconService } from 'nativescript-ngx-fonticon';
 import { DropDownModule } from "nativescript-drop-down/angular";
 import { AccordionModule } from "nativescript-accordion/angular";
 import { TNSCheckBoxModule } from 'nativescript-checkbox/angular';
@@ -27,7 +27,7 @@ import { SignUpModalComponent } from './component/signup-modal/signup-modal.comp
 import { LocationModalComponent } from './component/location-modal/location-modal.component';
 import { AppMenuBarComponent } from './component/app-menu-bar/app-menu-bar.component';
 import { AppActionBarComponent } from './component/app-action-bar/app-action-bar.component';
-
+TNSFontIconService.debug = true;
 @NgModule({
     imports: [
         NativeScriptCommonModule,

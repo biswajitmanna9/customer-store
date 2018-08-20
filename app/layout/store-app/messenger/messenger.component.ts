@@ -6,6 +6,7 @@ import * as TNSPhone from 'nativescript-phone';
 import { RouterExtensions } from "nativescript-angular/router";
 import { getString, setString, getBoolean, setBoolean, clear } from "application-settings";
 require("nativescript-websockets");
+import { LoadingIndicator } from "nativescript-loading-indicator";
 @Component({
     selector: 'messenger',
     moduleId: module.id,
@@ -20,7 +21,35 @@ export class StoreAppMessengerComponent implements OnInit, OnDestroy {
     socket: any;
     messages: Array<any>;
     user_id: string;
+
+
     @ViewChild("ScrollList") scrollList: ElementRef;
+
+    loader = new LoadingIndicator();
+    lodaing_options = {
+        message: 'Loading...',
+        progress: 0.65,
+        android: {
+            indeterminate: true,
+            cancelable: false,
+            cancelListener: function (dialog) { console.log("Loading cancelled") },
+            max: 100,
+            progressNumberFormat: "%1d/%2d",
+            progressPercentFormat: 0.53,
+            progressStyle: 1,
+            secondaryProgress: 1
+        },
+        ios: {
+            details: "Additional detail note!",
+            margin: 10,
+            dimBackground: true,
+            color: "#4B9ED6",
+            backgroundColor: "yellow",
+            userInteractionEnabled: false,
+            hideBezel: true,
+        }
+    }
+
     constructor(
         private route: ActivatedRoute,
         private location: Location,
@@ -122,6 +151,7 @@ export class StoreAppMessengerComponent implements OnInit, OnDestroy {
             chat_user_type: ''
         }
         var param = "?sender=" + this.user_id + "&sender_type=customer&receiver=" + this.app_id + "&receiver_type=app_master"
+
         this.storeAppService.createChatSessionView(param, data).subscribe(
             res => {
                 console.log(res)
@@ -136,6 +166,7 @@ export class StoreAppMessengerComponent implements OnInit, OnDestroy {
 
 
     getMessageList(thread) {
+        this.loader.show(this.lodaing_options);
         this.storeAppService.getMessageListByApp(thread).subscribe(
             (res: any[]) => {
                 console.log(res)
@@ -153,9 +184,11 @@ export class StoreAppMessengerComponent implements OnInit, OnDestroy {
                     this.messages.push(data)
                     console.log(this.messages)
                     this.scrollToBottom();
+                    this.loader.hide();
                 })
             },
             error => {
+                this.loader.hide();
                 console.log(error)
             }
         )

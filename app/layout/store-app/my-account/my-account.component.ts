@@ -47,7 +47,6 @@ export class StoreAppMyAccountComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.loader.show(this.lodaing_options);
         var full_location = this.location.path().split('/');
         this.app_id = full_location[2].trim();
         this.user_id = getString('user_id');
@@ -56,6 +55,7 @@ export class StoreAppMyAccountComponent implements OnInit {
     }
 
     getCustomerDetails(id) {
+        this.loader.show(this.lodaing_options);
         this.storeAppService.getCustomerDetails(id).subscribe(
             res => {
                 console.log(res)

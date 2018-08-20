@@ -9,10 +9,10 @@ const routes: Routes = [
         component: LayoutComponent,
         children: [
             { path: '', redirectTo: 'explore' },
-            { path: 'dashboard', loadChildren: './layout/dashboard/dashboard.module#DashboardModule' },
-            { path: 'explore', loadChildren: './layout/explore/explore.module#ExploreModule' },
-            { path: 'store-app', loadChildren: './layout/store-app/store-app.module#StoreAppModule' },
-            { path: 'all-app', loadChildren: './layout/all-app/all-app.module#AllAppModule' }
+            { path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardModule' },
+            { path: 'explore', loadChildren: './explore/explore.module#ExploreModule' },
+            { path: 'store-app', loadChildren: './store-app/store-app.module#StoreAppModule' },
+            { path: 'all-app', loadChildren: './all-app/all-app.module#AllAppModule' }
         ]
     }
 ];

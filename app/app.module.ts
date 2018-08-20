@@ -5,6 +5,7 @@ import { AppRoutingModule } from "./app.routing";
 import { AppComponent } from "./app.component";
 import { CoreModule } from "./core/core.module";
 
+
 @NgModule({
     bootstrap: [
         AppComponent
@@ -30,6 +31,7 @@ import { CoreModule } from "./core/core.module";
         NO_ERRORS_SCHEMA
     ]
 })
+
 /*
 Pass your application module to the bootstrapModule function located in main.ts to start your app
 */

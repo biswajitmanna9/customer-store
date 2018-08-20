@@ -1,9 +1,13 @@
 <Accordion [items]="order_list" itemTapped="tapped" class="category_product_accordian" separatorColor="transparent">
     <ng-template accordionHeaderTemplate let-item="item" let-i="index">
-        <GridLayout columns="*,*,*" rows="*" class="category_heading" borderWidth="1" borderColor="#ccc">
+        <GridLayout columns="*,*,*,*,*" rows="*" class="category_heading" borderWidth="1" borderColor="#ccc">
             <Label [text]="item.order_id" row="0" col="0"></Label>
             <Label [text]="item.price" row="0" col="1"></Label>
             <Label [text]="item.created_at | date:'yy-mm-dd'" row="0" col="2"></Label>
+            <Label row="0" col="3" *ngIf="!item.is_paid" text="Not Paid"></Label>
+            <Label row="0" col="3" *ngIf="item.is_paid" text="Paid"></Label>
+            <Label row="0" col="4" *ngIf="!item.delivery_status" text="Not Delivered"></Label>
+            <Label row="0" col="4" *ngIf="item.delivery_status" text="Delivered"></Label>
         </GridLayout>
     </ng-template>
     <ng-template accordionItemTemplate let-item="item" let-parent="parentIndex" let-even="even" let-child="childIndex">

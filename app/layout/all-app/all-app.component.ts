@@ -7,6 +7,7 @@ import { LoginModalComponent } from '../../core/component/login-modal/login-moda
 import { SignUpModalComponent } from '../../core/component/signup-modal/signup-modal.component';
 import { LocationModalComponent } from '../../core/component/location-modal/location-modal.component';
 import { getString, setString, getBoolean, setBoolean, clear } from "application-settings";
+import { LoadingIndicator } from "nativescript-loading-indicator";
 
 @Component({
     selector: "dashboard",
@@ -28,6 +29,31 @@ export class AllAppComponent implements OnInit {
     rating: any = [1, 2, 3, 4, 5];
     page: number = 1;
     next_page: string;
+    loader = new LoadingIndicator();
+    lodaing_options = {
+        message: 'Loading...',
+        progress: 0.65,
+        android: {
+            indeterminate: true,
+            cancelable: false,
+            cancelListener: function (dialog) { console.log("Loading cancelled") },
+            max: 100,
+            progressNumberFormat: "%1d/%2d",
+            progressPercentFormat: 0.53,
+            progressStyle: 1,
+            secondaryProgress: 1
+        },
+        ios: {
+            details: "Additional detail note!",
+            margin: 10,
+            dimBackground: true,
+            color: "#4B9ED6",
+            backgroundColor: "yellow",
+            userInteractionEnabled: false,
+            hideBezel: true,
+        }
+    }
+
     constructor(
         private exploreService: ExploreService,
         private modal: ModalDialogService,
@@ -64,6 +90,7 @@ export class AllAppComponent implements OnInit {
     getRatedAppList() {
         let params = '';
         params = '?page=' + this.page;
+        this.loader.show(this.lodaing_options);
         this.exploreService.getRatedAppList(params).subscribe(
             (res) => {
                 console.log(res)
@@ -92,9 +119,11 @@ export class AllAppComponent implements OnInit {
                         this.app_list.push(x);
                     })
                 }
+                this.loader.hide();
                 console.log(res)
             },
             error => {
+                this.loader.hide();
                 console.log(error)
             }
         )
