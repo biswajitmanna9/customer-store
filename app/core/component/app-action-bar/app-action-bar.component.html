@@ -1,12 +1,13 @@
 <ActionBar title="">
     <GridLayout rows="*" columns="40,40,*,40,40" verticalAlignment="center">
         <!-- <NavigationButton icon="~/images/back.png" (tap)="goBack()"  row="0" col="0"></NavigationButton> -->
-        <Image src="~/images/back.png" height="20" width="20" row="0" col="0" verticalAlignment="center" (tap)="goBack()"></Image>
+        <StackLayout (tap)="goBack()">
+            <Image src="~/images/back.png" height="30" width="30" row="0" col="0" verticalAlignment="center"></Image>
+        </StackLayout>
         <Image [src]="app_details?.logo" class="action-image" row="0" col="1" verticalAlignment="center" *ngIf="app_details?.logo != null"></Image>
         <Image src="~/images/no-image-logo.jpg" class="action-image" row="0" col="1" *ngIf="app_details?.logo == null"></Image>
-        <Label [text]="app_details?.business_name" class="action-label" color="#333131" fontSize="12" row="0" col="2" verticalAlignment="center"></Label>
-        <Label class="fa cart-label" [text]="'fa-shopping-cart' | fonticon" [nsRouterLink]="['/store-app/', appId , 'cart']" *ngIf="visible_key && product_list.length > 0"
-            row="0" col="3" verticalAlignment="center"></Label>
-        <Label class="fa logout-label" (tap)="logout()" [text]="'fa-power-off' | fonticon" *ngIf="isLoggedin" row="0" col="4" verticalAlignment="center"></Label>
+        <Label [text]="app_details?.business_name" class="action-label" color="#fff" fontSize="12" row="0" col="2" verticalAlignment="center"></Label>
+        <Label class="fa cart-label" color="#fff" [text]="'fa-shopping-cart' | fonticon" [nsRouterLink]="['/store-app/', appId , 'cart']" *ngIf="visible_key && product_list.length > 0" row="0" col="3" verticalAlignment="center"></Label>
+        <Label class="fa logout-label" color="#fff" (tap)="logout()" [text]="'fa-power-off' | fonticon" *ngIf="isLoggedin" row="0" col="4" verticalAlignment="center"></Label>
     </GridLayout>
 </ActionBar>

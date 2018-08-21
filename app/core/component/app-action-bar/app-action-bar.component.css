@@ -1,7 +1,7 @@
 .action-image {
     border-radius: 50%;
     background: #f9ece3;
-    padding-right: 5%;
+    margin-right: 2%;
 }
 
 .action-label {
@@ -11,11 +11,11 @@
 }
 
 .logout-label {
-    color: rgb(57, 58, 63);
+    color: #fff;
     font-size: 18;
 }
 
 .cart-label {
-    color: rgb(57, 58, 63);
+    color: #fff;
     font-size: 18;
 }

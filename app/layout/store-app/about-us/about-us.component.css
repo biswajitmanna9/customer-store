@@ -10,7 +10,7 @@
 
 .rating {
     color: gray;
-    font-size: 10;
+    padding: 2;
 }
 
 .rating.active {
