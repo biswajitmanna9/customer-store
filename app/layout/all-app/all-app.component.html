@@ -1,7 +1,7 @@
 <action-bar></action-bar>
 <GridLayout rows="*,60">
     <ScrollView row="0" (scroll)="onScroll($event)">
-        <StackLayout class="list-group" orientation="vertical" background="#f9ece3">
+        <StackLayout class="list-group bg-color" orientation="vertical">
             <label class="section_heading" text="Apps"></label>
             <StackLayout marginBottom="3" *ngFor="let app of app_list">
                 <CardView class="whiteCard" elevation="25">
@@ -14,8 +14,7 @@
                         <StackLayout orientation="horizontal" col="2" row="0" verticalAlignment="center">
                             <Label class="fa rating" [text]="'fa-star' | fonticon" *ngFor="let rat of rating; let i = index" [ngClass]="[i <= app.avg_rating -1 ? 'active' : '']"></Label>
                         </StackLayout>
-                        <Label class="fa add-btn" [text]="'fa-plus-circle' | fonticon" verticalAlignment="center" orientation="vertical" col="3"
-                            row="0" [ngClass]="{'active-btn': app.isDashboard}" (tap)="addToDashboard(app.id)"></Label>
+                        <Label class="fa add-btn" [text]="'fa-plus-circle' | fonticon" verticalAlignment="center" orientation="vertical" col="3" row="0" [ngClass]="{'active-btn': app.isDashboard}" (tap)="addToDashboard(app.id)"></Label>
                     </GridLayout>
                 </CardView>
             </StackLayout>

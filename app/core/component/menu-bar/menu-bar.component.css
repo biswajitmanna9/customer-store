@@ -4,17 +4,17 @@
 }
 
 .bottom-nav Label {
-    color: #adadad;
+    color: #809bb6;
 }
 
 .bottom-nav .fa {
-    font-size: 18;
+    font-size: 20;
 }
 
 .menu-label {
-    font-size: 10;
+    font-size: 8;
 }
 
 .bottom-nav .active-link Label {
-    color: #000;
+    color: #fff;
 }

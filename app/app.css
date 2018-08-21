@@ -112,6 +112,10 @@ FilterSelect {
     text-align: right;
 }
 
+.bg-color {
+    background-color: #dedede;
+}
+
 
 /* slider */
 
@@ -129,4 +133,8 @@ FilterSelect {
 ActionBar {
     background-color: #284058;
     color: white;
+}
+
+.m-t-150 {
+    margin-top: 150;
 }

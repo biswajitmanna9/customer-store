@@ -1,18 +1,16 @@
 <action-bar></action-bar>
-<GridLayout rows="*,60">
-    <DockLayout stretchLastChild="true" background="#f9ece3">
+<GridLayout class="bg-color" rows="*,60">
+    <DockLayout stretchLastChild="true">
         <GridLayout rows="auto,auto,auto" dock="top">
             <StackLayout padding="10" paddingBottom="0" row="0">
-                <FilterSelect [items]="category_list" (change)="onCategoryChange($event)" hint="Search by Category" [selectText]="'fa-search' | fonticon"
-                    modal_title="Category" search_param="category_name" primary_key="id" class="category_dropdown" borderRadius="5">
+                <FilterSelect [items]="category_list" (change)="onCategoryChange($event)" hint="Search by Category" [selectText]="'fa-search' | fonticon" modal_title="Category" search_param="category_name" primary_key="id" class="category_dropdown" borderRadius="5">
                     <ng-template let-category="item">
                         <GridLayout columns="*" rows="*">
                             <Label col="0" row="0" [text]="category.category_name" class="list-group-item-heading"></Label>
                         </GridLayout>
                     </ng-template>
                 </FilterSelect>
-                <TextField borderRadius="5" class="m-t-5" borderColor="#ccc" borderWidth="1" hint="Search by Location" width="100%" (tap)="searchLocation($event)"
-                    backgroundColor="#fff" height="50" padding="10" fontSize="12" [(ngModel)]="location"></TextField>
+                <TextField borderRadius="5" class="m-t-5" borderColor="#ccc" borderWidth="1" hint="Search by Location" width="100%" (tap)="searchLocation($event)" backgroundColor="#fff" height="50" padding="10" fontSize="12" [(ngModel)]="location"></TextField>
             </StackLayout>
             <StackLayout class="hr-light pading-gap m-b-10 m-t-10" row="1"></StackLayout>
             <label class="section_heading" text="Trending Apps" row="2"></label>
@@ -32,8 +30,7 @@
                                 <StackLayout orientation="horizontal" col="2" row="0" verticalAlignment="center">
                                     <Label class="fa rating" [text]="'fa-star' | fonticon" *ngFor="let rat of rating; let i = index" [ngClass]="[i <= app.avg_rating -1 ? 'active' : '']"></Label>
                                 </StackLayout>
-                                <Label class="fa add-btn" [text]="'fa-plus-circle' | fonticon" verticalAlignment="center" orientation="vertical" col="3"
-                                    row="0" [ngClass]="{'active-btn': app.isDashboard}" (tap)="addToDashboard(app.id)"></Label>
+                                <Label class="fa add-btn" [text]="'fa-plus-circle' | fonticon" verticalAlignment="center" orientation="vertical" col="3" row="0" [ngClass]="{'active-btn': app.isDashboard}" (tap)="addToDashboard(app.id)"></Label>
                             </GridLayout>
                         </CardView>
                     </StackLayout>
