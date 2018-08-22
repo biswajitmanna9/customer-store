@@ -7,12 +7,9 @@
 
             <Label textAlignment="center" fontSize="15" lineHeight="10" [text]="app_details.business_description" class="business_desc m-t-30" textWrap="true"></Label>
         </FlexboxLayout>
-
         <!-- <StarRating emptyBorderColor="red" emptyColor="white" filledBorderColor="black" filledColor="red" value="{{value}}" max="{{max}}"
             isindicator="false" id="rating"></StarRating> -->
         <!-- <StarRating emptyBorderColor="white" emptyColor="white" filledBorderColor="black" filledColor="red" value="{{value}}" max="{{max}}" isindicator="false"></StarRating> -->
-
-
         <StackLayout orientation="horizontal" textAlignment="center" horizontalAlignment="center" class="m-t-10">
             <Label text="Rate Us" class="business_desc m-t-10" marginRight="10" textWrap="true"></Label>
 
@@ -23,7 +20,5 @@
             </Button>
 
         <GridLayout [carousel]="gallery_images" carouselLabelOverlay="true" carouselSpeed="2000" *ngIf="gallery_visible_key && gallery_images.length > 0" horizontalAlignment="center" height="300" width="300"></GridLayout>
-
-
     </StackLayout>
 </ScrollView>
