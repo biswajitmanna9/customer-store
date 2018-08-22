@@ -1,10 +1,9 @@
 <action-bar></action-bar>
 <GridLayout rows="*,60">
     <ScrollView row="0">
-        <StackLayout class="full-dashboard">
+        <StackLayout class="full-dashboard bg-color">
             <FlexboxLayout flexWrap="wrap" alignItems="flex-start">
-                <CardView *ngFor="let item of user_app_list" class="card" elevation="0" borderColor="#6c6969" shadowOffsetWidth="0" shadowOffsetHeight="0"
-                    alignSelf="flex-start" [nsRouterLink]="['/store-app/', item.id, 'about-us']">
+                <CardView *ngFor="let item of user_app_list" class="card" elevation="0" borderColor="#6c6969" shadowOffsetWidth="0" shadowOffsetHeight="0" alignSelf="flex-start" [nsRouterLink]="['/store-app/', item.id, 'about-us']">
                     <StackLayout orientation="vertical">
                         <StackLayout class="app-icon">
                             <Label class="fa close" [text]="'fa-times-circle' | fonticon" (tap)="removeFromDashboard(item.id)" top="10" left="10"></Label>

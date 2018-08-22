@@ -48,7 +48,7 @@
         </StackLayout>
         <GridLayout rows="*,*" columns="*" verticalAlignment="center" row="0" col="0">
             <Label class="section_heading" text="Shipping Address" row="0" col="0"></Label>
-            <Button class="btn btn-primary pull-right " backgroundColor="#6c6969" color="#fff" width="50%" text="Add" (tap)="addAdressBox()" row="1" col="1"></Button>
+            <Button class="btn btn-primary pull-right " backgroundColor="#284058" color="#fff" width="50%" text="Add" (tap)="addAdressBox()" row="1" col="1"></Button>
         </GridLayout>
 
         <StackLayout class="form" [formGroup]="form" novalidate *ngIf="address_box_key">
@@ -72,7 +72,7 @@
                     </StackLayout>
                 </StackLayout>
             </GridLayout>
-            <Button class="btn-primary pull-right" text="Save" (tap)="addAdress()" backgroundColor="#6c6969" color="#fff" width="50%">
+            <Button class="btn-primary pull-right" text="Save" (tap)="addAdress()" backgroundColor="#284058" color="#fff" width="50%">
             </Button>
         </StackLayout>
 
@@ -102,7 +102,7 @@
 
         <StackLayout>
             <StackLayout class="hr-light pading-gap m-b-10 m-t-10"></StackLayout>
-            <Button class="btn btn-primary pull-right" backgroundColor="#6c6969" color="#fff" width="50%" text="Pay Order" (tap)="orderPay()"></Button>
+            <Button class="btn btn-primary pull-right" backgroundColor="#284058" color="#fff" width="50%" text="Pay Order" (tap)="orderPay()"></Button>
         </StackLayout>
     </StackLayout>
 </ScrollView>

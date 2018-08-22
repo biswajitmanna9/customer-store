@@ -62,6 +62,10 @@ export class StoreAppService {
     return this.http.get(Globals.apiEndpoint + 'order_details_by_customer_app/' + params )
   }
 
+  getSocialMediaListByApp(id) {
+    return this.http.get(Globals.apiEndpoint + 'app_social_media/' + id )
+  }
+
 }
 
 

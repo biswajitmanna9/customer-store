@@ -41,37 +41,38 @@
         </StackLayout>
 
         <StackLayout padding="10">
-            <GridLayout rows="*,*,*,*" columns="*,auto" verticalAlignment="center">
+            <GridLayout rows="*,*,*,*" columns="*,50%" verticalAlignment="center">
                 <StackLayout verticalAlignment="center" col="0" row="0">
                     <Label class="pull-left " text="Total item price"></Label>
                 </StackLayout>
                 <StackLayout verticalAlignment="center" col="1" row="0">
-                    <Label class="pull-right " [text]="total_item_price"></Label>
+                    <Label textAlignment="left" [text]="total_item_price"></Label>
                 </StackLayout>
                 <StackLayout verticalAlignment="center" col="0" row="1">
                     <Label class="pull-left " text="Total packing charge"></Label>
                 </StackLayout>
                 <StackLayout verticalAlignment="center" col="1" row="1">
-                    <Label class="pull-right " [text]="total_packing_price"></Label>
+                    <Label textAlignment="left" [text]="total_packing_price"></Label>
                 </StackLayout>
                 <StackLayout class="hr-light m-10" row="2" colSpan="2"></StackLayout>
                 <StackLayout verticalAlignment="center" col="0" row="3">
                     <Label class="pull-left font-weight-bold" text="Total"></Label>
                 </StackLayout>
                 <StackLayout verticalAlignment="center" col="1" row="3">
-                    <Label class="pull-right font-weight-bold" [text]="total_item_price + total_packing_price"></Label>
+                    <Label class=" font-weight-bold" textAlignment="left" [text]="total_item_price + total_packing_price"></Label>
                 </StackLayout>
             </GridLayout>
         </StackLayout>
-        <StackLayout class="hr-light m-10"></StackLayout>
+
+        <StackLayout class="hr-light pading-gap m-b-10 m-t-10"></StackLayout>
         <StackLayout>
-            <Button class="btn btn-primary pull-right" backgroundColor="#6c6969" color="#fff" width="50%" text="Place Order" (tap)="orderPlace()"></Button>
+            <Button class="btn btn-primary pull-right" backgroundColor="#284058" color="#fff" width="50%" text="Place Order" (tap)="orderPlace()"></Button>
         </StackLayout>
     </StackLayout>
     <StackLayout class="m-t-30" padding="10" *ngIf="visible_key && customer_cart_data.length == 0" style="text-align: center">
 
         <Image class="logo" src="~/images/nocart.png" height="100" width="100"></Image>
         <Label text="No item in cart" textWrap="true"></Label>
-        <Button class="btn btn-primary" text="Continue shopping" (tap)="shop()" backgroundColor="#6c6969" color="#fff" width="50%"></Button>
+        <Button class="btn btn-primary" text="Continue shopping" (tap)="shop()" backgroundColor="#284058" color="#fff" width="50%"></Button>
     </StackLayout>
 </ScrollView>

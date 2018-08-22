@@ -5,6 +5,8 @@ import { StoreAppService } from "../../../core/services/store-app.service";
 import * as TNSPhone from 'nativescript-phone';
 import { Router } from "@angular/router";
 import { LoadingIndicator } from "nativescript-loading-indicator";
+var OpenUrl = require( "nativescript-openurl" );
+
 @Component({
     selector: 'contact-us',
     moduleId: module.id,
@@ -16,29 +18,31 @@ export class StoreAppContactUsComponent implements OnInit {
     app_details: any;
     visible_key: boolean;
     loader = new LoadingIndicator();
-lodaing_options = {
-message: 'Loading...',
-progress: 0.65,
-android: {
-  indeterminate: true,
-  cancelable: false,
-  cancelListener: function (dialog) { console.log("Loading cancelled") },
-  max: 100,
-  progressNumberFormat: "%1d/%2d",
-  progressPercentFormat: 0.53,
-  progressStyle: 1,
-  secondaryProgress: 1
-},
-ios: {
-  details: "Additional detail note!",
-  margin: 10,
-  dimBackground: true,
-  color: "#4B9ED6",
-  backgroundColor: "yellow",
-  userInteractionEnabled: false,
-  hideBezel: true,
-}
-}
+    social_media_links: any = [];
+
+    lodaing_options = {
+        message: 'Loading...',
+        progress: 0.65,
+        android: {
+            indeterminate: true,
+            cancelable: false,
+            cancelListener: function (dialog) { console.log("Loading cancelled") },
+            max: 100,
+            progressNumberFormat: "%1d/%2d",
+            progressPercentFormat: 0.53,
+            progressStyle: 1,
+            secondaryProgress: 1
+        },
+        ios: {
+            details: "Additional detail note!",
+            margin: 10,
+            dimBackground: true,
+            color: "#4B9ED6",
+            backgroundColor: "yellow",
+            userInteractionEnabled: false,
+            hideBezel: true,
+        }
+    }
     constructor(
         private route: ActivatedRoute,
         private location: Location,
@@ -51,6 +55,8 @@ ios: {
         var full_location = this.location.path().split('/');
         this.app_id = full_location[2].trim();
         this.getAppDetails(this.app_id);
+
+        this.getSocialMediaListByApp(this.app_id);
     }
 
 
@@ -69,13 +75,29 @@ ios: {
             }
         )
     }
+    getSocialMediaListByApp(id) {
+        this.storeAppService.getSocialMediaListByApp(id).subscribe(
+            res => {
+                this.social_media_links = res;
+                console.log(this.social_media_links);
+            },
+            error => {
+                console.log(error)
+            }
+        )
+    }
 
     massage() {
-        this.router.navigate(['/store-app/', this.app_id , 'messenger'])
+        this.router.navigate(['/store-app/', this.app_id, 'messenger'])
     }
 
     call(mobile) {
         TNSPhone.dial(mobile.toString(), true);
+    }
+
+
+    launch(url) {
+        OpenUrl(url);
     }
 
     // Text a number (or multiple numbers)
