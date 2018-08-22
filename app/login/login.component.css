@@ -21,7 +21,7 @@
 }
 
 .apps-container {
-    background: #f9ece3;
+    background-color: #dedede;
     border-radius: 5;
     -webkit-box-shadow: 0 0 18 3 rgba(0, 0, 0, 0.61);
     -moz-box-shadow: 0 0 18 3 rgba(0, 0, 0, 0.61);
@@ -29,9 +29,8 @@
     padding: 25;
 }
 
-
 .head-line-store {
-    color: #989898;
+    color: #284058;
     text-align: center;
     font-size: 25;
     font-weight: 600;
@@ -39,12 +38,12 @@
 }
 
 .tag-line-grey {
-    color: #b3b1b5;
+    color: #284058;
     text-align: center;
     font-size: 15;
 }
 
-.tag-line-grey .bold-tag{
+.tag-line-grey .bold-tag {
     font-weight: 600;
 }
 
