@@ -23,6 +23,7 @@ export class StoreAppProductsComponent implements OnInit {
     secureStorage: SecureStorage;
     user_id: string;
     loader = new LoadingIndicator();
+    serviceType;
     lodaing_options = {
         message: 'Loading...',
         progress: 0.65,
@@ -86,6 +87,14 @@ export class StoreAppProductsComponent implements OnInit {
             res => {
                 this.app_details = res;
                 this.category_list = this.app_details.app_product_categories;
+
+                
+                if (this.app_details.is_product_service) {
+                    this.serviceType = this.app_details.is_product_service;
+                }
+                else {
+                    this.serviceType = 1
+                }
                 // console.log(this.customer_cart_data);
                 for (var i = 0; i < this.category_list.length; i++) {
                     this.category_list[i]['items'] = JSON.parse(JSON.stringify(this.category_list[i].products));
