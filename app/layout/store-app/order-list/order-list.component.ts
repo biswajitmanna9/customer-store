@@ -4,6 +4,7 @@ import { Location } from '@angular/common';
 import { getString, setString, getBoolean, setBoolean, clear } from "application-settings";
 import { StoreAppService } from "../../../core/services/store-app.service";
 import { LoadingIndicator } from "nativescript-loading-indicator";
+import * as Globals from '../../../core/globals';
 
 @Component({
     selector: '',
@@ -40,6 +41,7 @@ export class StoreAppOrderListComponent implements OnInit {
         }
     }
     items: any[];
+    currency: string;
     constructor(
         private route: ActivatedRoute,
         private location: Location,
@@ -47,6 +49,7 @@ export class StoreAppOrderListComponent implements OnInit {
     ) {}
 
     ngOnInit() {
+        this.currency = Globals.currency
         this.loader.show(this.lodaing_options);
         var full_location = this.location.path().split('/');
         this.app_id = full_location[2].trim();

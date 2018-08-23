@@ -15,6 +15,8 @@ import {
     IOSCallback
 } from "@nstudio/nativescript-paytm";
 import * as dialogs from "ui/dialogs";
+import * as Globals from '../../../core/globals';
+
 @Component({
     selector: 'payment',
     moduleId: module.id,
@@ -78,6 +80,8 @@ export class StoreAppPaymentComponent implements OnInit {
     address_id: number;
     payment_type: number;
     paymentOptions: Array<RadioOption>;
+    is_paytm_enabled: boolean;
+    currency: string;
     constructor(
         private route: ActivatedRoute,
         private location: Location,
@@ -90,6 +94,8 @@ export class StoreAppPaymentComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.loader.show(this.lodaing_options);
+        this.currency = Globals.currency
         var full_location = this.location.path().split('/');
         this.app_id = full_location[2].trim();
         this.user_id = getString('user_id');
@@ -103,13 +109,36 @@ export class StoreAppPaymentComponent implements OnInit {
             pincode: ['', Validators.required],
             customer: [this.user_id, Validators.required]
         });
-        this.paymentOptions = [
-            new RadioOption("Paytm", 0),
-            new RadioOption("Cash On Delivery", 1)
-        ]
-        this.paymentOptions[0]['selected'] = true;
-        this.payment_type = this.paymentOptions[0]['id']
 
+        this.getAppDetails(this.app_id)
+    }
+
+    getAppDetails(id) {
+
+        this.storeAppService.getStoreAppDetails(id).subscribe(
+            res => {
+                if (res['is_paytm_enabled'] == 1) {
+                    this.is_paytm_enabled = true;
+                    this.paymentOptions = [
+                        new RadioOption("Paytm", 0),
+                        new RadioOption("Cash On Delivery", 1)
+                    ]
+                }
+                else {
+                    this.is_paytm_enabled = false;
+                    this.paymentOptions = [
+                        new RadioOption("Cash On Delivery", 1)
+                    ]
+                }
+                this.paymentOptions[0]['selected'] = true;
+                this.payment_type = this.paymentOptions[0]['id'];
+                this.loader.hide()
+            },
+            error => {
+                this.loader.hide()
+                console.log(error)
+            }
+        )
     }
 
     changeCheckedRadioPaymentMode(radioOption: RadioOption): void {
@@ -274,6 +303,10 @@ export class StoreAppPaymentComponent implements OnInit {
         }
     }
 
+    cancel() {
+        this.address_box_key = false;
+    }
+
     isFieldValid(field: string) {
         return !this.form.get(field).valid && (this.form.get(field).dirty || this.form.get(field).touched);
     }
@@ -307,7 +340,7 @@ export class StoreAppPaymentComponent implements OnInit {
             this.order.price = this.total_item_price + this.total_packing_price;
             this.order.address = this.address_id;
             this.order.appmaster = this.app_id
-            this.order.payment_type = this.payment_type;            
+            this.order.payment_type = this.payment_type;
             var all_details_data = [];
             this.customer_cart_data.forEach(x => {
                 var details_data = new OrderDetails();

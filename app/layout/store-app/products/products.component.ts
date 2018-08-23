@@ -6,6 +6,7 @@ import { SecureStorage } from "nativescript-secure-storage";
 import { getString, setString, getBoolean, setBoolean, clear } from "application-settings";
 import { Observable } from "tns-core-modules/data/observable";
 import { LoadingIndicator } from "nativescript-loading-indicator";
+import * as Globals from '../../../core/globals';
 @Component({
     selector: 'products',
     moduleId: module.id,
@@ -46,6 +47,7 @@ export class StoreAppProductsComponent implements OnInit {
             hideBezel: true,
         }
     }
+    currency: string;
     constructor(
         private route: ActivatedRoute,
         private storeAppService: StoreAppService,
@@ -58,6 +60,7 @@ export class StoreAppProductsComponent implements OnInit {
         var full_location = this.location.path().split('/');
         this.app_id = full_location[2].trim();
         this.user_id = getString('user_id');
+        this.currency = Globals.currency
         // this.secureStorage.remove({
         //     key: "cart"
         // }).then(success => console.log("Successfully removed a value? " + success));

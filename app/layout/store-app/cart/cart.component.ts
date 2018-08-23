@@ -12,6 +12,8 @@ import {
   TransactionCallback,
   IOSCallback
 } from "@nstudio/nativescript-paytm";
+import * as Globals from '../../../core/globals';
+
 @Component({
   selector: "cart",
   moduleId: module.id,
@@ -43,29 +45,30 @@ export class StoreAppCartComponent {
     CHECKSUMHASH: ""
   };
   loader = new LoadingIndicator();
-lodaing_options = {
-message: 'Loading...',
-progress: 0.65,
-android: {
-  indeterminate: true,
-  cancelable: false,
-  cancelListener: function (dialog) { console.log("Loading cancelled") },
-  max: 100,
-  progressNumberFormat: "%1d/%2d",
-  progressPercentFormat: 0.53,
-  progressStyle: 1,
-  secondaryProgress: 1
-},
-ios: {
-  details: "Additional detail note!",
-  margin: 10,
-  dimBackground: true,
-  color: "#4B9ED6",
-  backgroundColor: "yellow",
-  userInteractionEnabled: false,
-  hideBezel: true,
-}
-}
+  lodaing_options = {
+    message: 'Loading...',
+    progress: 0.65,
+    android: {
+      indeterminate: true,
+      cancelable: false,
+      cancelListener: function (dialog) { console.log("Loading cancelled") },
+      max: 100,
+      progressNumberFormat: "%1d/%2d",
+      progressPercentFormat: 0.53,
+      progressStyle: 1,
+      secondaryProgress: 1
+    },
+    ios: {
+      details: "Additional detail note!",
+      margin: 10,
+      dimBackground: true,
+      color: "#4B9ED6",
+      backgroundColor: "yellow",
+      userInteractionEnabled: false,
+      hideBezel: true,
+    }
+  }
+  currency: string;
   constructor(
     private route: ActivatedRoute,
     private location: Location,
@@ -77,6 +80,7 @@ ios: {
   }
 
   ngOnInit() {
+    this.currency = Globals.currency
     var full_location = this.location.path().split('/');
     this.app_id = full_location[2].trim();
     this.user_id = getString('user_id');
@@ -101,6 +105,7 @@ ios: {
         }
         else {
           this.customer_cart_data = [];
+          this.visible_key = true;
         }
       }
     );
@@ -175,9 +180,8 @@ ios: {
     });
   }
 
-  shop()
-  {
-    this.router.navigate(['/store-app/' + this.app_id+'/products'])
+  shop() {
+    this.router.navigate(['/store-app/' + this.app_id + '/products'])
   }
 
   orderPlace() {
@@ -219,7 +223,7 @@ ios: {
     // )
     this.router.navigate(['/store-app/', this.app_id, 'payment'])
     // this.getPaytmFormValue(this.order.price)
-  }  
+  }
 
   // getPaytmFormValue(amount: number) {
   //   this.storeAppService.paytmFormValue(amount).subscribe(
