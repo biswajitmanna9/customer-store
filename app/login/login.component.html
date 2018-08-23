@@ -28,7 +28,7 @@
                 <Button class="btn btn-primary" text="Sign In" [isEnabled]="!processing" (tap)="signIn()" backgroundColor="#284058" color="#fff" width="50%">
                 </Button>
                 <StackLayout class="hr-light pading-gap m-b-10 m-t-10"></StackLayout>
-                <Label text="Forgot your password?" class="tag-line-grey m-b-10 m-t-10" (tap)="forgotPassword()"></Label>
+                <Label text="Forgot your password?" class="tag-line-grey m-b-10 m-t-10" [nsRouterLink]="['/forgot-password']" ></Label>
 
                 <Label class="tag-line-grey m-b-10 m-t-10" [nsRouterLink]="['/signup']">
                     <FormattedString>

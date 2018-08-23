@@ -15,6 +15,7 @@ export class AppActionBarComponent implements OnInit {
     @Input('appId') appId: string;
     visible_key: boolean;
     isLoggedin: boolean;
+    serviceType;
     constructor(
         private _routerExtensions: RouterExtensions,
         private storeAppService: StoreAppService,
@@ -35,6 +36,12 @@ export class AppActionBarComponent implements OnInit {
         this.storeAppService.getStoreAppDetails(id).subscribe(
             res => {
                 this.app_details = res;
+                if (this.app_details.is_product_service) {
+                    this.serviceType = this.app_details.is_product_service;
+                }
+                else {
+                    this.serviceType = 1
+                }
                 this.app_details.app_product_categories.forEach(x => {
                     x.products.forEach(y => {
                         this.product_list.push(y)

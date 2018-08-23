@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component,ViewContainerRef, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { alert, prompt } from "tns-core-modules/ui/dialogs";
 import { Page } from "tns-core-modules/ui/page";
@@ -9,6 +9,9 @@ import { RouterExtensions } from "nativescript-angular/router";
 import { Feedback, FeedbackType, FeedbackPosition } from "nativescript-feedback";
 import { Color } from "tns-core-modules/color";
 import { LoadingIndicator } from "nativescript-loading-indicator";
+import { ModalDialogService } from "nativescript-angular/directives/dialogs";
+
+
 @Component({
   selector: "login",
   moduleId: module.id,
@@ -43,11 +46,19 @@ export class LoginComponent implements OnInit {
       hideBezel: true,
     }
   }
+  options = {
+    context: {},
+    fullscreen: false,
+    viewContainerRef: this.vcRef
+  };
+
   constructor(
     private page: Page,
     private router: RouterExtensions,
     private formBuilder: FormBuilder,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private modal: ModalDialogService,
+    private vcRef: ViewContainerRef,
   ) {
     this.page.actionBarHidden = true;
     this.feedback = new Feedback();
@@ -145,5 +156,15 @@ export class LoginComponent implements OnInit {
       }
     });
   }
+
+  // openForgotOtpModal() {
+  //   this.modal.showModal(ForgotOtpModalComponent, this.options).then(res => {
+  //     console.log(res);
+  //     if (res != undefined) {
+       
+  //     }
+  //   })
+  // }
+
 
 }

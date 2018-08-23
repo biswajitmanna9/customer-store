@@ -11,7 +11,8 @@ export class AppMenuBarComponent implements OnInit {
     app_details: any;
     product_list: any = [];
     @Input('appId') appId: string;
-    visible_key: boolean
+    visible_key: boolean;
+    serviceType;
     constructor(
         private route: ActivatedRoute,
         private storeAppService: StoreAppService
@@ -27,8 +28,14 @@ export class AppMenuBarComponent implements OnInit {
         this.storeAppService.getStoreAppDetails(id).subscribe(
             res => {
                 this.app_details = res;
-                this.app_details.app_product_categories.forEach( x => {
-                    x.products.forEach( y => {
+                if (this.app_details.is_product_service) {
+                    this.serviceType = this.app_details.is_product_service;
+                }
+                else {
+                    this.serviceType = 1
+                }
+                this.app_details.app_product_categories.forEach(x => {
+                    x.products.forEach(y => {
                         this.product_list.push(y)
                     })
                 })

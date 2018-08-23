@@ -21,4 +21,14 @@ export class LoginService {
   signup(data): Observable<any> {
     return this.http.post(Globals.apiEndpoint + 'customer_registration/', data)
   }
+
+  customerForgetPasswordOtp(data): Observable<any> {
+    return this.http.post(Globals.apiEndpoint + 'customer_forget_password_otp/', data)
+  }
+  
+  userForgetPasswordUpdate(data): Observable<any> {
+    return this.http.put(Globals.apiEndpoint + 'customer_forget_password_update/', data)
+  }
+  
+  
 }

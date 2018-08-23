@@ -27,6 +27,7 @@ import { SignUpModalComponent } from './component/signup-modal/signup-modal.comp
 import { LocationModalComponent } from './component/location-modal/location-modal.component';
 import { AppMenuBarComponent } from './component/app-menu-bar/app-menu-bar.component';
 import { AppActionBarComponent } from './component/app-action-bar/app-action-bar.component';
+
 TNSFontIconService.debug = true;
 @NgModule({
     imports: [
