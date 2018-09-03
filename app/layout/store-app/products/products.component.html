@@ -73,12 +73,20 @@
                 <StackLayout row="1" col="0">
                     <StackLayout *ngFor="let item of category.items" padding="10" backgroundColor="#fff">
                         <CardView class="whiteCard">
-                            <GridLayout rows="*" columns="*" padding="10" verticalAlignment="center">
-                                <StackLayout row="0" col="0" verticalAlignment="center" orientation="vertical"
-                                    horizontalAlignment="left">
-                                    <Label [text]="item.product_name" textWrap="true" verticalAlignment="center" class="product_name"></Label>
+                            <StackLayout>
+                                <StackLayout verticalAlignment="center" orientation="vertical" horizontalAlignment="center"
+                                    *ngIf="item.product_image != ''">
+                                    <Image [src]="img_base_url+'/media/'+item.product_image" class="product_image img-rounded"
+                                        alignItems="center" horizontalAlignment="center"></Image>
                                 </StackLayout>
-                            </GridLayout>
+                                <GridLayout rows="*" columns="*" padding="10" verticalAlignment="center">
+                                    <StackLayout row="0" col="0" verticalAlignment="center" orientation="vertical"
+                                        horizontalAlignment="left">
+                                        <Label [text]="item.product_name" textWrap="true" verticalAlignment="center"
+                                            class="product_name"></Label>
+                                    </StackLayout>
+                                </GridLayout>
+                            </StackLayout>
                         </CardView>
                     </StackLayout>
                 </StackLayout>
@@ -145,11 +153,18 @@
     <StackLayout padding="10" *ngIf="list_view_key && serviceType==2">
         <StackLayout padding="10" backgroundColor="#fff" *ngFor="let item of category_list[0].items">
             <CardView class="whiteCard">
-                <GridLayout rows="*" columns="*,*" padding="6" verticalAlignment="center">
-                    <StackLayout row="0" col="0" verticalAlignment="center" orientation="vertical" horizontalAlignment="left">
-                        <Label [text]="item.product_name" textWrap="true" verticalAlignment="center" class="product_name"></Label>
+                <StackLayout>
+                    <StackLayout verticalAlignment="center" orientation="vertical" horizontalAlignment="center" *ngIf="item.product_image != ''">
+                        <Image [src]="img_base_url+'/media/'+item.product_image" class="product_image img-rounded"
+                            alignItems="center" horizontalAlignment="center"></Image>
                     </StackLayout>
-                </GridLayout>
+                    <GridLayout rows="*" columns="*,*" padding="6" verticalAlignment="center">
+                        <StackLayout row="0" col="0" verticalAlignment="center" orientation="vertical"
+                            horizontalAlignment="left">
+                            <Label [text]="item.product_name" textWrap="true" verticalAlignment="center" class="product_name"></Label>
+                        </StackLayout>
+                    </GridLayout>
+                </StackLayout>
             </CardView>
         </StackLayout>
     </StackLayout>
