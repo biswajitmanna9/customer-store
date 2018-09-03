@@ -21,3 +21,11 @@
 .discount {
     color: #ccc;
 }
+
+.product_col{
+    width: 50%;
+}
+
+.product_image{
+    width: 100%;
+}
