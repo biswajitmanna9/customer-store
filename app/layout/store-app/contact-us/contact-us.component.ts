@@ -43,13 +43,14 @@ export class StoreAppContactUsComponent implements OnInit {
             hideBezel: true,
         }
     }
+   
     constructor(
         private route: ActivatedRoute,
         private location: Location,
         private storeAppService: StoreAppService,
         private router: Router
     ) {
-
+        
     }
     ngOnInit() {
         var full_location = this.location.path().split('/');

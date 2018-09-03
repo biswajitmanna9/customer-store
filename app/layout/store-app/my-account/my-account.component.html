@@ -5,7 +5,7 @@
             <Label [text]="customer_details?.email" class="m-b-30" textWrap="true"></Label>
             <Label [text]="customer_details?.contact_no" class="m-b-30" textWrap="true"></Label>
         </FlexboxLayout>
-        <Button class="btn btn-primary" text="Order List" backgroundColor="#284058" color="#fff" width="40%" horizontalAlignment="center" [nsRouterLink]="['/store-app/', app_id , 'order-list']">
+        <Button class="btn btn-primary" *ngIf="serviceType==1" text="Order List" backgroundColor="#284058" color="#fff" width="40%" horizontalAlignment="center" [nsRouterLink]="['/store-app/', app_id , 'order-list']">
         </Button>
     </StackLayout>
 </ScrollView>

@@ -17,6 +17,7 @@ import * as Globals from '../../../core/globals';
 export class StoreAppProductsComponent implements OnInit {
     app_id: string;
     app_details: any;
+    img_base_url:string;
     category_list: any = [];
     accordian_view_key: boolean;
     list_view_key: boolean;
@@ -58,6 +59,8 @@ export class StoreAppProductsComponent implements OnInit {
     }
 
     ngOnInit() {
+
+        this.img_base_url = Globals.img_base_url;
         var full_location = this.location.path().split('/');
         this.app_id = full_location[2].trim();
         this.user_id = getString('user_id');

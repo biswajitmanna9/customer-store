@@ -11,10 +11,12 @@ import { LoadingIndicator } from "nativescript-loading-indicator";
     styleUrls: [`my-account.component.css`]
 })
 export class StoreAppMyAccountComponent implements OnInit {
+    app_details: any;
     app_id: string;
     user_id: string;
     customer_details: any;
     loader = new LoadingIndicator();
+    serviceType;
     lodaing_options = {
         message: 'Loading...',
         progress: 0.65,
@@ -52,6 +54,7 @@ export class StoreAppMyAccountComponent implements OnInit {
         this.user_id = getString('user_id');
         console.log(this.app_id);
         this.getCustomerDetails(this.user_id)
+        this.getAppDetails(this.app_id);
     }
 
     getCustomerDetails(id) {
@@ -60,10 +63,28 @@ export class StoreAppMyAccountComponent implements OnInit {
             res => {
                 console.log(res)
                 this.customer_details = res;
+                
                 this.loader.hide();
             },
             error => {
                 this.loader.hide();
+                console.log(error)
+            }
+        )
+    }
+    getAppDetails(id) {
+        this.storeAppService.getStoreAppDetails(id).subscribe(
+            res => {
+                this.app_details = res;
+                if (this.app_details.is_product_service) {
+                    this.serviceType = this.app_details.is_product_service;
+                }
+                else {
+                    this.serviceType = 1
+                }
+               
+            },
+            error => {
                 console.log(error)
             }
         )
