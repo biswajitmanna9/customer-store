@@ -146,3 +146,7 @@ ActionBar {
 .discounted_price {
     font-weight: bold;
 }
+
+.border-bottom {
+    border-bottom: 1px #284058;
+}
