@@ -4,7 +4,7 @@
 }
 
 .original_price {
-    color: #ccc;
+    color: #000;
     padding: 0 5;
 }
 
@@ -22,7 +22,6 @@
 
 .quantity {
     text-align: center;
-    padding: 10 0;
 }
 
 .ont-weight-bold {

@@ -142,3 +142,7 @@ ActionBar {
 .m-t-150 {
     margin-top: 50;
 }
+
+.discounted_price {
+    font-weight: bold;
+}
