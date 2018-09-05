@@ -7,6 +7,8 @@ import { RouterExtensions } from "nativescript-angular/router";
 import { getString, setString, getBoolean, setBoolean, clear } from "application-settings";
 require("nativescript-websockets");
 import { LoadingIndicator } from "nativescript-loading-indicator";
+import { NotificationService } from "../../../core/services/notification.service";
+
 @Component({
     selector: 'messenger',
     moduleId: module.id,
@@ -49,13 +51,15 @@ export class StoreAppMessengerComponent implements OnInit, OnDestroy {
             hideBezel: true,
         }
     }
-
+    app_details: any;
+    app_device_token: string;
     constructor(
         private route: ActivatedRoute,
         private location: Location,
         private storeAppService: StoreAppService,
         private router: RouterExtensions,
-        private zone: NgZone
+        private zone: NgZone,
+        private notificationService: NotificationService
     ) {
 
         this.messages = [];
@@ -66,6 +70,7 @@ export class StoreAppMessengerComponent implements OnInit, OnDestroy {
         var full_location = this.location.path().split('/');
         this.app_id = full_location[2].trim();
         this.user_id = getString('user_id');
+        this.getAppDetails(this.app_id)
         this.createChatSession();
         this.socket = new WebSocket("ws://132.148.147.239:8001/messages/?sender=" + this.user_id + "&sender_type=customer&receiver=" + this.app_id + "&receiver_type=app_master");
         this.socket.onopen = (evt) => this.onOpen(evt)
@@ -74,28 +79,53 @@ export class StoreAppMessengerComponent implements OnInit, OnDestroy {
         this.socket.onerror = (evt) => this.onError(evt)
     }
 
+    getAppDetails(id) {
+        this.storeAppService.getStoreAppDetails(id).subscribe(
+            res => {
+                this.app_details = res;
+                this.getAppDeviceToken(this.app_details.user.id);
+            },
+            error => {
+                this.loader.hide();
+                console.log(error)
+            }
+        )
+    }
+
+    getAppDeviceToken(id) {
+        this.notificationService.getAppDeviceToken(id).subscribe(
+            res => {
+                console.log(res)
+                this.app_device_token = res['device_token'];
+            },
+            error => {
+                console.log(error)
+            }
+        )
+    }
+
+    pushNotf(message: string) {
+        var value = {
+            title: "BanaoApp(new message)",
+            subtitle: "New message",
+            text: message
+        }
+        this.notificationService.sendPushNotification(this.app_device_token, value).subscribe(
+            res => {
+                console.log(res)
+            },
+            error => {
+                console.log(error)
+            }
+        )
+    }
+
     onOpen(evt) {
         console.log(evt)
-        // this.zone.run(() => {
-        //     var data = {
-        //         text: "Welcome to the chat!",
-        //         created: new Date(),
-        //         sender: false
-        //     }
-        //     this.messages.push(data);
-        // });
         console.log("Welcome to the chat!");
     }
 
     onClose(evt) {
-        // this.zone.run(() => {
-        //     var data = {
-        //         text: "You have been disconnected",
-        //         created: new Date(),
-        //         sender: false
-        //     }
-        //     this.messages.push(data);
-        // });
         console.log("You have been disconnected");
     }
 
@@ -139,6 +169,7 @@ export class StoreAppMessengerComponent implements OnInit, OnDestroy {
                 message: this.message
             }
             this.socket.send(JSON.stringify(data));
+            this.pushNotf(this.message);
             this.message = "";
         }
     }
@@ -182,10 +213,10 @@ export class StoreAppMessengerComponent implements OnInit, OnDestroy {
                         data['sender'] = false
                     }
                     this.messages.push(data)
-                    console.log(this.messages)
-                    this.scrollToBottom();
-                    this.loader.hide();
                 })
+                console.log(this.messages)
+                this.scrollToBottom();
+                this.loader.hide();
             },
             error => {
                 this.loader.hide();

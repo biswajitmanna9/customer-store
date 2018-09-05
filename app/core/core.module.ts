@@ -4,7 +4,7 @@ import { NativeScriptRouterModule } from "nativescript-angular/router";
 import { NativeScriptFormsModule } from "nativescript-angular/forms";
 import { ReactiveFormsModule } from "@angular/forms";
 import { NativeScriptHttpClientModule } from "nativescript-angular/http-client";
-import { TNSFontIconModule,TNSFontIconService } from 'nativescript-ngx-fonticon';
+import { TNSFontIconModule, TNSFontIconService } from 'nativescript-ngx-fonticon';
 import { DropDownModule } from "nativescript-drop-down/angular";
 import { AccordionModule } from "nativescript-accordion/angular";
 import { TNSCheckBoxModule } from 'nativescript-checkbox/angular';
@@ -19,6 +19,7 @@ import { LoginService } from './services/login.service';
 import { ExploreService } from './services/explore.service';
 import { ModalDialogService } from "nativescript-angular/modal-dialog";
 import { StoreAppService } from './services/store-app.service';
+import { NotificationService } from './services/notification.service';
 // component
 import { ActionBarComponent } from './component/action-bar/action-bar.component';
 import { MenuBarComponent } from './component/menu-bar/menu-bar.component';
@@ -28,7 +29,7 @@ import { LocationModalComponent } from './component/location-modal/location-moda
 import { AppMenuBarComponent } from './component/app-menu-bar/app-menu-bar.component';
 import { AppActionBarComponent } from './component/app-action-bar/app-action-bar.component';
 
-TNSFontIconService.debug = true;
+// TNSFontIconService.debug = true;
 @NgModule({
     imports: [
         NativeScriptCommonModule,
@@ -90,7 +91,8 @@ export class CoreModule {
                 LoginService,
                 ExploreService,
                 ModalDialogService,
-                StoreAppService
+                StoreAppService,
+                NotificationService
             ]
         };
     }
