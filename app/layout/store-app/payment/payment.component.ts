@@ -428,8 +428,7 @@ export class StoreAppPaymentComponent implements OnInit {
             CHECKSUMHASH: this.paytmFormDetails['CHECKSUMHASH']
         };
         console.log(new Date());
-        console.log("sdassdas");
-
+        console.log("createOrder");
         this.paytm.createOrder(this.orderToPaytm);
         this.paytm.initialize("STAGING");
         this.paytm.startPaymentTransaction({

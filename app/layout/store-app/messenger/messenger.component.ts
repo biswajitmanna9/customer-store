@@ -184,8 +184,9 @@ export class StoreAppMessengerComponent implements OnInit, OnDestroy {
                     this.messages.push(data)
                     console.log(this.messages)
                     this.scrollToBottom();
-                    this.loader.hide();
+                   
                 })
+                this.loader.hide();
             },
             error => {
                 this.loader.hide();
