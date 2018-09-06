@@ -28,7 +28,7 @@ import { LocationModalComponent } from './component/location-modal/location-moda
 import { AppMenuBarComponent } from './component/app-menu-bar/app-menu-bar.component';
 import { AppActionBarComponent } from './component/app-action-bar/app-action-bar.component';
 
-TNSFontIconService.debug = true;
+//TNSFontIconService.debug = true;
 @NgModule({
     imports: [
         NativeScriptCommonModule,
