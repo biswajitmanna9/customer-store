@@ -27,30 +27,32 @@
             </CardView>
         </StackLayout>
         <StackLayout class="hr-light pading-gap m-b-10 m-t-10"></StackLayout>
-        <StackLayout padding="10">
-            <GridLayout rows="*,*,*,*" columns="*,50%" verticalAlignment="center" class="card">
-                <StackLayout verticalAlignment="center" col="0" row="0">
-                    <Label class="pull-left " text="Total item price"></Label>
-                </StackLayout>
-                <StackLayout verticalAlignment="center" col="1" row="0">
-                    <Label textAlignment="left" [text]="total_item_price | currency: currency : true:'1.0-0'"></Label>
-                </StackLayout>
-                <StackLayout verticalAlignment="center" col="0" row="1">
-                    <Label class="pull-left " text="Total packing charge"></Label>
-                </StackLayout>
-                <StackLayout verticalAlignment="center" col="1" row="1">
-                    <Label textAlignment="left" [text]="total_packing_price | currency: currency : true:'1.0-0'"></Label>
-                </StackLayout>
-                <StackLayout class="hr-light m-10" row="2" colSpan="2"></StackLayout>
-                <StackLayout verticalAlignment="center" col="0" row="3">
-                    <Label class="pull-left font-weight-bold" text="Total"></Label>
-                </StackLayout>
-                <StackLayout verticalAlignment="center" col="1" row="3">
-                    <Label class=" font-weight-bold" textAlignment="left" [text]="total_item_price + total_packing_price | currency: currency : true:'1.0-0'"></Label>
-                </StackLayout>
-            </GridLayout>
-        </StackLayout>
 
+        <CardView class="card" elevation="0" radius="0" shadowOpacity="0" shadowOffsetWidth="0" shadowOffsetHeight="0">
+            <StackLayout padding="10">
+                <GridLayout rows="*,*,*,*" columns="*,50%" verticalAlignment="center" class="card">
+                    <StackLayout verticalAlignment="center" col="0" row="0">
+                        <Label class="pull-left " text="Total item price"></Label>
+                    </StackLayout>
+                    <StackLayout verticalAlignment="center" col="1" row="0">
+                        <Label textAlignment="left" [text]="total_item_price | currency: currency : true:'1.0-0'"></Label>
+                    </StackLayout>
+                    <StackLayout verticalAlignment="center" col="0" row="1">
+                        <Label class="pull-left " text="Total packing charge"></Label>
+                    </StackLayout>
+                    <StackLayout verticalAlignment="center" col="1" row="1">
+                        <Label textAlignment="left" [text]="total_packing_price | currency: currency : true:'1.0-0'"></Label>
+                    </StackLayout>
+                    <StackLayout class="hr-light m-10" row="2" colSpan="2"></StackLayout>
+                    <StackLayout verticalAlignment="center" col="0" row="3">
+                        <Label class="pull-left font-weight-bold" text="Total"></Label>
+                    </StackLayout>
+                    <StackLayout verticalAlignment="center" col="1" row="3">
+                        <Label class=" font-weight-bold" textAlignment="left" [text]="total_item_price + total_packing_price | currency: currency : true:'1.0-0'"></Label>
+                    </StackLayout>
+                </GridLayout>
+            </StackLayout>
+        </CardView>
         <StackLayout class="hr-light pading-gap m-b-10 m-t-10"></StackLayout>
         <StackLayout>
             <Button class="btn btn-primary pull-right" backgroundColor="#284058" color="#fff" width="50%" text="Place Order" (tap)="orderPlace()"></Button>

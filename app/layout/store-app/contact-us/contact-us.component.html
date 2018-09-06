@@ -9,20 +9,17 @@
             <Label text="Business Address" class="owner_desigi business_address m-t-30" textWrap="true"></Label>
             <Label fontSize="15" lineHeight="10" [text]="app_details.store_address" class="owner_desigi m-t-5" textWrap="true"></Label>
             <Label text="Website" class="owner_desigi business_address m-t-30" *ngIf="app_details.app_website_url != null" textWrap="true"></Label>
-            <Label fontSize="15" lineHeight="10" [text]="app_details.app_website_url" class="owner_desigi m-t-5" *ngIf="app_details.app_website_url != null"
-                textWrap="true"></Label>
+            <Label fontSize="15" lineHeight="10" [text]="app_details.app_website_url" class="owner_desigi m-t-5" *ngIf="app_details.app_website_url != null" textWrap="true"></Label>
 
         </FlexboxLayout>
 
         <FlexboxLayout class="button-center">
             <Button class="btn btn-primary" backgroundColor="#284058" color="#fff" width="50%" text="Chat" (tap)="massage()"></Button>
-            <Button class="btn btn-primary" backgroundColor="#284058" color="#fff" width="50%" text="Call" (tap)="call(app_details.user.user_details[0].contact_no)"
-                *ngIf="app_details.user.user_details[0].contact_no != null"></Button>
+            <Button class="btn btn-primary" backgroundColor="#284058" color="#fff" width="50%" text="Call" (tap)="call(app_details.user.user_details[0].contact_no)" *ngIf="app_details.user.user_details[0].contact_no != null"></Button>
         </FlexboxLayout>
         <FlexboxLayout class="social-media-section" justifyContent="center" alignItems="flex-start" alignItems="center" *ngIf="social_media_links.length>0">
             <StackLayout *ngFor="let social_media of social_media_links" padding="10" orientation="vertical">
-                <Label class="fa social-icon" [text]="social_media.social_media_type_details.icon | fonticon" (tap)="launch(social_media.url)"
-                    top="10" left="10"></Label>   
+                <Label class="fa social-icon" [text]="social_media.social_media_type_details.icon | fonticon" (tap)="launch(social_media.url)" top="10" left="10"></Label>
             </StackLayout>
         </FlexboxLayout>
     </StackLayout>
