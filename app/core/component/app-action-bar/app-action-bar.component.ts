@@ -32,7 +32,6 @@ export class AppActionBarComponent implements OnInit {
     }
 
     private changeCartStatus(status: boolean): void {
-        
         this.cartStatus = status;
         console.log(this.cartStatus)
         if (this.cartStatus == true) {

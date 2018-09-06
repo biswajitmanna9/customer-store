@@ -266,6 +266,7 @@ export class StoreAppPaymentComponent implements OnInit {
             value: JSON.stringify(this.all_cart_data)
         }).then(success => {
             console.log(success)
+            this.storeAppService.cartStatus(true);
             this.getTotalItemPrice();
             this.getTotalPackingPrice();
         });
