@@ -433,19 +433,19 @@ export class StoreAppPaymentComponent implements OnInit {
         this.paytm.initialize("STAGING");
         this.paytm.startPaymentTransaction({
             someUIErrorOccurred: function (inErrorMessage) {
-                console.log("1");
+               
                 console.log(inErrorMessage);
             },
             onTransactionResponse: function (inResponse) {
-                console.log("2");
+                
                 console.log(inResponse);
             },
             networkNotAvailable: function () {
-                console.log("3");
+               
                 console.log("Network not available");
             },
             clientAuthenticationFailed: function (inErrorMessage) {
-                console.log("4");
+                
                 console.log(inErrorMessage);
             },
             onErrorLoadingWebPage: function (
@@ -453,15 +453,15 @@ export class StoreAppPaymentComponent implements OnInit {
                 inErrorMessage,
                 inFailingUrl
             ) {
-                console.log("5");
+                
                 console.log(iniErrorCode, inErrorMessage, inFailingUrl);
             },
             onBackPressedCancelTransaction: function () {
-                console.log("6");
+                
                 console.log("User cancelled transaction by pressing back button");
             },
             onTransactionCancel: function (inErrorMessage, inResponse) {
-                console.log("7");
+                
                 console.log(inErrorMessage, inResponse);
             }
         });

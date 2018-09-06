@@ -177,6 +177,7 @@ export class StoreAppCartComponent {
       console.log(success)
       this.getTotalItemPrice();
       this.getTotalPackingPrice();
+      this.storeAppService.cartStatus(true);
     });
   }
 

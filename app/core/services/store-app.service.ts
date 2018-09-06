@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable,EventEmitter, Output } from "@angular/core";
 import {
   HttpClient,
   HttpHeaders,
@@ -13,6 +13,22 @@ import * as Globals from '../../core/globals';
 export class StoreAppService {
 
   constructor(private http: HttpClient) { }
+
+  @Output() getCartStatus: EventEmitter<any> = new EventEmitter();
+
+
+  cartStatus(data){
+    console.log(data);
+    if (data==true) {
+      console.log("aaa");
+        this.getCartStatus.emit(true);
+        return
+    } else {
+      console.log("bbb");
+        this.getCartStatus.emit(false);
+        return
+    }
+  }
 
   getStoreAppDetails(id) {
     return this.http.get(Globals.apiEndpoint + 'app_all_details/' + id + '/')

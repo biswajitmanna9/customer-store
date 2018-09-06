@@ -19,3 +19,9 @@
     color: #fff;
     font-size: 18;
 }
+
+.circle-wrapper{
+    background-color: red;
+    border-radius: 100;
+    font-size: 12;
+  }

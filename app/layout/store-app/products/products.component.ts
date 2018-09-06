@@ -173,6 +173,7 @@ export class StoreAppProductsComponent implements OnInit {
             value: JSON.stringify(this.customer_cart_data)
         }).then(success => {
             console.log(success)
+            this.storeAppService.cartStatus(true);
         });
     }
 
