@@ -147,6 +147,10 @@ ActionBar {
     font-weight: bold;
 }
 
+.CardView {
+    border-radius: 5;
+}
+
 .border-bottom {
     border-bottom: 1px #284058;
 }
