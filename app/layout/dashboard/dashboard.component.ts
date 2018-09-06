@@ -7,6 +7,8 @@ import { ExploreService } from "../../core/services/explore.service";
 import { getString, setString, getBoolean, setBoolean, clear } from "application-settings";
 import * as Globals from '../../core/globals';
 import { LoadingIndicator } from "nativescript-loading-indicator";
+import { NotificationService } from "../../core/services/notification.service";
+
 @Component({
     selector: "dashboard",
     moduleId: module.id,
@@ -41,15 +43,35 @@ export class DashboardComponent implements OnInit {
             hideBezel: true,
         }
     }
+    device_token: string;
     constructor(
-        private exploreService: ExploreService
+        private exploreService: ExploreService,
+        private notificationService: NotificationService
     ) {
 
     }
 
     ngOnInit() {
         this.user_id = getString('user_id');
+        this.device_token = getString('device_token');
+        console.log(this.device_token);
         this.getDashboardAppList();
+        this.updateDeviceToken();
+    }
+
+
+    updateDeviceToken() {
+        var data = {
+            customer_device_token: this.device_token
+        }
+        this.notificationService.updateDeviceToken(this.user_id, data).subscribe(
+            res => {
+                console.log(res)
+            },
+            error => {
+                console.log(error)
+            }
+        )
     }
 
     getDashboardAppList() {

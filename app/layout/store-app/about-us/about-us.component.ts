@@ -52,7 +52,7 @@ export class StoreAppAboutUsComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private storeAppService: StoreAppService,
-    private location: Location,
+    private location: Location
   ) {
 
   }
