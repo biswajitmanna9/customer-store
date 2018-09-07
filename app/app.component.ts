@@ -5,6 +5,7 @@ import { RouterExtensions } from "nativescript-angular/router";
 const firebase = require("nativescript-plugin-firebase");
 let deviceToken = "";
 import { getString, setString, getBoolean, setBoolean, clear } from "application-settings";
+import { NotificationService } from "./core/services/notification.service";
 
 @Component({
     selector: "ns-app",
@@ -13,7 +14,10 @@ import { getString, setString, getBoolean, setBoolean, clear } from "application
 
 export class AppComponent {
 
-    constructor(private router: RouterExtensions) {
+    constructor(
+        private router: RouterExtensions,
+        private notificationService: NotificationService
+    ) {
         orientation.setOrientation("portrait");
         application.android.on(application.AndroidApplication.activityBackPressedEvent, (args: any) => {
             if (this.router.canGoBack()) {
@@ -28,16 +32,11 @@ export class AppComponent {
         // push notification
         firebase.init({
             onPushTokenReceivedCallback: function (token) {
-                console.log("--onPushTokenReceivedCallback token :" + token);
                 deviceToken = token;
-                if (deviceToken != '') {
-                    setString('device_token', token)
-                }
                 console.log("Firebase push token: " + token);
             },
             onMessageReceivedCallback: function (message) {
-                console.log("Push message: " + JSON.stringify(message))
-                console.log("--onMessageReceivedCallback deviceToken :" + deviceToken)
+                notificationService.badgeCountStatus(true);
             },
             persist: false
         }).then(
@@ -47,14 +46,7 @@ export class AppComponent {
             error => {
                 console.log(`firebase.init error: ${error}`);
             }
-        );
-        firebase.getCurrentPushToken().then((token: string) => {
-            // may be null if not known yet
-            if (token != null) {
-                setString('device_token', token)
-            }
-            console.log(`Current push token: ${token}`);
-        });
+        );       
 
     }
 

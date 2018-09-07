@@ -42,6 +42,10 @@ export class StoreAppService {
     return this.http.post(Globals.apiEndpoint + 'messages/' + param, data)
   }
 
+  getChatMembersDetails(param){
+    return this.http.get(Globals.apiEndpoint + 'chat_members/'+ param)
+  }
+
   getMessageListByApp(thread) {
     return this.http.get(Globals.apiEndpoint + 'messages/' + thread + "/")
   }

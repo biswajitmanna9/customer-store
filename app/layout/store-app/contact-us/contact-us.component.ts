@@ -5,7 +5,9 @@ import { StoreAppService } from "../../../core/services/store-app.service";
 import * as TNSPhone from 'nativescript-phone';
 import { Router } from "@angular/router";
 import { LoadingIndicator } from "nativescript-loading-indicator";
-var OpenUrl = require( "nativescript-openurl" );
+var OpenUrl = require("nativescript-openurl");
+import { getString, setString, getBoolean, setBoolean, clear } from "application-settings";
+import { NotificationService } from "../../../core/services/notification.service";
 
 @Component({
     selector: 'contact-us',
@@ -43,14 +45,24 @@ export class StoreAppContactUsComponent implements OnInit {
             hideBezel: true,
         }
     }
-   
+    chat_length: number = 0;
+    badgeCountStatus: boolean;
     constructor(
         private route: ActivatedRoute,
         private location: Location,
         private storeAppService: StoreAppService,
-        private router: Router
+        private router: Router,
+        private notificationService: NotificationService
     ) {
-        
+        notificationService.getBadgeCountStatus.subscribe(status => this.changebadgeCountStatus(status))
+    }
+
+    private changebadgeCountStatus(status: boolean): void {
+        this.badgeCountStatus = status;
+        console.log(this.badgeCountStatus)
+        if (this.badgeCountStatus == true) {
+            this.ngOnInit();
+        }
     }
     ngOnInit() {
         var full_location = this.location.path().split('/');
@@ -58,6 +70,25 @@ export class StoreAppContactUsComponent implements OnInit {
         this.getAppDetails(this.app_id);
 
         this.getSocialMediaListByApp(this.app_id);
+        this.getChatMembersDetails();
+    }
+
+    getChatMembersDetails() {
+        var param = "?user=" + getString('user_id') + "&user_type=customer"
+        this.storeAppService.getChatMembersDetails(param).subscribe(
+            (res: any[]) => {
+                console.log(res)
+                var sum = 0;
+                res.forEach(x => {
+                    sum += x.how_many_messages
+                })
+                this.chat_length = sum;
+            },
+            error => {
+                console.log(error)
+                this.loader.hide();
+            }
+        )
     }
 
 

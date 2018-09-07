@@ -10,7 +10,7 @@
             <Label fontSize="15" lineHeight="10" [text]="app_details.store_address" class="owner_desigi m-t-5" textWrap="true"></Label>
             <Label text="Website" class="owner_desigi business_address m-t-30" *ngIf="app_details.app_website_url != null" textWrap="true"></Label>
             <Label fontSize="15" lineHeight="10" [text]="app_details.app_website_url" class="owner_desigi m-t-5" *ngIf="app_details.app_website_url != null" textWrap="true"></Label>
-
+            <Label [text]="chat_length" textWrap="true"></Label>            
         </FlexboxLayout>
 
         <FlexboxLayout class="button-center">
