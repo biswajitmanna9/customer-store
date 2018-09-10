@@ -135,7 +135,8 @@ export class StoreAppMessengerComponent implements OnInit, OnDestroy {
         this.zone.run(() => {
             var data = {
                 text: msgData.message,
-                created: new Date()
+                created: new Date(),
+                // read_status: true
             }
             if (msgData.chat_user == this.user_id) {
                 data['sender'] = true
@@ -158,7 +159,12 @@ export class StoreAppMessengerComponent implements OnInit, OnDestroy {
 
 
     isViewed(message) {
-        return false
+        if (message.read_status) {
+            return true
+        }
+        else {
+            return false
+        }
     }
 
     send() {
@@ -187,14 +193,26 @@ export class StoreAppMessengerComponent implements OnInit, OnDestroy {
             res => {
                 console.log(res)
                 var thread = res['thread']
-                this.getMessageList(thread);
+                this.viewMessages(thread);
             },
             error => {
                 console.log(error)
             }
         )
     }
-
+    viewMessages(thread) {
+        var param = "?user=" + this.app_id + "&user_type=app_master&thread_id=" + thread;
+        this.storeAppService.viewMessages(param).subscribe(
+            res => {
+                console.log(res)
+                this.getMessageList(thread);
+            },
+            error => {
+                this.loader.hide();
+                console.log(error)
+            }
+        )
+    }
 
     getMessageList(thread) {
         this.loader.show(this.lodaing_options);
@@ -204,7 +222,8 @@ export class StoreAppMessengerComponent implements OnInit, OnDestroy {
                 res.forEach(x => {
                     var data = {
                         text: x.message,
-                        created: x.datetime
+                        created: x.datetime,
+                        read_status: x.read_status
                     }
                     if (x.chat_user == this.user_id) {
                         data['sender'] = true

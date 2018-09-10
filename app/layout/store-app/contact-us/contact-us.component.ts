@@ -8,6 +8,7 @@ import { LoadingIndicator } from "nativescript-loading-indicator";
 var OpenUrl = require("nativescript-openurl");
 import { getString, setString, getBoolean, setBoolean, clear } from "application-settings";
 import { NotificationService } from "../../../core/services/notification.service";
+import { ExploreService } from "../../../core/services/explore.service";
 
 @Component({
     selector: 'contact-us',
@@ -45,14 +46,16 @@ export class StoreAppContactUsComponent implements OnInit {
             hideBezel: true,
         }
     }
-    chat_length: number = 0;
+    chat_unread_length: number = 0;
     badgeCountStatus: boolean;
+    user_id: string;
     constructor(
         private route: ActivatedRoute,
         private location: Location,
         private storeAppService: StoreAppService,
         private router: Router,
-        private notificationService: NotificationService
+        private notificationService: NotificationService,
+        private exploreService: ExploreService,
     ) {
         notificationService.getBadgeCountStatus.subscribe(status => this.changebadgeCountStatus(status))
     }
@@ -67,6 +70,7 @@ export class StoreAppContactUsComponent implements OnInit {
     ngOnInit() {
         var full_location = this.location.path().split('/');
         this.app_id = full_location[2].trim();
+        this.user_id = getString('user_id');
         this.getAppDetails(this.app_id);
 
         this.getSocialMediaListByApp(this.app_id);
@@ -74,19 +78,22 @@ export class StoreAppContactUsComponent implements OnInit {
     }
 
     getChatMembersDetails() {
-        var param = "?user=" + getString('user_id') + "&user_type=customer"
-        this.storeAppService.getChatMembersDetails(param).subscribe(
-            (res: any[]) => {
-                console.log(res)
-                var sum = 0;
-                res.forEach(x => {
-                    sum += x.how_many_messages
-                })
-                this.chat_length = sum;
+        this.exploreService.getUserDashboardAppList(this.user_id).subscribe(
+            res => {
+                var d = [];
+                d = res['app_master'].filter(x => x.id == this.app_id)
+                if(d.length > 0){
+                    var sum = 0;
+                    d[0].chat_details.forEach(y => {
+                        sum += y.unread_messages
+                    })
+                    this.chat_unread_length = sum;
+                    console.log(this.chat_unread_length)
+                }                
+                console.log(res);
             },
             error => {
                 console.log(error)
-                this.loader.hide();
             }
         )
     }

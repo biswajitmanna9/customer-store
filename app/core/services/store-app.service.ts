@@ -1,4 +1,4 @@
-import { Injectable,EventEmitter, Output } from "@angular/core";
+import { Injectable, EventEmitter, Output } from "@angular/core";
 import {
   HttpClient,
   HttpHeaders,
@@ -17,16 +17,16 @@ export class StoreAppService {
   @Output() getCartStatus: EventEmitter<any> = new EventEmitter();
 
 
-  cartStatus(data){
+  cartStatus(data) {
     console.log(data);
-    if (data==true) {
+    if (data == true) {
       console.log("aaa");
-        this.getCartStatus.emit(true);
-        return
+      this.getCartStatus.emit(true);
+      return
     } else {
       console.log("bbb");
-        this.getCartStatus.emit(false);
-        return
+      this.getCartStatus.emit(false);
+      return
     }
   }
 
@@ -42,12 +42,16 @@ export class StoreAppService {
     return this.http.post(Globals.apiEndpoint + 'messages/' + param, data)
   }
 
-  getChatMembersDetails(param){
-    return this.http.get(Globals.apiEndpoint + 'chat_members/'+ param)
+  getChatMembersDetails(param) {
+    return this.http.get(Globals.apiEndpoint + 'chat_members/' + param)
   }
 
   getMessageListByApp(thread) {
     return this.http.get(Globals.apiEndpoint + 'messages/' + thread + "/")
+  }
+
+  viewMessages(param) {
+    return this.http.get(Globals.apiEndpoint + 'chat_read_message/' + param)
   }
 
   getAppRating(customer, app_master) {
@@ -79,15 +83,15 @@ export class StoreAppService {
   }
 
   getCustomerOrderListByApp(params) {
-    return this.http.get(Globals.apiEndpoint + 'order_details_by_customer_app/' + params )
+    return this.http.get(Globals.apiEndpoint + 'order_details_by_customer_app/' + params)
   }
 
   getSocialMediaListByApp(id) {
-    return this.http.get(Globals.apiEndpoint + 'app_social_media/' + id )
+    return this.http.get(Globals.apiEndpoint + 'app_social_media/' + id)
   }
 
-  getOrderDetails(id){
-    return this.http.get(Globals.apiEndpoint + 'all_order_details/' + id )
+  getOrderDetails(id) {
+    return this.http.get(Globals.apiEndpoint + 'all_order_details/' + id)
   }
 
 }

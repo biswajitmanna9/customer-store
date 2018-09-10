@@ -35,3 +35,10 @@
 .close {
     color: #999999;
 }
+
+.unread {
+    color: #fff;
+    font-size: 10;
+    border-radius: 50%;
+    background-color: #3C5AFD
+}

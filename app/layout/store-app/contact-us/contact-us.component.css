@@ -24,12 +24,23 @@
 .button-center {
     margin-top: 30;
 }
-.social-media-section
-{
+
+.social-media-section {
     margin-top: 20;
     margin-bottom: 20;
 }
+
 .social-icon {
     color: #284058;
     font-size: 30;
+}
+
+.unread {
+    text-align: center;
+    width: 20;
+    height: 20;
+    color: #fff;
+    font-size: 10;
+    border-radius: 50%;
+    background-color: #3C5AFD
 }

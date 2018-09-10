@@ -85,7 +85,16 @@ export class DashboardComponent implements OnInit {
         this.loader.show(this.lodaing_options);
         this.exploreService.getUserDashboardAppList(this.user_id).subscribe(
             res => {
-                this.user_app_list = res['app_master']
+                res['app_master'].forEach(x => {
+                    var sum = 0;
+                    x.chat_details.forEach(y => {
+                        sum += y.unread_messages
+                    })
+                    x['total_unread_messages'] = sum;
+                    this.user_app_list.push(x)
+                })
+                // this.user_app_list = res['app_master']
+                console.log(this.user_app_list);
                 console.log(res);
                 this.loader.hide();
             },

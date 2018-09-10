@@ -12,7 +12,7 @@
                     <Label class="message-text" [text]="message.text" textWrap="true"></Label>
                     <FlexboxLayout class="meta">
                         <Label [text]="message.created | date: 'shortTime'" class="time"></Label>
-                        <!-- <Label *ngIf="message.sender" [text]="'fa-check' | fonticon" class="fa check" [class.blue]="isViewed(message)"></Label> -->
+                        <Label *ngIf="message.sender" [text]="'fa-circle' | fonticon" class="fa check" [class.blue]="isViewed(message)"></Label>
                     </FlexboxLayout>
                 </FlexboxLayout>
             </StackLayout>
