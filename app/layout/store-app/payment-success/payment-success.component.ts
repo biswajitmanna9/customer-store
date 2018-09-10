@@ -43,6 +43,9 @@ export class StoreAppPaymentSuccessComponent implements OnInit {
         }
     }
     currency: string;
+    total_item_price: number;
+    total_packing_price: number;
+    total_price: number;
     constructor(
         private route: ActivatedRoute,
         private location: Location,
@@ -67,6 +70,15 @@ export class StoreAppPaymentSuccessComponent implements OnInit {
             (res: any[]) => {
                 console.log(res)
                 this.order = res[0];
+                var item_sum = 0;
+                var package_sum = 0;
+                this.order.order_details.forEach(x => {
+                    item_sum += +(x.unit_price * x.quantity);
+                    package_sum += +x.packaging_cost;
+                })
+                this.total_item_price = item_sum;
+                this.total_packing_price = package_sum;
+                this.total_price = item_sum + package_sum;
                 this.loader.hide();
                 this.visible_key = true;
             },

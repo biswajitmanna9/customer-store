@@ -5,32 +5,53 @@
                 <Label [text]="category.category_name" textWrap="true" row="0" col="0" class="category_heading"></Label>
                 <StackLayout row="1" col="0">
                     <FlexboxLayout flexWrap="wrap" alignItems="flex-start">
-                        <StackLayout alignSelf="flex-start" class="product_col" *ngFor="let item of category.items" padding="5" backgroundColor="#fff">
+                        <StackLayout alignSelf="flex-start" class="product_col" *ngFor="let item of category.items"
+                            padding="5" backgroundColor="#fff">
                             <CardView class="whiteCard">
                                 <StackLayout>
-                                    <StackLayout verticalAlignment="center" orientation="vertical" horizontalAlignment="center" *ngIf="item.product_image != ''">
-                                        <Image [src]="img_base_url+'/media/'+item.product_image" class="product_image img-rounded" alignItems="center" horizontalAlignment="center"></Image>
+                                    <StackLayout verticalAlignment="center" orientation="vertical" horizontalAlignment="center"
+                                        *ngIf="item.product_image != ''">
+                                        <Image [src]="img_base_url+'/media/'+item.product_image" class="product_image img-rounded"
+                                            alignItems="center" horizontalAlignment="center"></Image>
                                     </StackLayout>
                                     <GridLayout rows="*,*" columns="*,*" verticalAlignment="center">
-                                        <Label [text]="item.product_name" textWrap="true" verticalAlignment="center" class="product_name m-b-10" row="0" colSpan="2"></Label>
-                                        <StackLayout row="1" col="0" verticalAlignment="center" orientation="vertical" horizontalAlignment="left">
+                                        <Label [text]="item.product_name" textWrap="true" verticalAlignment="center"
+                                            class="product_name m-b-10" row="0" colSpan="2"></Label>
+                                        <StackLayout row="1" col="0" verticalAlignment="center" orientation="vertical"
+                                            horizontalAlignment="left">
                                             <StackLayout orientation="horizontal">
-                                                <Label [text]="item.discounted_price | currency: currency : true:'1.0-0'" class="discounted_price" textWrap="true" *ngIf="item.discounted_price > 0"></Label>
-                                                <Label [text]="item.price | currency: currency : true:'1.0-0'" class="original_price" textWrap="true" [ngClass]="[item.discounted_price > 0 ? 'isDiscount' : '']"></Label>
-                                                <Label [text]="getDiscount(item.price,item.discounted_price)" class="discount" textWrap="true" *ngIf="item.discounted_price > 0"></Label>
+                                                <Label [text]="item.discounted_price | currency: currency : true:'1.0-0'"
+                                                    class="discounted_price" textWrap="true" *ngIf="item.discounted_price > 0"></Label>
+                                                <Label [text]="item.price | currency: currency : true:'1.0-0'" class="original_price"
+                                                    textWrap="true" [ngClass]="[item.discounted_price > 0 ? 'isDiscount' : '']"></Label>
+                                                <Label [text]="getDiscount(item.price,item.discounted_price)" class="discount"
+                                                    textWrap="true" *ngIf="item.discounted_price > 0"></Label>
                                             </StackLayout>
                                         </StackLayout>
-                                        <StackLayout horizontalAlignment="right" verticalAlignment="center" (tap)="addToCart(item)" *ngIf="!item.isCart" col="1" row="1" backgroundColor="#fff" borderColor="#00a008" borderWidth="1" borderRadius="3">
+                                        <StackLayout horizontalAlignment="right" verticalAlignment="center" (tap)="addToCart(item)"
+                                            *ngIf="!item.isCart" col="1" row="1" backgroundColor="#fff" borderColor="#00a008"
+                                            borderWidth="1" borderRadius="3">
                                             <GridLayout rows="*" columns="40,20" verticalAlignment="center">
-                                                <Label text="Add" row="0" col="0" verticalAlignment="center" textAlignment="center" paddingTop="2" color="#00a008" borderRightColor="#00a008" borderRightWidth="1"></Label>
-                                                <Label paddingTop="2" class="fa" [text]="'fa-plus' | fonticon" row="0" col="1" verticalAlignment="center" textAlignment="center" color="#00a008"></Label>
+                                                <Label text="Add" row="0" col="0" verticalAlignment="center"
+                                                    textAlignment="center" paddingTop="2" color="#00a008"
+                                                    borderRightColor="#00a008" borderRightWidth="1"></Label>
+                                                <Label paddingTop="2" class="fa" [text]="'fa-plus' | fonticon" row="0"
+                                                    col="1" verticalAlignment="center" textAlignment="center" color="#00a008"></Label>
                                             </GridLayout>
                                         </StackLayout>
-                                        <StackLayout row="1" col="1" verticalAlignment="center" orientation="vertical" *ngIf="item.isCart" horizontalAlignment="right" backgroundColor="#fff" borderColor="#00a008" borderWidth="1" borderRadius="3">
+                                        <StackLayout row="1" col="1" verticalAlignment="center" orientation="vertical"
+                                            *ngIf="item.isCart" horizontalAlignment="right" backgroundColor="#fff"
+                                            borderColor="#00a008" borderWidth="1" borderRadius="3">
                                             <GridLayout rows="*" columns="20,20,20" verticalAlignment="center">
-                                                <Label class="fa" [text]="'fa-minus' | fonticon" color="#00a008" borderRightColor="#00a008" borderRightWidth="1" paddingTop="4" row="0" col="0" (tap)="decrement(item)" textAlignment="center" verticalAlignment="center" height="20"></Label>
-                                                <Label [text]="item.quantity" color="#00a008" borderRightColor="#00a008" borderRightWidth="1" row="0" col="1" textAlignment="center" height="20"></Label>
-                                                <Label class="fa" [text]="'fa-plus' | fonticon" color="#00a008" paddingTop="4" row="0" col="2" (tap)="increment(item)" textAlignment="center" verticalAlignment="center" height="20"></Label>
+                                                <Label class="fa" [text]="'fa-minus' | fonticon" color="#00a008"
+                                                    borderRightColor="#00a008" borderRightWidth="1" paddingTop="4" row="0"
+                                                    col="0" (tap)="decrement(item)" textAlignment="center"
+                                                    verticalAlignment="center" height="20"></Label>
+                                                <Label [text]="item.quantity" color="#00a008" borderRightColor="#00a008"
+                                                    borderRightWidth="1" row="0" col="1" textAlignment="center" height="20"></Label>
+                                                <Label class="fa" [text]="'fa-plus' | fonticon" color="#00a008"
+                                                    paddingTop="4" row="0" col="2" (tap)="increment(item)"
+                                                    textAlignment="center" verticalAlignment="center" height="20"></Label>
                                             </GridLayout>
 
 
@@ -43,7 +64,8 @@
                 </StackLayout>
             </GridLayout>
         </StackLayout>
-        <Button class="btn btn-primary" backgroundColor="#284058" color="#fff" width="50%" text="View Cart" [nsRouterLink]="['/store-app/', app_id , 'cart']"></Button>
+        <Button class="btn btn-primary" backgroundColor="#284058" color="#fff" width="50%" text="View Cart"
+            [nsRouterLink]="['/store-app/', app_id , 'cart']"></Button>
     </StackLayout>
     <StackLayout padding="10" *ngIf="accordian_view_key && serviceType==2">
         <StackLayout *ngFor="let category of category_list">
@@ -53,12 +75,16 @@
                     <StackLayout *ngFor="let item of category.items" padding="10" backgroundColor="#fff">
                         <CardView class="whiteCard">
                             <StackLayout>
-                                <StackLayout verticalAlignment="center" orientation="vertical" horizontalAlignment="center" *ngIf="item.product_image != ''">
-                                    <Image [src]="img_base_url+'/media/'+item.product_image" class="product_image img-rounded" alignItems="center" horizontalAlignment="center"></Image>
+                                <StackLayout verticalAlignment="center" orientation="vertical" horizontalAlignment="center"
+                                    *ngIf="item.product_image != ''">
+                                    <Image [src]="img_base_url+'/media/'+item.product_image" class="product_image img-rounded"
+                                        alignItems="center" horizontalAlignment="center"></Image>
                                 </StackLayout>
                                 <GridLayout rows="*" columns="*" padding="10" verticalAlignment="center">
-                                    <StackLayout row="0" col="0" verticalAlignment="center" orientation="vertical" horizontalAlignment="left">
-                                        <Label [text]="item.product_name" textWrap="true" verticalAlignment="center" class="product_name"></Label>
+                                    <StackLayout row="0" col="0" verticalAlignment="center" orientation="vertical"
+                                        horizontalAlignment="left">
+                                        <Label [text]="item.product_name" textWrap="true" verticalAlignment="center"
+                                            class="product_name"></Label>
                                     </StackLayout>
                                 </GridLayout>
                             </StackLayout>
@@ -73,47 +99,70 @@
             <StackLayout alignSelf="flex-start" class="product_col" padding="5" backgroundColor="#fff" *ngFor="let item of category_list[0].items">
                 <CardView class="whiteCard">
                     <StackLayout>
-                        <StackLayout verticalAlignment="center" orientation="vertical" horizontalAlignment="center" *ngIf="item.product_image != ''">
-                            <Image [src]="img_base_url+'/media/'+item.product_image" class="product_image img-rounded" alignItems="center" horizontalAlignment="center"></Image>
+                        <StackLayout verticalAlignment="center" orientation="vertical" horizontalAlignment="center"
+                            *ngIf="item.product_image != ''">
+                            <Image [src]="img_base_url+'/media/'+item.product_image" class="product_image img-rounded"
+                                alignItems="center" horizontalAlignment="center"></Image>
                         </StackLayout>
                         <GridLayout rows="*,*" columns="*,*" verticalAlignment="center">
-                            <Label [text]="item.product_name" textWrap="true" verticalAlignment="center" class="product_name m-b-10" row="0" colSpan="2"></Label>
-                            <StackLayout row="1" col="0" verticalAlignment="center" orientation="vertical" horizontalAlignment="left">
+                            <Label [text]="item.product_name" textWrap="true" verticalAlignment="center" class="product_name m-b-10"
+                                row="0" colSpan="2"></Label>
+                            <StackLayout row="1" col="0" verticalAlignment="center" orientation="vertical"
+                                horizontalAlignment="left">
                                 <StackLayout orientation="horizontal">
-                                    <Label [text]="item.discounted_price | currency: currency : true:'1.0-0'" class="discounted_price" textWrap="true" *ngIf="item.discounted_price > 0"></Label>
-                                    <Label [text]="item.price | currency: currency : true:'1.0-0'" class="original_price" textWrap="true" [ngClass]="[item.discounted_price > 0 ? 'isDiscount' : '']"></Label>
-                                    <Label [text]="getDiscount(item.price,item.discounted_price)" class="discount" textWrap="true" *ngIf="item.discounted_price > 0"></Label>
+                                    <Label [text]="item.discounted_price | currency: currency : true:'1.0-0'" class="discounted_price"
+                                        textWrap="true" *ngIf="item.discounted_price > 0"></Label>
+                                    <Label [text]="item.price | currency: currency : true:'1.0-0'" class="original_price"
+                                        textWrap="true" [ngClass]="[item.discounted_price > 0 ? 'isDiscount' : '']"></Label>
+                                    <Label [text]="getDiscount(item.price,item.discounted_price)" class="discount"
+                                        textWrap="true" *ngIf="item.discounted_price > 0"></Label>
                                 </StackLayout>
                             </StackLayout>
-                            <StackLayout horizontalAlignment="right" verticalAlignment="center" (tap)="addToCart(item)" *ngIf="!item.isCart" col="1" row="1" backgroundColor="#fff" borderColor="#00a008" borderWidth="1" borderRadius="3">
-                                <GridLayout rows="*" columns="80,40" verticalAlignment="center">
-                                    <Label text="Add" row="0" col="0" verticalAlignment="center" textAlignment="center" width="80" height="35" paddingTop="6" color="#00a008" borderRightColor="#00a008" borderRightWidth="1"></Label>
-                                    <Label class="fa" [text]="'fa-plus' | fonticon" row="0" col="1" verticalAlignment="center" textAlignment="center" width="40" height="35" backgroundColor="#d5edd5" paddingTop="12" color="#00a008"></Label>
+                            <StackLayout horizontalAlignment="right" verticalAlignment="center" (tap)="addToCart(item)"
+                                *ngIf="!item.isCart" col="1" row="1" backgroundColor="#fff" borderColor="#00a008"
+                                borderWidth="1" borderRadius="3">
+                                <GridLayout rows="*" columns="40,20" verticalAlignment="center">
+                                    <Label text="Add" row="0" col="0" verticalAlignment="center" textAlignment="center"
+                                        paddingTop="2" color="#00a008" borderRightColor="#00a008" borderRightWidth="1"></Label>
+                                    <Label paddingTop="2" class="fa" [text]="'fa-plus' | fonticon" row="0" col="1"
+                                        verticalAlignment="center" textAlignment="center" color="#00a008"></Label>
                                 </GridLayout>
                             </StackLayout>
-                            <StackLayout row="1" col="1" verticalAlignment="center" orientation="vertical" *ngIf="item.isCart" horizontalAlignment="right" backgroundColor="#fff" borderColor="#00a008" borderWidth="1" borderRadius="3">
-                                <GridLayout rows="*" columns="40,40,40" verticalAlignment="center">
-                                    <Label class="fa" [text]="'fa-minus' | fonticon" paddingTop="12" color="#00a008" borderRightColor="#00a008" borderRightWidth="1" row="0" col="0" (tap)="decrement(item)" textAlignment="center" width="40" height="35"></Label>
-                                    <Label [text]="item.quantity" paddingTop="6" color="#00a008" borderRightColor="#00a008" borderRightWidth="1" row="0" col="1" textAlignment="center" width="40" height="35"></Label>
-                                    <Label class="fa" [text]="'fa-plus' | fonticon" paddingTop="12" color="#00a008" row="0" col="2" (tap)="increment(item)" textAlignment="center" width="40" height="35"></Label>
+                            <StackLayout row="1" col="1" verticalAlignment="center" orientation="vertical" *ngIf="item.isCart"
+                                horizontalAlignment="right" backgroundColor="#fff" borderColor="#00a008" borderWidth="1"
+                                borderRadius="3">
+                                <GridLayout rows="*" columns="20,20,20" verticalAlignment="center">
+                                    <Label class="fa" [text]="'fa-minus' | fonticon" color="#00a008" borderRightColor="#00a008"
+                                        borderRightWidth="1" paddingTop="4" row="0" col="0" (tap)="decrement(item)"
+                                        textAlignment="center" verticalAlignment="center" height="20"></Label>
+                                    <Label [text]="item.quantity" color="#00a008" borderRightColor="#00a008"
+                                        borderRightWidth="1" row="0" col="1" textAlignment="center" height="20"></Label>
+                                    <Label class="fa" [text]="'fa-plus' | fonticon" color="#00a008" paddingTop="4" row="0"
+                                        col="2" (tap)="increment(item)" textAlignment="center" verticalAlignment="center"
+                                        height="20"></Label>
                                 </GridLayout>
+
+
                             </StackLayout>
                         </GridLayout>
                     </StackLayout>
                 </CardView>
             </StackLayout>
         </FlexboxLayout>
-        <Button class="btn btn-primary" backgroundColor="#284058" color="#fff" width="50%" text="View Cart" [nsRouterLink]="['/store-app/', app_id , 'cart']"></Button>
+        <Button class="btn btn-primary" backgroundColor="#284058" color="#fff" width="50%" text="View Cart"
+            [nsRouterLink]="['/store-app/', app_id , 'cart']"></Button>
     </StackLayout>
     <StackLayout padding="10" *ngIf="list_view_key && serviceType==2">
         <StackLayout padding="10" backgroundColor="#fff" *ngFor="let item of category_list[0].items">
             <CardView class="whiteCard">
                 <StackLayout>
                     <StackLayout verticalAlignment="center" orientation="vertical" horizontalAlignment="center" *ngIf="item.product_image != ''">
-                        <Image [src]="img_base_url+'/media/'+item.product_image" class="product_image img-rounded" alignItems="center" horizontalAlignment="center"></Image>
+                        <Image [src]="img_base_url+'/media/'+item.product_image" class="product_image img-rounded"
+                            alignItems="center" horizontalAlignment="center"></Image>
                     </StackLayout>
                     <GridLayout rows="*" columns="*,*" padding="6" verticalAlignment="center">
-                        <StackLayout row="0" col="0" verticalAlignment="center" orientation="vertical" horizontalAlignment="left">
+                        <StackLayout row="0" col="0" verticalAlignment="center" orientation="vertical"
+                            horizontalAlignment="left">
                             <Label [text]="item.product_name" textWrap="true" verticalAlignment="center" class="product_name"></Label>
                         </StackLayout>
                     </GridLayout>

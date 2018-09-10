@@ -94,6 +94,10 @@ export class StoreAppService {
     return this.http.get(Globals.apiEndpoint + 'all_order_details/' + id)
   }
 
+  updateOrder(id, data) {
+    return this.http.put(Globals.apiEndpoint + 'order_payment/' + id + '/', data)
+  }
+
 }
 
 

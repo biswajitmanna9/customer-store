@@ -64,15 +64,15 @@ export class StoreAppContactUsComponent implements OnInit {
         this.badgeCountStatus = status;
         console.log(this.badgeCountStatus)
         if (this.badgeCountStatus == true) {
-            this.ngOnInit();
+            this.getChatMembersDetails();
         }
     }
     ngOnInit() {
+        this.loader.show(this.lodaing_options);
         var full_location = this.location.path().split('/');
         this.app_id = full_location[2].trim();
         this.user_id = getString('user_id');
         this.getAppDetails(this.app_id);
-
         this.getSocialMediaListByApp(this.app_id);
         this.getChatMembersDetails();
     }
@@ -99,8 +99,7 @@ export class StoreAppContactUsComponent implements OnInit {
     }
 
 
-    getAppDetails(id) {
-        this.loader.show(this.lodaing_options);
+    getAppDetails(id) {        
         this.storeAppService.getStoreAppDetails(id).subscribe(
             res => {
                 this.app_details = res;
@@ -114,6 +113,7 @@ export class StoreAppContactUsComponent implements OnInit {
             }
         )
     }
+
     getSocialMediaListByApp(id) {
         this.storeAppService.getSocialMediaListByApp(id).subscribe(
             res => {
@@ -138,16 +138,4 @@ export class StoreAppContactUsComponent implements OnInit {
     launch(url) {
         OpenUrl(url);
     }
-
-    // Text a number (or multiple numbers)
-    // public messageParents() {
-    //     TNSPhone.sms(['212-555-1234', '212-555-0987'], "Text till your fingers bleed")
-    //         .then(
-    //             (args) => {
-    //                 console.log(JSON.stringify(args));
-    //             }, (err) => {
-    //                 console.log('Error: ' + err);
-    //             }
-    //         )
-    // }
 }

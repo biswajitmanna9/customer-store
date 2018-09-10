@@ -16,6 +16,7 @@ import {
 } from "@nstudio/nativescript-paytm";
 import * as dialogs from "ui/dialogs";
 import * as Globals from '../../../core/globals';
+import { NotificationService } from "../../../core/services/notification.service";
 
 @Component({
     selector: 'payment',
@@ -82,12 +83,18 @@ export class StoreAppPaymentComponent implements OnInit {
     paymentOptions: Array<RadioOption>;
     is_paytm_enabled: boolean;
     currency: string;
+    app_details: any;
+    app_device_token: string;
+    customer_details: any;
+    user_info: string;
+    order_id: number;
     constructor(
         private route: ActivatedRoute,
         private location: Location,
         private storeAppService: StoreAppService,
         private router: Router,
-        private formBuilder: FormBuilder
+        private formBuilder: FormBuilder,
+        private notificationService: NotificationService
     ) {
         this.secureStorage = new SecureStorage();
         this.order = new OrderModule();
@@ -111,12 +118,14 @@ export class StoreAppPaymentComponent implements OnInit {
         });
 
         this.getAppDetails(this.app_id)
+        this.getCustomerDetails(this.user_id)
     }
 
     getAppDetails(id) {
 
         this.storeAppService.getStoreAppDetails(id).subscribe(
             res => {
+                this.getAppDeviceToken(res['user'].id);
                 if (res['is_paytm_enabled'] == 1) {
                     this.is_paytm_enabled = true;
                     this.paymentOptions = [
@@ -136,6 +145,49 @@ export class StoreAppPaymentComponent implements OnInit {
             },
             error => {
                 this.loader.hide()
+                console.log(error)
+            }
+        )
+    }
+
+    getAppDeviceToken(id) {
+        this.notificationService.getAppDeviceToken(id).subscribe(
+            res => {
+                console.log(res)
+                this.app_device_token = res['device_token'];
+            },
+            error => {
+                console.log(error)
+            }
+        )
+    }
+
+    getCustomerDetails(id) {
+        this.storeAppService.getCustomerDetails(id).subscribe(
+            res => {
+                console.log(res)
+                this.customer_details = res;
+                this.user_info = this.customer_details.customer_name + ',' + this.customer_details.contact_no;
+            },
+            error => {
+                console.log(error)
+            }
+        )
+    }
+
+    pushNotf() {
+        var value = {
+            title: "BanaoApp(new order)",
+            subtitle: "New order",
+            text: "New order is placed from " + this.user_info
+        }
+        this.notificationService.sendPushNotification(this.app_device_token, value).subscribe(
+            res => {
+                console.log(res)
+                this.loader.hide();
+                this.router.navigate(['/store-app/', this.app_id, 'payment-success', this.order_id])
+            },
+            error => {
                 console.log(error)
             }
         )
@@ -371,9 +423,9 @@ export class StoreAppPaymentComponent implements OnInit {
             this.storeAppService.createOrder(this.order).subscribe(
                 res => {
                     console.log(res)
+                    this.order_id = res['id']
                     if (this.payment_type == 1) {
-                        this.loader.hide();
-                        this.router.navigate(['/store-app/', this.app_id, 'payment-success', res['id']])
+                        this.pushNotf();
                     }
                     else {
                         this.getPaytmFormValue(this.order.price)
@@ -406,6 +458,7 @@ export class StoreAppPaymentComponent implements OnInit {
 
     // paytm
     payViaPaytm() {
+        var $this = this;
         this.paytm.setIOSCallbacks({
             didFinishedResponse: function (response) {
                 console.log(response);
@@ -434,19 +487,48 @@ export class StoreAppPaymentComponent implements OnInit {
         this.paytm.initialize("STAGING");
         this.paytm.startPaymentTransaction({
             someUIErrorOccurred: function (inErrorMessage) {
-               
+
                 console.log(inErrorMessage);
             },
             onTransactionResponse: function (inResponse) {
-                
+
+                console.log("2");
                 console.log(inResponse);
+                var response = JSON.parse(inResponse);
+                console.log(response);
+                var ORDERID = response['ORDERID'];
+                var txn_id = response['TXNID'];
+                var txn_status;
+                if (response['STATUS'] == 'TXN_SUCCESS') {
+                    txn_status = 2;
+                }
+                else if (response['STATUS'] == 'PROCESSING') {
+                    txn_status = 1;
+                }
+                else if (response['STATUS'] == 'TXN_FAILURE') {
+                    txn_status = 0;
+                }
+                else if (response['STATUS'] == 'PENDING') {
+                    txn_status = 3;
+                }
+                var data = {
+                    txn_status: txn_status,
+                    txn_id: txn_id,
+                    bank_txn_id: '',
+                    checksumhash: response['CHECKSUMHASH'],
+                    paytm_response: inResponse
+                }
+                console.log(ORDERID);
+                console.log(data);
+                $this.loader.show($this.lodaing_options)
+                $this.updateOrder(ORDERID, data)
             },
             networkNotAvailable: function () {
-               
+
                 console.log("Network not available");
             },
             clientAuthenticationFailed: function (inErrorMessage) {
-                
+
                 console.log(inErrorMessage);
             },
             onErrorLoadingWebPage: function (
@@ -454,17 +536,38 @@ export class StoreAppPaymentComponent implements OnInit {
                 inErrorMessage,
                 inFailingUrl
             ) {
-                
+
                 console.log(iniErrorCode, inErrorMessage, inFailingUrl);
             },
             onBackPressedCancelTransaction: function () {
-                
+
                 console.log("User cancelled transaction by pressing back button");
             },
             onTransactionCancel: function (inErrorMessage, inResponse) {
-                
+
                 console.log(inErrorMessage, inResponse);
             }
         });
+    }
+
+    updateOrder(id, data) {
+        this.loader.show(this.lodaing_options);
+        this.storeAppService.updateOrder(id, data).subscribe(
+            res => {
+                console.log(res)
+                if (data.txn_status == 2) {
+                    this.pushNotf()
+                }
+                else {
+                    this.loader.hide();
+                    this.router.navigate(['/store-app/', this.app_id, 'payment-success', this.order_id])
+                }
+
+            },
+            error => {
+                this.loader.hide();
+                console.log(error)
+            }
+        )
     }
 }

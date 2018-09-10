@@ -2,161 +2,54 @@
     <StackLayout padding="10" *ngIf="visible_key">
         <Label text="Order Placed Successfully" textWrap="true" class="m-b-30" textAlignment="center" class="heading"></Label>
         <StackLayout class="hr-light pading-gap m-b-10 m-t-10"></StackLayout>
-
-        <!-- <StackLayout padding="10" backgroundColor="#fff" class="m-b-10" *ngFor="let item of order.order_details">
+        <StackLayout backgroundColor="#fff">
             <CardView class="whiteCard">
-                <GridLayout rows="*" columns="*,*" padding="10" verticalAlignment="center">
-                    <StackLayout row="0" col="0" verticalAlignment="center" orientation="vertical" horizontalAlignment="left">
-                        <Label [text]="item.product_details.product_name" textWrap="true" verticalAlignment="center" class="product_name"></Label>
-                        <StackLayout orientation="horizontal">
-                            <Label [text]="item.product_details.discounted_price | currency: currency : true:'1.0-0'" class="discounted_price" textWrap="true" *ngIf="item.product_details.discounted_price > 0"></Label>
-                            <Label [text]="item.product_details.price | currency: currency : true:'1.0-0'" class="original_price" textWrap="true" [ngClass]="[item.product_details.discounted_price > 0 ? 'isDiscount' : '']"></Label>
-                            <Label [text]="getDiscount(item.product_details.price,item.product_details.discounted_price)" class="discount" textWrap="true" *ngIf="item.product_details.discounted_price > 0"></Label>
-                        </StackLayout>
-                    </StackLayout>
-                    <StackLayout horizontalAlignment="right" verticalAlignment="center" col="1" row="0" backgroundColor="#fff">
-                        <GridLayout rows="*,*,*" verticalAlignment="center">
-                            <Label row="0" verticalAlignment="center" textAlignment="left">
-                                <FormattedString>
-                                    <Span text="Quantity - "></Span>
-                                    <Span [text]="item.quantity"></Span>
-                                </FormattedString>
-                            </Label>
-                            <Label row="1" verticalAlignment="center" textAlignment="left">
-                                <FormattedString>
-                                    <Span text="Packaging charge - "></Span>
-                                    <Span [text]="item.packaging_cost | currency: currency : true:'1.0-0'"></Span>
-                                </FormattedString>
-                            </Label>
-                            <Label row="2" verticalAlignment="center" textAlignment="left">
-                                <FormattedString>
-                                    <Span text="Total cost - "></Span>
-                                    <Span [text]="item.total_cost | currency: currency : true:'1.0-0'"></Span>
-                                </FormattedString>
-                            </Label>
-                        </GridLayout>
-                    </StackLayout>
-                </GridLayout>
-            </CardView>
-        </StackLayout>
-
-
-
-
-
-
-
- -->
-
-
-
-
-
-
-
-
-        <StackLayout backgroundColor="#fff" *ngFor="let item of order.order_details">
-            <CardView class="whiteCard">
-                <!-- <GridLayout columns="*,*,*,*,*" rows="*" class="category_heading" orientation="horizontal" borderBottomWidth="1" borderBottomColor="#ccc">
-                        <Label row="0" col="0" [text]="order.order_id"></Label>
-                        <Label row="0" col="1" [text]="order.price | currency: currency : true:'1.0-0'"></Label>
-                        <Label row="0" col="2" [text]="order.created_at | date:'dd-mm-yy'"></Label>
-                        <Label row="0" col="3" *ngIf="!order.is_paid" text="Not Paid"></Label>
-                        <Label row="0" col="3" *ngIf="order.is_paid" text="Paid"></Label>
-                        <Label row="0" col="4" *ngIf="!order.delivery_status" text="Not Delivered"></Label>
-                        <Label row="0" col="4" *ngIf="order.delivery_status" text="Delivered"></Label>
-                    </GridLayout> -->
-
                 <StackLayout horizontalAlignment="left" verticalAlignment="center" col="1" row="0">
-                    <GridLayout rows="*,*,*" verticalAlignment="center" orientation="vertical" borderWidth="1" borderColor="#ccc" padding="10">
+                    <GridLayout rows="*,*,*" verticalAlignment="center" orientation="vertical" borderWidth="1"
+                        borderColor="#ccc" padding="10">
                         <Label row="0" verticalAlignment="center" textAlignment="left">
-                                <FormattedString>
-                                        <Span  color="#ababab" text="order id: "></Span>
-                                    <Span color="#000" fontWeight="700" [text]="order.order_id"></Span>
-                                    <!-- <Span [text]="order.price | currency: currency : true:'1.0-0'"></Span> -->
-                                </FormattedString>
-                            </Label>
+                            <FormattedString>
+                                <Span color="#ababab" text="order id: "></Span>
+                                <Span color="#000" fontWeight="700" [text]="order.order_id"></Span>
+                            </FormattedString>
+                        </Label>
                         <Label row="1" verticalAlignment="center" textAlignment="left">
-                                <FormattedString>
-                                        <Span color="#ababab" text="Order Date: "></Span>
-                                    <Span color="#000" fontWeight="700" [text]="order.created_at | date:'dd-mm-yy'"></Span>
-                                    <!-- <Span *ngIf="!order.is_paid" text="Not Paid"></Span> -->
-                                </FormattedString>
-                            </Label>
+                            <FormattedString>
+                                <Span color="#ababab" text="Order Date: "></Span>
+                                <Span color="#000" fontWeight="700" [text]="order.created_at | date:'dd-mm-yy'"></Span>
+                            </FormattedString>
+                        </Label>
                         <Label row="2" verticalAlignment="center" textAlignment="left">
-                                <FormattedString>
-                                    <!-- <Span *ngIf="order.is_paid" text="Paid"></Span> -->
-                                    <Span color="#ababab"   text="Delivery Status: "></Span>
-                                    <Span color="#000"  fontWeight="700" *ngIf="!order.delivery_status" text="Not Delivered"></Span>
-                                </FormattedString>
-                            </Label>
-                        <!-- <label row="3" verticalAlignment="center" textAlignment="left">
-                                <Span *ngIf="order.delivery_status" text="Delivered"></Span>
-                            </label>
-                            <label row="4" verticalAlignment="center" textAlignment="left">
-                                    <Span *ngIf="order.delivery_status" text="Delivered"></Span>
-                                </label> -->
+                            <FormattedString>
+                                <Span color="#ababab" text="Delivery Status: "></Span>
+                                <Span color="#000" fontWeight="700" *ngIf="!order.delivery_status" text="Not Delivered"></Span>
+                            </FormattedString>
+                        </Label>
                     </GridLayout>
                 </StackLayout>
-
-
-
-
-
             </CardView>
         </StackLayout>
-
-
-
-
-        <!-- <StackLayout backgroundColor="#fff" *ngFor="let item of order.order_details">
-            <CardView class="whiteCard" orientation="vertical">
-                <StackLayout>
-                    <GridLayout columns="*,*,*,*,*" rows="*" class="category_heading" orientation="horizontal" borderWidth="1" borderColor="#ccc" backgroundColor="#d5d5d5" paddingRight="10" padding-left="10">
-                        <Label row="0" col="0" text="order.order_id" textAlignment="center"></Label>
-                        <Label row="0" col="1" text="order price" textAlignment="center"></Label>
-                        <Label row="0" col="2" text="order date" textAlignment="center"></Label>
-                        <Label row="0" col="3" text="Not Paid" textAlignment="center"></Label>
-                        <Label row="0" col="4" text=" Delivered Status" textAlignment="center"></Label>
-
-                    </GridLayout>
-                    <GridLayout columns="*,*,*,*,*" rows="*" class="category_heading" orientation="horizontal" borderBottomWidth="1" borderBottomColor="#ccc">
-                        <Label row="0" col="0" [text]="order.order_id" textAlignment="center"></Label>
-                        <Label row="0" col="1" [text]="order.price | currency: currency : true:'1.0-0'" textAlignment="center"></Label>
-                        <Label row="0" col="2" [text]="order.created_at | date:'dd-mm-yy'" verticalAlignment="center" textAlignment="center"></Label>
-                        <Label row="0" col="3" *ngIf="!order.is_paid" text="Not Paid" verticalAlignment="center" textAlignment="center"></Label>
-                        <Label row="0" col="3" *ngIf="order.is_paid" text="Paid" textAlignment="center"></Label>
-                        <Label row="0" col="4" *ngIf="!order.delivery_status" text="Not Delivered" verticalAlignment="center" textAlignment="center"></Label>
-                        <Label row="0" col="4" *ngIf="order.delivery_status" text="Delivered" verticalAlignment="center" textAlignment="center"></Label>
-                    </GridLayout>
-
-                </StackLayout>
-            </CardView>
-        </StackLayout> -->
-
         <StackLayout class="m-t-10">
             <CardView class="whiteCard">
                 <StackLayout>
-                    <GridLayout columns="*,*,*" rows="*" class="category_heading" borderWidth="1" borderColor="#ccc" backgroundColor="#f3f3f3">
+                    <GridLayout columns="*,*,*" rows="*" class="category_heading" borderWidth="1" borderColor="#ccc"
+                        backgroundColor="#f3f3f3">
                         <Label text="Item" row="0" col="0" textAlignment="left"></Label>
                         <Label text="Qty" row="0" col="1" textAlignment="left"></Label>
                         <Label text="Price" row="0" col="2" textAlignment="right"></Label>
                     </GridLayout>
-                    <GridLayout columns="*,*,*" rows="*" class="category_heading" borderWidth="1" borderColor="#ccc" *ngFor="let item of order.order_details" borderBottomWidth="1" borderBottomColor="#ccc">
+                    <GridLayout columns="*,*,*" rows="*" class="category_heading" borderWidth="1" borderColor="#ccc"
+                        *ngFor="let item of order.order_details" borderBottomWidth="1" borderBottomColor="#ccc">
                         <Label [text]="item.product_details.product_name" row="0" col="0" textAlignment="left"></Label>
                         <Label [text]="item.quantity" row="0" col="1" textAlignment="left"></Label>
-                        <Label [text]="item.product_details.price | currency: currency : true:'1.0-0'" row="0" col="2" textAlignment="right"></Label>
+                        <Label [text]="item.total_cost | currency: currency : true:'1.0-0'" row="0" col="2"
+                            textAlignment="right"></Label>
                     </GridLayout>
                 </StackLayout>
             </CardView>
         </StackLayout>
-
-
-
-
-
-
-        <CardView class="card m-t-10" elevation="0" radius="0" shadowOpacity="0" shadowOffsetWidth="0" shadowOffsetHeight="0">
+        <CardView class="card m-t-10" elevation="0" radius="0" shadowOpacity="0" shadowOffsetWidth="0"
+            shadowOffsetHeight="0">
             <StackLayout padding="10">
                 <GridLayout rows="*,*,*,*" columns="*,50%" verticalAlignment="center" class="card">
                     <StackLayout verticalAlignment="center" col="0" row="0">
@@ -176,18 +69,14 @@
                         <Label class="pull-left font-weight-bold" text="Total"></Label>
                     </StackLayout>
                     <StackLayout verticalAlignment="center" col="1" row="3">
-                        <Label class=" font-weight-bold" textAlignment="left" [text]="total_item_price + total_packing_price | currency: currency : true:'1.0-0'"></Label>
+                        <Label class=" font-weight-bold" textAlignment="left" [text]="total_price | currency: currency : true:'1.0-0'"></Label>
                     </StackLayout>
                 </GridLayout>
             </StackLayout>
         </CardView>
-
-
-
-
-
-
-        <Label textAlignment="center" fontSize="15" lineHeight="10" text="Thank you for shopping with us" class="m-t-10" textWrap="true"></Label>
-        <Button class="btn btn-primary" backgroundColor="#284058" color="#fff" width="40%" text="Contact Us" [nsRouterLink]="['/store-app/', app_id , 'contact-us']"></Button>
+        <Label textAlignment="center" fontSize="15" lineHeight="10" text="Thank you for shopping with us" class="m-t-10"
+            textWrap="true"></Label>
+        <Button class="btn btn-primary" backgroundColor="#284058" color="#fff" width="40%" text="Contact Us"
+            [nsRouterLink]="['/store-app/', app_id , 'contact-us']"></Button>
     </StackLayout>
 </ScrollView>
