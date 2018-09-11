@@ -31,6 +31,7 @@
     "nativescript-filterable-listpicker": "^2.1.0",
     "nativescript-geolocation": "^4.2.6",
     "nativescript-google-places-autocomplete": "^1.0.3",
+    "nativescript-https": "^1.0.1",
     "nativescript-image-swipe": "^3.0.0",
     "nativescript-loading-indicator": "^2.4.0",
     "nativescript-ngx-fonticon": "^4.2.0",
