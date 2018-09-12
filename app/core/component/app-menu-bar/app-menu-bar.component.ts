@@ -39,12 +39,11 @@ export class AppMenuBarComponent implements OnInit {
                         this.product_list.push(y)
                     })
                 })
-                console.log(res)
-                console.log(this.product_list)
+                // console.log(res)
                 this.visible_key = true;
             },
             error => {
-                console.log(error)
+                // console.log(error)
             }
         )
     }

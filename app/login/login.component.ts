@@ -20,7 +20,6 @@ import { ModalDialogService } from "nativescript-angular/directives/dialogs";
 })
 export class LoginComponent implements OnInit {
   form: FormGroup;
-  processing = false;
   private feedback: Feedback;
   loader = new LoadingIndicator();
   lodaing_options = {
@@ -91,11 +90,9 @@ export class LoginComponent implements OnInit {
 
     if (this.form.valid) {
       this.loader.show(this.lodaing_options);
-      // this.processing = true;
       this.loginService.login(this.form.value).subscribe(
         res => {
           console.log(res)
-          // this.processing = false;
           clear();
           setBoolean("isLoggedin", true)
 
@@ -108,10 +105,9 @@ export class LoginComponent implements OnInit {
           this.loader.hide();
           this.router.navigate(['/'])
         },
-        error => {
-          // this.processing = false;
+        error => {          
           this.loader.hide();
-          console.log(error)
+          // console.log(error)
           this.feedback.error({
             title: error.error.msg,
             backgroundColor: new Color("red"),
@@ -156,15 +152,7 @@ export class LoginComponent implements OnInit {
       }
     });
   }
-
-  // openForgotOtpModal() {
-  //   this.modal.showModal(ForgotOtpModalComponent, this.options).then(res => {
-  //     console.log(res);
-  //     if (res != undefined) {
-       
-  //     }
-  //   })
-  // }
+  
 
 
 }

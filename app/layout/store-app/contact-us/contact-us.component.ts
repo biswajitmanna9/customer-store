@@ -62,7 +62,6 @@ export class StoreAppContactUsComponent implements OnInit {
 
     private changebadgeCountStatus(status: boolean): void {
         this.badgeCountStatus = status;
-        console.log(this.badgeCountStatus)
         if (this.badgeCountStatus == true) {
             this.getChatMembersDetails();
         }
@@ -82,34 +81,33 @@ export class StoreAppContactUsComponent implements OnInit {
             res => {
                 var d = [];
                 d = res['app_master'].filter(x => x.id == this.app_id)
-                if(d.length > 0){
+                if (d.length > 0) {
                     var sum = 0;
                     d[0].chat_details.forEach(y => {
                         sum += y.unread_messages
                     })
                     this.chat_unread_length = sum;
-                    console.log(this.chat_unread_length)
-                }                
-                console.log(res);
+                }
+                // console.log(res);
             },
             error => {
-                console.log(error)
+                // console.log(error)
             }
         )
     }
 
 
-    getAppDetails(id) {        
+    getAppDetails(id) {
         this.storeAppService.getStoreAppDetails(id).subscribe(
             res => {
                 this.app_details = res;
                 this.visible_key = true;
-                console.log(res)
+                // console.log(res)
                 this.loader.hide();
             },
             error => {
                 this.loader.hide();
-                console.log(error)
+                // console.log(error)
             }
         )
     }
@@ -118,10 +116,10 @@ export class StoreAppContactUsComponent implements OnInit {
         this.storeAppService.getSocialMediaListByApp(id).subscribe(
             res => {
                 this.social_media_links = res;
-                console.log(this.social_media_links);
+                // console.log(res);
             },
             error => {
-                console.log(error)
+                // console.log(error)
             }
         )
     }

@@ -17,7 +17,6 @@ import { LoadingIndicator } from "nativescript-loading-indicator";
 })
 export class SignupComponent implements OnInit {
   form: FormGroup;
-  processing = false;
   private feedback: Feedback;
   loader = new LoadingIndicator();
   lodaing_options = {
@@ -85,11 +84,8 @@ export class SignupComponent implements OnInit {
   signUp() {
     if (this.form.valid) {
       this.loader.show(this.lodaing_options);
-      // this.processing = true;
       this.loginService.signup(this.form.value).subscribe(
         res => {
-          console.log(res)
-          // this.processing = false;
           clear();
           setBoolean("isLoggedin", true)
           if(res.email != ""){
@@ -101,9 +97,7 @@ export class SignupComponent implements OnInit {
           this.router.navigate(['/'])
         },
         error => {
-          // this.processing = false;
           this.loader.hide();
-          console.log(error)
           this.feedback.error({
             title: "User already exists",
             backgroundColor: new Color("red"),

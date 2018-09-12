@@ -4,10 +4,8 @@
 }
 
 .action-bar {
-    background: url(~/images/apps-bg.jpg) no-repeat 0 0;
-    background-size: cover;
     padding: 30px 25px;
-    color: #fff;
+    color: #000;
 }
 
 .search-filed {

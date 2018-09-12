@@ -61,14 +61,13 @@ export class StoreAppPaymentSuccessComponent implements OnInit {
         this.app_id = full_location[2].trim();
         this.order_id = full_location[4].trim();
         this.user_id = getString('user_id');
-        console.log(this.order_id)
         this.getOrderDetails(this.order_id)
     }
 
     getOrderDetails(id) {
         this.storeAppService.getOrderDetails(id).subscribe(
             (res: any[]) => {
-                console.log(res)
+                // console.log(res)
                 this.order = res[0];
                 var item_sum = 0;
                 var package_sum = 0;
@@ -84,7 +83,7 @@ export class StoreAppPaymentSuccessComponent implements OnInit {
             },
             error => {
                 this.loader.hide();
-                console.log(error)
+                // console.log(error)
             }
         )
     }

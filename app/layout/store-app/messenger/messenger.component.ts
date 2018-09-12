@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, NgZone, Inject, ViewChild, ElementRef } f
 import { ActivatedRoute } from "@angular/router";
 import { Location } from '@angular/common';
 import { StoreAppService } from "../../../core/services/store-app.service";
-import * as TNSPhone from 'nativescript-phone';
+
 import { RouterExtensions } from "nativescript-angular/router";
 import { getString, setString, getBoolean, setBoolean, clear } from "application-settings";
 require("nativescript-websockets");
@@ -87,7 +87,7 @@ export class StoreAppMessengerComponent implements OnInit, OnDestroy {
             },
             error => {
                 this.loader.hide();
-                console.log(error)
+                // console.log(error)
             }
         )
     }
@@ -95,11 +95,11 @@ export class StoreAppMessengerComponent implements OnInit, OnDestroy {
     getAppDeviceToken(id) {
         this.notificationService.getAppDeviceToken(id).subscribe(
             res => {
-                console.log(res)
+                // console.log(res)
                 this.app_device_token = res['device_token'];
             },
             error => {
-                console.log(error)
+                // console.log(error)
             }
         )
     }
@@ -112,25 +112,25 @@ export class StoreAppMessengerComponent implements OnInit, OnDestroy {
         }
         this.notificationService.sendPushNotification(this.app_device_token, value).subscribe(
             res => {
-                console.log(res)
+                // console.log(res)
             },
             error => {
-                console.log(error)
+                // console.log(error)
             }
         )
     }
 
     onOpen(evt) {
-        console.log(evt)
-        console.log("Welcome to the chat!");
+        // console.log(evt)
+        // console.log("Welcome to the chat!");
     }
 
     onClose(evt) {
-        console.log("You have been disconnected");
+        // console.log("You have been disconnected");
     }
 
     onMessage(evt) {
-        console.log(JSON.parse(evt.data))
+        // console.log(JSON.parse(evt.data))
         var msgData = JSON.parse(evt.data)
         this.zone.run(() => {
             var data = {
@@ -191,12 +191,12 @@ export class StoreAppMessengerComponent implements OnInit, OnDestroy {
 
         this.storeAppService.createChatSessionView(param, data).subscribe(
             res => {
-                console.log(res)
+                // console.log(res)
                 var thread = res['thread']
                 this.viewMessages(thread);
             },
             error => {
-                console.log(error)
+                // console.log(error)
             }
         )
     }
@@ -204,12 +204,12 @@ export class StoreAppMessengerComponent implements OnInit, OnDestroy {
         var param = "?user=" + this.app_id + "&user_type=app_master&thread_id=" + thread;
         this.storeAppService.viewMessages(param).subscribe(
             res => {
-                console.log(res)
+                // console.log(res)
                 this.getMessageList(thread);
             },
             error => {
                 this.loader.hide();
-                console.log(error)
+                // console.log(error)
             }
         )
     }
@@ -218,7 +218,7 @@ export class StoreAppMessengerComponent implements OnInit, OnDestroy {
         this.loader.show(this.lodaing_options);
         this.storeAppService.getMessageListByApp(thread).subscribe(
             (res: any[]) => {
-                console.log(res)
+                // console.log(res)
                 res.forEach(x => {
                     var data = {
                         text: x.message,
@@ -233,13 +233,12 @@ export class StoreAppMessengerComponent implements OnInit, OnDestroy {
                     }
                     this.messages.push(data)
                 })
-                console.log(this.messages)
                 this.scrollToBottom();
                 this.loader.hide();
             },
             error => {
                 this.loader.hide();
-                console.log(error)
+                // console.log(error)
             }
         )
     }

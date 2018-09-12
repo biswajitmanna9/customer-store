@@ -1,7 +1,7 @@
 <action-bar></action-bar>
 <GridLayout rows="*,60">
     <ScrollView row="0">
-        <StackLayout class="full-dashboard bg-color">
+        <StackLayout class="full-dashboard bg-color" *ngIf="visible_key">
             <FlexboxLayout flexWrap="wrap" alignItems="flex-start">
                 <CardView *ngFor="let item of user_app_list" class="card" elevation="0" borderColor="#6c6969"
                     shadowOffsetWidth="0" shadowOffsetHeight="0" alignSelf="flex-start" [nsRouterLink]="['/store-app/', item.id, 'about-us']">

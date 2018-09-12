@@ -18,13 +18,10 @@ export class StoreAppService {
 
 
   cartStatus(data) {
-    console.log(data);
     if (data == true) {
-      console.log("aaa");
       this.getCartStatus.emit(true);
       return
     } else {
-      console.log("bbb");
       this.getCartStatus.emit(false);
       return
     }
@@ -62,8 +59,8 @@ export class StoreAppService {
     return this.http.post(Globals.apiEndpoint + 'add_rating/', data)
   }
 
-  paytmFormValue(order_amount): Observable<any> {
-    return this.http.get(Globals.apiEndpoint + 'get_payment_details/?order_amount=' + order_amount + '&type=app')
+  paytmFormValue(order_amount, table_order_id): Observable<any> {
+    return this.http.get(Globals.apiEndpoint + 'get_payment_details/?order_amount=' + order_amount + '&table_order_id=' + table_order_id + '&type=app')
   }
 
   getCustomerAddress(customer) {
@@ -127,6 +124,19 @@ export class RadioOption {
   selected: boolean = false;
 
   constructor(text: string, id: number) {
+    this.text = text;
+    this.id = id;
+  }
+}
+
+export class CustomRadioOption {
+  name: string;
+  text: string;
+  id: number;
+  selected: boolean = false;
+
+  constructor(name: string, text: string, id: number) {
+    this.name = name;
     this.text = text;
     this.id = id;
   }

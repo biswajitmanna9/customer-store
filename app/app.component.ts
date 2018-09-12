@@ -3,8 +3,7 @@ var orientation = require('nativescript-orientation');
 import * as application from "tns-core-modules/application";
 import { RouterExtensions } from "nativescript-angular/router";
 const firebase = require("nativescript-plugin-firebase");
-let deviceToken = "";
-import { getString, setString, getBoolean, setBoolean, clear } from "application-settings";
+
 import { NotificationService } from "./core/services/notification.service";
 import { Button } from "ui/button";
 
@@ -34,8 +33,7 @@ export class AppComponent {
         var $this = this;
         firebase.init({
             onPushTokenReceivedCallback: function (token) {
-                deviceToken = token;
-                console.log("Firebase push token: " + token);
+
             },
             onMessageReceivedCallback: function (message) {
                 let el: Button = $this.button.nativeElement;
@@ -44,10 +42,10 @@ export class AppComponent {
             persist: false
         }).then(
             instance => {
-                console.log("firebase.init done");
+
             },
             error => {
-                console.log(`firebase.init error: ${error}`);
+
             }
         );
 

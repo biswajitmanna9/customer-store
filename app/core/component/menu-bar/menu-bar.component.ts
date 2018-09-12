@@ -1,7 +1,6 @@
 import { Component, ViewContainerRef, OnInit } from '@angular/core';
 import { ModalDialogService } from "nativescript-angular/directives/dialogs";
 import { getString, setString, getBoolean, setBoolean, clear } from "application-settings";
-import { Router } from "@angular/router";
 import { RouterExtensions } from "nativescript-angular/router";
 import { Location } from '@angular/common';
 @Component({
@@ -28,10 +27,9 @@ export class MenuBarComponent implements OnInit {
 
     ngOnInit() {
         var full_location = this.location.path().split('/');
-        console.log(full_location)
         this.current_url = full_location[1];
     }
-    
+
 
     goTodashboard() {
         if (!getBoolean('isLoggedin')) {

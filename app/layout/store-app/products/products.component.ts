@@ -17,7 +17,7 @@ import * as Globals from '../../../core/globals';
 export class StoreAppProductsComponent implements OnInit {
     app_id: string;
     app_details: any;
-    img_base_url:string;
+    img_base_url: string;
     category_list: any = [];
     accordian_view_key: boolean;
     list_view_key: boolean;
@@ -74,7 +74,7 @@ export class StoreAppProductsComponent implements OnInit {
         }).then(
             value => {
                 var data = JSON.parse(value);
-                console.log(data);
+                // console.log(data);
                 if (data != null) {
                     this.customer_cart_data = data;
                 }
@@ -94,20 +94,20 @@ export class StoreAppProductsComponent implements OnInit {
                 this.app_details = res;
                 this.category_list = this.app_details.app_product_categories;
 
-                
+
                 if (this.app_details.is_product_service) {
                     this.serviceType = this.app_details.is_product_service;
                 }
                 else {
                     this.serviceType = 1
                 }
-                // console.log(this.customer_cart_data);
+
                 for (var i = 0; i < this.category_list.length; i++) {
                     this.category_list[i]['items'] = JSON.parse(JSON.stringify(this.category_list[i].products));
                     // isCart implemented
                     for (var j = 0; j < this.category_list[i].items.length; j++) {
                         var index = this.customer_cart_data.findIndex(y => y.app_id == this.category_list[i].items[j].app_master && y.product_id == this.category_list[i].items[j].id && y.customer_id == this.user_id);
-                        // console.log(index)
+
                         if (index != -1) {
                             this.category_list[i].items[j]['isCart'] = true;
                             this.category_list[i].items[j]['quantity'] = this.customer_cart_data[index].quantity
@@ -118,18 +118,18 @@ export class StoreAppProductsComponent implements OnInit {
                         }
                     }
                 }
-                console.log(this.category_list)
+
                 if (this.category_list.length > 1) {
                     this.accordian_view_key = true
                 }
                 else if (this.category_list.length == 1) {
                     this.list_view_key = true;
                 }
-                console.log(res)
+
                 this.loader.hide();
             },
             error => {
-                console.log(error)
+
                 this.loader.hide();
             }
         )
@@ -156,7 +156,7 @@ export class StoreAppProductsComponent implements OnInit {
             if (cat_index != -1) {
                 this.category_list[i].items[cat_index].isCart = true;
                 this.category_list[i].items[cat_index].quantity = item.quantity + 1
-                console.log(this.category_list)
+
             }
         }
 
@@ -172,7 +172,7 @@ export class StoreAppProductsComponent implements OnInit {
             key: 'cart',
             value: JSON.stringify(this.customer_cart_data)
         }).then(success => {
-            console.log(success)
+
             this.storeAppService.cartStatus(true);
         });
     }
@@ -201,13 +201,13 @@ export class StoreAppProductsComponent implements OnInit {
             for (var i = 0; i < this.category_list.length; i++) {
                 var cat_index = this.category_list[i].items.findIndex(y => y.id == item.id && y.app_master == this.app_id);
                 if (cat_index != -1) {
-                    console.log("cat_index" + cat_index)
+
                     this.category_list[i].items[cat_index].isCart = false;
                     this.category_list[i].items[cat_index].quantity = item.quantity - 1
                 }
             }
 
-            console.log(this.category_list)
+
 
         }
 

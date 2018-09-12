@@ -25,7 +25,6 @@ export class AppDetailsComponent implements OnInit {
 
     ngOnInit() {
         this.app_id = this.route.snapshot.params['id'];
-        console.log(this.route.snapshot.params['id'])
         this.getAppDetails(this.app_id)
     }
 
@@ -47,11 +46,10 @@ export class AppDetailsComponent implements OnInit {
                     })
                 }
                 this.visible_key = true
-                console.log(res)
-                console.log(this.gallery_images)
+                // console.log(res)
             },
             error => {
-                console.log(error)
+                // console.log(error)
             }
         )
     }

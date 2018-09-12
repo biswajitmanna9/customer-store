@@ -6,12 +6,6 @@ import { getString, setString, getBoolean, setBoolean, clear } from "application
 import { StoreAppService, OrderModule, OrderDetails } from "../../../core/services/store-app.service";
 import { Router } from "@angular/router";
 import { LoadingIndicator } from "nativescript-loading-indicator";
-import {
-  Paytm,
-  Order,
-  TransactionCallback,
-  IOSCallback
-} from "@nstudio/nativescript-paytm";
 import * as Globals from '../../../core/globals';
 
 @Component({
@@ -31,19 +25,7 @@ export class StoreAppCartComponent {
   total_price: number;
   all_cart_data: any;
   order: OrderModule;
-  paytmFormDetails: any;
-  paytm: Paytm;
-  orderToPaytm: Order = {
-    MID: "",
-    ORDER_ID: "",
-    CUST_ID: "",
-    INDUSTRY_TYPE_ID: "",
-    CHANNEL_ID: "",
-    TXN_AMOUNT: "",
-    WEBSITE: "",
-    CALLBACK_URL: "",
-    CHECKSUMHASH: ""
-  };
+  
   loader = new LoadingIndicator();
   lodaing_options = {
     message: 'Loading...',
@@ -85,7 +67,6 @@ export class StoreAppCartComponent {
     this.app_id = full_location[2].trim();
     this.user_id = getString('user_id');
     this.populateData();
-    this.paytm = new Paytm();
   }
 
   populateData() {
@@ -94,7 +75,7 @@ export class StoreAppCartComponent {
     }).then(
       value => {
         var data = JSON.parse(value);
-        console.log(data);
+        // console.log(data);
         if (data != null) {
           this.all_cart_data = data;
           var filteredData = data.filter(x => x.customer_id == this.user_id && x.app_id == this.app_id)
@@ -161,7 +142,7 @@ export class StoreAppCartComponent {
 
   remove(id) {
     var index = this.all_cart_data.findIndex(x => x.customer_id == this.user_id && x.app_id == this.app_id && x.product_id == id);
-    console.log(index)
+    // console.log(index)
     if (index != -1) {
       this.all_cart_data.splice(index, 1);
       this.customer_cart_data.splice(index, 1);
@@ -174,7 +155,7 @@ export class StoreAppCartComponent {
       key: 'cart',
       value: JSON.stringify(this.all_cart_data)
     }).then(success => {
-      console.log(success)
+      // console.log(success)
       this.getTotalItemPrice();
       this.getTotalPackingPrice();
       this.storeAppService.cartStatus(true);
@@ -186,111 +167,8 @@ export class StoreAppCartComponent {
   }
 
   orderPlace() {
-    // this.order.customer = this.user_id;
-    // this.order.price = this.total_item_price + this.total_packing_price;
-    // this.order.appmaster = this.app_id
-    // var details_data = new OrderDetails();
-    // var all_details_data = []
-    // this.customer_cart_data.forEach(x => {
-    //   details_data.appmaster = x.app_id;
-    //   if (x.discounted_price > 0) {
-    //     details_data.unit_price = x.discounted_price;
-    //   }
-    //   else {
-    //     details_data.unit_price = x.price;
-    //   }
-    //   details_data.quantity = x.quantity;
-    //   details_data.product = x.product_id;
-    //   details_data.packaging_cost = x.packing_charges;
-    //   details_data.uom = "0";
-    //   details_data.IGST = "0";
-    //   details_data.CGST = "0";
-    //   all_details_data.push(details_data);
-    //   var index = this.all_cart_data.findIndex(y => y.customer_id == this.user_id && y.app_id == this.app_id && y.product_id == x.product_id);
-    //   if (index != -1) {
-    //     this.all_cart_data.splice(index, 1);
-    //   }
-    // })
-    // this.order.order_details = all_details_data;
-    // this.setCartData();
-    // this.storeAppService.createOrder(this.order).subscribe(
-    //   res => {
-    //     console.log(res)
-    //     this.router.navigate(['/store-app/', this.app_id, 'payment'])
-    //   },
-    //   error => {
-    //     console.log(error)
-    //   }
-    // )
     this.router.navigate(['/store-app/', this.app_id, 'payment'])
-    // this.getPaytmFormValue(this.order.price)
   }
 
-  // getPaytmFormValue(amount: number) {
-  //   this.storeAppService.paytmFormValue(amount).subscribe(
-  //     res => {
-  //       console.log(res)
-  //       this.paytmFormDetails = res;
-  //       this.payViaPaytm();
-  //     },
-  //     error => {
-  //       console.log(error)
-  //     }
-  //   )
-  // }
-
-  // // paytm
-  // payViaPaytm() {
-  //   this.paytm.setIOSCallbacks({
-  //     didFinishedResponse: function (response) {
-  //       console.log(response);
-  //     },
-  //     didCancelTransaction: function () {
-  //       console.log("User cancelled transaction");
-  //     },
-  //     errorMissingParameterError: function (error) {
-  //       console.log(error);
-  //     }
-  //   });
-  //   this.orderToPaytm = {
-  //     MID: this.paytmFormDetails['MID'],
-  //     ORDER_ID: this.paytmFormDetails['ORDER_ID'],
-  //     CUST_ID: this.paytmFormDetails['CUST_ID'],
-  //     INDUSTRY_TYPE_ID: this.paytmFormDetails['INDUSTRY_TYPE_ID'],
-  //     CHANNEL_ID: this.paytmFormDetails['CHANNEL_ID'],
-  //     TXN_AMOUNT: this.paytmFormDetails['TXN_AMOUNT'],
-  //     WEBSITE: this.paytmFormDetails['WEBSITE'],
-  //     CALLBACK_URL: this.paytmFormDetails['CALLBACK_URL'],
-  //     CHECKSUMHASH: this.paytmFormDetails['CHECKSUMHASH']
-  //   };
-  //   this.paytm.createOrder(this.orderToPaytm);
-  //   this.paytm.initialize("STAGING");
-  //   this.paytm.startPaymentTransaction({
-  //     someUIErrorOccurred: function (inErrorMessage) {
-  //       console.log(inErrorMessage);
-  //     },
-  //     onTransactionResponse: function (inResponse) {
-  //       console.log(inResponse);
-  //     },
-  //     networkNotAvailable: function () {
-  //       console.log("Network not available");
-  //     },
-  //     clientAuthenticationFailed: function (inErrorMessage) {
-  //       console.log(inErrorMessage);
-  //     },
-  //     onErrorLoadingWebPage: function (
-  //       iniErrorCode,
-  //       inErrorMessage,
-  //       inFailingUrl
-  //     ) {
-  //       console.log(iniErrorCode, inErrorMessage, inFailingUrl);
-  //     },
-  //     onBackPressedCancelTransaction: function () {
-  //       console.log("User cancelled transaction by pressing back button");
-  //     },
-  //     onTransactionCancel: function (inErrorMessage, inResponse) {
-  //       console.log(inErrorMessage, inResponse);
-  //     }
-  //   });
-  // }
+  
 }

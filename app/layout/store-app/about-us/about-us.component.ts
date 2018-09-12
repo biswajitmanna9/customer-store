@@ -3,9 +3,6 @@ import { ActivatedRoute } from "@angular/router";
 import { StoreAppService } from "../../../core/services/store-app.service";
 import * as Globals from '../../../core/globals';
 import { Location } from '@angular/common';
-import { registerElement } from 'nativescript-angular/element-registry';
-import { StarRating } from 'nativescript-star-ratings';
-registerElement('StarRating', () => StarRating);
 import { getString, setString, getBoolean, setBoolean, clear } from "application-settings";
 import { LoadingIndicator } from "nativescript-loading-indicator";
 
@@ -61,7 +58,6 @@ export class StoreAppAboutUsComponent implements OnInit {
     var full_location = this.location.path().split('/');
     this.app_id = full_location[2].trim();
     this.user_id = getString('user_id');
-    // console.log(this.app_id)
     this.getAppDetails(this.app_id)
     this.getAppRatingValue();
   }
@@ -70,25 +66,22 @@ export class StoreAppAboutUsComponent implements OnInit {
     this.loader.show(this.lodaing_options);
     this.storeAppService.getStoreAppDetails(id).subscribe(
       res => {
-        // res['avg_rating'] = Math.round(res['avg_rating'])
         this.app_details = res;
         if (this.app_details.app_imgs.length > 0) {
           this.app_details.app_imgs.forEach(x => {
             var data = {
-              // title: this.app_details.business_name,
               url: Globals.img_base_url + x.app_img
             }
             this.gallery_images.push(data)
           })
         }
         this.visible_key = true
-        console.log(res)
-        console.log(this.gallery_images)
+        // console.log(res)
         this.loader.hide();
       },
       error => {
         this.loader.hide();
-        console.log(error)
+        // console.log(error)
       }
     )
   }
@@ -99,7 +92,6 @@ export class StoreAppAboutUsComponent implements OnInit {
 
 
   rateApp(val) {
-    console.log(val)
     var data = {
       app_master: this.app_id,
       customer: this.user_id,
@@ -107,11 +99,11 @@ export class StoreAppAboutUsComponent implements OnInit {
     }
     this.storeAppService.appRate(data).subscribe(
       res => {
-        console.log(res)
+        // console.log(res)
         this.rating_value = val
       },
       error => {
-        console.log(error)
+        // console.log(error)
       }
     )
   }
@@ -119,13 +111,13 @@ export class StoreAppAboutUsComponent implements OnInit {
   getAppRatingValue() {
     this.storeAppService.getAppRating(this.user_id, this.app_id).subscribe(
       (res: any[]) => {
-        console.log(res)
+        // console.log(res)
         if (res.length > 0) {
           this.rating_value = res[0]['rating'];
         }
       },
       error => {
-        console.log(error)
+        // console.log(error)
       }
     )
   }

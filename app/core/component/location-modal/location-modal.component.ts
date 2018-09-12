@@ -34,14 +34,14 @@ export class LocationModalComponent extends Observable {
                     .then((places: any) => {
                         this.items = [];
                         this.items = places;
-                        console.log(this.items)
+                        // console.log(this.items)
                     }, (error => {
-                        console.log(error)
+                        // console.log(error)
                     }));
             }
             ,
             error => {
-                console.log(error);
+                // console.log(error);
             }
         );
     }
@@ -59,7 +59,7 @@ export class LocationModalComponent extends Observable {
     showLocation(): void {
         geoLocation.watchLocation(location => {
             this.currentGeoLocation = location;
-            this.params.closeCallback({place: location,current: true});
+            this.params.closeCallback({ place: location, current: true });
         }, error => {
             alert(error);
         }, {
@@ -71,9 +71,9 @@ export class LocationModalComponent extends Observable {
 
     getPlace(place) {
         googlePlacesAutocomplete.getPlaceById(place.placeId).then((place) => {
-            this.params.closeCallback({place: place,current: false});
+            this.params.closeCallback({ place: place, current: false });
         }, error => {
-            console.log(error)
+            // console.log(error)
         })
     }
 

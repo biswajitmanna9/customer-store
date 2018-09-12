@@ -69,10 +69,8 @@ export class ExploreComponent implements OnInit {
 
   ngOnInit() {
     this.loader.show(this.lodaing_options);
-    this.user_id = getString('user_id');
-    console.log(getString('user_id'))
+    this.user_id = getString('user_id');    
     this.getCategoryList();
-
     if (this.user_id != undefined) {
       this.getDashboardAppList();
     }
@@ -86,11 +84,11 @@ export class ExploreComponent implements OnInit {
     this.exploreService.getUserDashboardAppList(this.user_id).subscribe(
       res => {
         this.user_app_list = res['app_master']
-        console.log(res);
+        // console.log(res);
         this.getMostViewAppList();
       },
       error => {
-        console.log(error)
+        // console.log(error)
       }
     )
   }
@@ -102,10 +100,10 @@ export class ExploreComponent implements OnInit {
     this.exploreService.getCategoryList().subscribe(
       (res: any[]) => {
         this.category_list = res;
-        console.log(res)
+        // console.log(res)
       },
       error => {
-        console.log(error)
+        // console.log(error)
       }
     )
   }
@@ -116,8 +114,7 @@ export class ExploreComponent implements OnInit {
         this.app_list = [];
         if (this.user_app_list.length > 0) {
           res.forEach(x => {
-            var index = this.user_app_list.findIndex(y => y.id == x.id)
-            console.log(index)
+            var index = this.user_app_list.findIndex(y => y.id == x.id)            
             if (index != -1) {
               x['isDashboard'] = true;
             }
@@ -137,11 +134,11 @@ export class ExploreComponent implements OnInit {
           })
           this.loader.hide();
         }
-        console.log(res)
+        // console.log(res)
       },
       error => {
         this.loader.hide();
-        console.log(error)
+        // console.log(error)
       }
     )
   }
@@ -169,11 +166,11 @@ export class ExploreComponent implements OnInit {
       this.exploreService.appAttachAndDisattachToDashboard(data).subscribe(
         res => {
           this.loader.hide()
-          console.log(res)
+          // console.log(res)
         },
         error => {
           this.loader.hide()
-          console.log(error)
+          // console.log(error)
         }
       )
     }
@@ -186,8 +183,7 @@ export class ExploreComponent implements OnInit {
       viewContainerRef: this.vcRef
     };
     this.modal.showModal(LocationModalComponent, option).then(res => {
-      console.log(res);
-
+      // console.log(res);
       if (res.current == true) {
         this.location = "Current Location";
         this.latitude = res.place.latitude;
@@ -255,11 +251,11 @@ export class ExploreComponent implements OnInit {
           })
           this.loader.hide()
         }
-        console.log(res)
+        // console.log(res)
       },
       error => {
         this.loader.hide()
-        console.log(error)
+        // console.log(error)
       }
     )
   }

@@ -1,4 +1,5 @@
-<Accordion [items]="order_list" itemTapped="tapped" class="category_product_accordian" separatorColor="transparent">
+<Accordion [items]="order_list" itemTapped="tapped" class="category_product_accordian" separatorColor="transparent"
+    *ngIf="order_list.length > 0 && visible_key">
     <ng-template accordionHeaderTemplate let-item="item" let-i="index">
         <GridLayout columns="*,*,*,*,*" rows="*" class="category_heading" borderWidth="1" borderColor="#ccc">
             <Label [text]="item.order_id" row="0" col="0"></Label>
@@ -53,6 +54,6 @@
         </StackLayout>
     </ng-template>
 </Accordion>
-<StackLayout orientation="vertical" *ngIf="order_list.length == 0">
+<StackLayout orientation="vertical" *ngIf="order_list.length == 0 && visible_key">
     <Label text="You have no order in this app"></Label>
 </StackLayout>

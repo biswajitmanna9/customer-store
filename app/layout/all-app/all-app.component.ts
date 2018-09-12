@@ -76,11 +76,11 @@ export class AllAppComponent implements OnInit {
         this.exploreService.getUserDashboardAppList(this.user_id).subscribe(
             res => {
                 this.user_app_list = res['app_master']
-                console.log(res);
+                // console.log(res);
                 this.getRatedAppList();
             },
             error => {
-                console.log(error)
+                // console.log(error)
             }
         )
     }
@@ -92,7 +92,7 @@ export class AllAppComponent implements OnInit {
         this.loader.show(this.lodaing_options);
         this.exploreService.getRatedAppList(params).subscribe(
             (res) => {
-                console.log(res)
+                // console.log(res)
                 this.next_page = res.next;
                 if (this.page == 1) {
                     this.app_list = [];
@@ -100,7 +100,7 @@ export class AllAppComponent implements OnInit {
                 if (this.user_app_list.length > 0) {
                     res.results.forEach(x => {
                         var index = this.user_app_list.findIndex(y => y.id == x.id)
-                        console.log(index)
+
                         if (index != -1) {
                             x['isDashboard'] = true;
                         }
@@ -119,15 +119,15 @@ export class AllAppComponent implements OnInit {
                     })
                 }
                 this.loader.hide();
-                console.log(res)
+                // console.log(res)
             },
             error => {
                 this.loader.hide();
-                console.log(error)
+                // console.log(error)
             }
         )
     }
-    
+
 
     addToDashboard(app_id) {
         if (!getBoolean('isLoggedin')) {
@@ -149,17 +149,16 @@ export class AllAppComponent implements OnInit {
             }
             this.exploreService.appAttachAndDisattachToDashboard(data).subscribe(
                 res => {
-                    console.log(res)
+                    // console.log(res)
                 },
                 error => {
-                    console.log(error)
+                    // console.log(error)
                 }
             )
         }
     }
 
     onScroll(e) {
-        console.log(e)
         if (this.next_page != null) {
             var num_arr = this.next_page.split('=');
             var count = +num_arr[num_arr.length - 1]

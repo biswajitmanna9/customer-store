@@ -52,7 +52,6 @@ export class StoreAppMyAccountComponent implements OnInit {
         var full_location = this.location.path().split('/');
         this.app_id = full_location[2].trim();
         this.user_id = getString('user_id');
-        console.log(this.app_id);
         this.getCustomerDetails(this.user_id)
         this.getAppDetails(this.app_id);
     }
@@ -61,14 +60,13 @@ export class StoreAppMyAccountComponent implements OnInit {
         this.loader.show(this.lodaing_options);
         this.storeAppService.getCustomerDetails(id).subscribe(
             res => {
-                console.log(res)
+                // console.log(res)
                 this.customer_details = res;
-                
                 this.loader.hide();
             },
             error => {
                 this.loader.hide();
-                console.log(error)
+                // console.log(error)
             }
         )
     }
@@ -82,10 +80,10 @@ export class StoreAppMyAccountComponent implements OnInit {
                 else {
                     this.serviceType = 1
                 }
-               
+
             },
             error => {
-                console.log(error)
+                // console.log(error)
             }
         )
     }

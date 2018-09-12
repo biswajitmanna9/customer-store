@@ -1,6 +1,4 @@
 import { Component, ViewContainerRef, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
-import { alert, prompt } from "tns-core-modules/ui/dialogs";
 import { Page } from "tns-core-modules/ui/page";
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LoginService } from "../core/services/login.service";
@@ -129,16 +127,13 @@ export class ForgotPasswordComponent implements OnInit {
       this.loginService.customerForgetPasswordOtp(this.form.value).subscribe(
         res => {
           this.loader.hide();
-          console.log(res)
+          // console.log(res)
           this.otp = res.otp
           this.showOtpSection = true;
-
-
         },
         error => {
-
           this.loader.hide();
-          console.log(error)
+          // console.log(error)
           this.feedback.error({
             title: error.error.msg,
             backgroundColor: new Color("red"),
@@ -165,14 +160,13 @@ export class ForgotPasswordComponent implements OnInit {
     this.loginService.customerForgetPasswordOtp(data).subscribe(
       res => {
         this.loader.hide();
-        console.log(res)
+        // console.log(res)
         this.otp = res.otp
         this.showOtpSection = true;
       },
       error => {
-
         this.loader.hide();
-        console.log(error)
+        // console.log(error)
         this.feedback.error({
           title: error.error.msg,
           backgroundColor: new Color("red"),
@@ -186,7 +180,6 @@ export class ForgotPasswordComponent implements OnInit {
 
   submitOtp() {
     if (this.otp == this.otpForm.value.otp) {
-
       this.newPwdSection = true;
       this.otp_check = 1;
     }
@@ -201,8 +194,8 @@ export class ForgotPasswordComponent implements OnInit {
 
     }
   }
-  submitNewPwd() {
 
+  submitNewPwd() {
     if (this.passwordForm.valid) {
       if (this.passwordForm.value.conf_password != this.passwordForm.value.password) {
         this.feedback.error({
@@ -235,9 +228,8 @@ export class ForgotPasswordComponent implements OnInit {
             this.router.navigate(['/login'])
           },
           error => {
-
             this.loader.hide();
-            console.log(error)
+            // console.log(error)
             this.feedback.error({
               title: error.error.msg,
               backgroundColor: new Color("red"),
@@ -255,10 +247,6 @@ export class ForgotPasswordComponent implements OnInit {
       this.markFormGroupTouched(this.form)
     }
 
-
-
-
-
   }
 
   markFormGroupTouched(formGroup: FormGroup) {
@@ -269,12 +257,5 @@ export class ForgotPasswordComponent implements OnInit {
       }
     });
   }
-
-  skip() {
-    setBoolean("isSkipped", true)
-    this.router.navigate(['/'])
-  }
-
-
 
 }

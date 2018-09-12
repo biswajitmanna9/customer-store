@@ -46,16 +46,15 @@ export class DashboardComponent implements OnInit {
     }
     device_token: string;
     badgeCountStatus: boolean;
+    visible_key: boolean;
     constructor(
         private exploreService: ExploreService,
         private notificationService: NotificationService
     ) {
         firebase.getCurrentPushToken().then((token: string) => {
-            // may be null if not known yet
             if (token != null) {
                 setString('device_token', token)
             }
-            console.log(`Current push token: ${token}`);
         });
         notificationService.getBadgeCountStatus.subscribe(status => this.changebadgeCountStatus(status))
     }
@@ -64,14 +63,12 @@ export class DashboardComponent implements OnInit {
         this.loader.show(this.lodaing_options);
         this.user_id = getString('user_id');
         this.device_token = getString('device_token');
-        console.log(this.device_token);
         this.getDashboardAppList();
         this.updateDeviceToken();
     }
 
     private changebadgeCountStatus(status: boolean): void {
         this.badgeCountStatus = status;
-        console.log(this.badgeCountStatus)
         if (this.badgeCountStatus == true) {
             this.getDashboardAppList();
         }
@@ -84,10 +81,10 @@ export class DashboardComponent implements OnInit {
         }
         this.notificationService.updateDeviceToken(this.user_id, data).subscribe(
             res => {
-                console.log(res)
+                // console.log(res)
             },
             error => {
-                console.log(error)
+                // console.log(error)
             }
         )
     }
@@ -104,14 +101,13 @@ export class DashboardComponent implements OnInit {
                     x['total_unread_messages'] = sum;
                     this.user_app_list.push(x)
                 })
-                // this.user_app_list = res['app_master']
-                console.log(this.user_app_list);
-                console.log(res);
+                this.visible_key = true;
+                // console.log(res);
                 this.loader.hide();
             },
             error => {
                 this.loader.hide();
-                console.log(error)
+                // console.log(error)
             }
         )
     }
@@ -125,10 +121,10 @@ export class DashboardComponent implements OnInit {
         this.exploreService.appAttachAndDisattachToDashboard(data).subscribe(
             res => {
                 this.getDashboardAppList();
-                console.log(res)
+                // console.log(res)
             },
             error => {
-                console.log(error)
+                // console.log(error)
             }
         )
     }

@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
 import { Location } from '@angular/common';
 import { SecureStorage } from "nativescript-secure-storage";
 import { getString, setString, getBoolean, setBoolean, clear } from "application-settings";
-import { StoreAppService, OrderModule, OrderDetails, RadioOption } from "../../../core/services/store-app.service";
-import { Router } from "@angular/router";
+import { StoreAppService, OrderModule, OrderDetails, RadioOption, CustomRadioOption } from "../../../core/services/store-app.service";
+import { RouterExtensions } from "nativescript-angular/router";
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { SelectedIndexChangedEventData, ValueList } from "nativescript-drop-down";
 import { LoadingIndicator } from "nativescript-loading-indicator";
@@ -49,7 +49,7 @@ export class StoreAppPaymentComponent implements OnInit {
         CHECKSUMHASH: ""
     };
 
-    radioOptions?: Array<RadioOption>;
+    addressOptions?: Array<CustomRadioOption>;
     customer_adress_list: any = [];
     state_list: ValueList<string>;
     form: FormGroup;
@@ -92,9 +92,10 @@ export class StoreAppPaymentComponent implements OnInit {
         private route: ActivatedRoute,
         private location: Location,
         private storeAppService: StoreAppService,
-        private router: Router,
+        private router: RouterExtensions,
         private formBuilder: FormBuilder,
-        private notificationService: NotificationService
+        private notificationService: NotificationService,
+        private ngZone: NgZone
     ) {
         this.secureStorage = new SecureStorage();
         this.order = new OrderModule();
@@ -111,9 +112,14 @@ export class StoreAppPaymentComponent implements OnInit {
         this.getCustomerAdressList(this.user_id);
         this.getStateList();
         this.form = this.formBuilder.group({
+            address_name: ['', Validators.required],
             address: ['', Validators.required],
             state: ['', Validators.required],
-            pincode: ['', Validators.required],
+            pincode: ['',
+                [Validators.required,
+                Validators.minLength(6),
+                Validators.maxLength(6)]
+            ],
             customer: [this.user_id, Validators.required]
         });
 
@@ -145,7 +151,7 @@ export class StoreAppPaymentComponent implements OnInit {
             },
             error => {
                 this.loader.hide()
-                console.log(error)
+                // console.log(error)
             }
         )
     }
@@ -153,11 +159,11 @@ export class StoreAppPaymentComponent implements OnInit {
     getAppDeviceToken(id) {
         this.notificationService.getAppDeviceToken(id).subscribe(
             res => {
-                console.log(res)
+                // console.log(res)
                 this.app_device_token = res['device_token'];
             },
             error => {
-                console.log(error)
+                // console.log(error)
             }
         )
     }
@@ -165,12 +171,12 @@ export class StoreAppPaymentComponent implements OnInit {
     getCustomerDetails(id) {
         this.storeAppService.getCustomerDetails(id).subscribe(
             res => {
-                console.log(res)
+                // console.log(res)
                 this.customer_details = res;
                 this.user_info = this.customer_details.customer_name + ',' + this.customer_details.contact_no;
             },
             error => {
-                console.log(error)
+                // console.log(error)
             }
         )
     }
@@ -183,14 +189,17 @@ export class StoreAppPaymentComponent implements OnInit {
         }
         this.notificationService.sendPushNotification(this.app_device_token, value).subscribe(
             res => {
-                console.log(res)
-                this.loader.hide();
-                this.router.navigate(['/store-app/', this.app_id, 'payment-success', this.order_id])
+                // console.log(res)
             },
             error => {
-                console.log(error)
+                // console.log(error)
             }
         )
+        this.ngZone.run(() => {
+            this.loader.hide();
+            this.router.navigate(['/store-app/', this.app_id, 'payment-success', this.order_id])
+        })
+
     }
 
     changeCheckedRadioPaymentMode(radioOption: RadioOption): void {
@@ -206,23 +215,24 @@ export class StoreAppPaymentComponent implements OnInit {
                 option.selected = false;
             }
         });
-        console.log(this.payment_type)
     }
 
-    changeCheckedRadio(radioOption: RadioOption): void {
-        radioOption.selected = !radioOption.selected;
-        this.address_id = radioOption.id
-        if (!radioOption.selected) {
-            return;
+    changeCheckedRadioAddress(radioOption: CustomRadioOption): void {
+        if (this.addressOptions.length > 1) {
+            radioOption.selected = !radioOption.selected;
+            this.address_id = radioOption.id
+            if (!radioOption.selected) {
+                return;
+            }
+
+            // uncheck all other options
+            this.addressOptions.forEach(option => {
+                if (option.id !== radioOption.id) {
+                    option.selected = false;
+                }
+            });
         }
 
-        // uncheck all other options
-        this.radioOptions.forEach(option => {
-            if (option.text !== radioOption.text) {
-                option.selected = false;
-            }
-        });
-        console.log(this.address_id)
     }
 
     populateData() {
@@ -231,7 +241,7 @@ export class StoreAppPaymentComponent implements OnInit {
         }).then(
             value => {
                 var data = JSON.parse(value);
-                console.log(data);
+                // console.log(data);
                 if (data != null) {
                     this.all_cart_data = data;
                     var filteredData = data.filter(x => x.customer_id == this.user_id && x.app_id == this.app_id)
@@ -250,19 +260,19 @@ export class StoreAppPaymentComponent implements OnInit {
     getCustomerAdressList(id) {
         this.storeAppService.getCustomerAddress(id).subscribe(
             (res: any[]) => {
-                console.log(res);
+                // console.log(res);
                 this.customer_adress_list = res;
-                this.radioOptions = [];
+                this.addressOptions = [];
 
                 this.customer_adress_list.forEach(x => {
-                    var d = new RadioOption(x.address, x.id)
-                    this.radioOptions.push(d)
+                    var d = new CustomRadioOption(x.address_name, x.address, x.id)
+                    this.addressOptions.push(d)
                 })
-                this.radioOptions[0]['selected'] = true;
-                this.address_id = this.radioOptions[0]['id']
+                this.addressOptions[0]['selected'] = true;
+                this.address_id = this.addressOptions[0]['id']
             },
             error => {
-                console.log(error)
+                // console.log(error)
             }
         )
     }
@@ -270,7 +280,7 @@ export class StoreAppPaymentComponent implements OnInit {
     getStateList() {
         this.storeAppService.getStateList().subscribe(
             (res: any[]) => {
-                console.log(res);
+                // console.log(res);
                 this.state_list = new ValueList<string>();
                 for (let i = 0; i < res.length; i++) {
                     this.state_list.push({
@@ -280,7 +290,7 @@ export class StoreAppPaymentComponent implements OnInit {
                 }
             },
             error => {
-                console.log(error)
+                // console.log(error)
             }
         )
     }
@@ -317,7 +327,6 @@ export class StoreAppPaymentComponent implements OnInit {
             key: 'cart',
             value: JSON.stringify(this.all_cart_data)
         }).then(success => {
-            console.log(success)
             this.storeAppService.cartStatus(true);
             this.getTotalItemPrice();
             this.getTotalPackingPrice();
@@ -335,18 +344,17 @@ export class StoreAppPaymentComponent implements OnInit {
     }
 
     addAdress() {
-        console.log(this.form.value)
         if (this.form.valid) {
             this.loader.show(this.lodaing_options);
             this.storeAppService.addCustomerAddress(this.form.value).subscribe(
                 res => {
                     this.loader.hide();
-                    console.log(res)
+                    // console.log(res)
                     this.address_box_key = false;
                     this.getCustomerAdressList(this.user_id);
                 },
                 error => {
-                    console.log(error)
+                    // console.log(error)
                 }
             )
 
@@ -384,7 +392,7 @@ export class StoreAppPaymentComponent implements OnInit {
     orderPay() {
         if (this.address_id == undefined) {
             dialogs.alert("Please Select Shipping Address").then(() => {
-                console.log("Dialog closed!");
+                // console.log("Dialog closed!");
             });
         }
         else {
@@ -397,7 +405,6 @@ export class StoreAppPaymentComponent implements OnInit {
             var all_details_data = [];
             this.customer_cart_data.forEach(x => {
                 var details_data = new OrderDetails();
-                console.log(x)
                 details_data.appmaster = x.app_id;
                 if (x.discounted_price > 0) {
                     details_data.unit_price = x.discounted_price;
@@ -418,40 +425,45 @@ export class StoreAppPaymentComponent implements OnInit {
                 }
             })
             this.order.order_details = all_details_data;
-            // console.log(JSON.stringify(this.order));
-            this.setCartData();
-            this.storeAppService.createOrder(this.order).subscribe(
-                res => {
-                    console.log(res)
-                    this.order_id = res['id']
-                    if (this.payment_type == 1) {
-                        this.pushNotf();
-                    }
-                    else {
-                        this.getPaytmFormValue(this.order.price)
-                    }
 
-                },
-                error => {
-                    console.log(error)
-                }
-            )
+            if (this.order_id == undefined) {
+                this.storeAppService.createOrder(this.order).subscribe(
+                    res => {
+                        // console.log(res)
+                        this.order_id = res['id']
+                        if (this.payment_type == 1) {
+                            this.pushNotf();
+                        }
+                        else {
+                            this.getPaytmFormValue(this.order.price, this.order_id)
+                        }
+                        this.setCartData();
+                    },
+                    error => {
+                        // console.log(error)
+                    }
+                )
+            }
+            else {
+                this.getPaytmFormValue(this.order.price, this.order_id)
+            }
+
 
         }
 
 
     }
 
-    getPaytmFormValue(amount: number) {
-        this.storeAppService.paytmFormValue(amount).subscribe(
+    getPaytmFormValue(amount: number, table_order_id: number) {
+        this.storeAppService.paytmFormValue(amount, table_order_id).subscribe(
             res => {
-                console.log(res)
+                // console.log(res)
                 this.paytmFormDetails = res;
                 this.loader.hide();
                 this.payViaPaytm();
             },
             error => {
-                console.log(error)
+                // console.log(error)
             }
         )
     }
@@ -461,13 +473,13 @@ export class StoreAppPaymentComponent implements OnInit {
         var $this = this;
         this.paytm.setIOSCallbacks({
             didFinishedResponse: function (response) {
-                console.log(response);
+                // console.log(response);
             },
             didCancelTransaction: function () {
-                console.log("User cancelled transaction");
+                // console.log("User cancelled transaction");
             },
             errorMissingParameterError: function (error) {
-                console.log(error);
+                // console.log(error);
             }
         });
         this.orderToPaytm = {
@@ -481,21 +493,16 @@ export class StoreAppPaymentComponent implements OnInit {
             CALLBACK_URL: this.paytmFormDetails['CALLBACK_URL'],
             CHECKSUMHASH: this.paytmFormDetails['CHECKSUMHASH']
         };
-        console.log(new Date());
-        console.log("createOrder");
+
         this.paytm.createOrder(this.orderToPaytm);
         this.paytm.initialize("STAGING");
         this.paytm.startPaymentTransaction({
             someUIErrorOccurred: function (inErrorMessage) {
-
-                console.log(inErrorMessage);
+                // console.log(inErrorMessage);
             },
             onTransactionResponse: function (inResponse) {
-
-                console.log("2");
-                console.log(inResponse);
                 var response = JSON.parse(inResponse);
-                console.log(response);
+                // console.log(response);
                 var ORDERID = response['ORDERID'];
                 var txn_id = response['TXNID'];
                 var txn_status;
@@ -514,22 +521,20 @@ export class StoreAppPaymentComponent implements OnInit {
                 var data = {
                     txn_status: txn_status,
                     txn_id: txn_id,
-                    bank_txn_id: '',
+                    bank_txn_id: response['BANKTXNID'],
                     checksumhash: response['CHECKSUMHASH'],
                     paytm_response: inResponse
                 }
-                console.log(ORDERID);
-                console.log(data);
-                $this.loader.show($this.lodaing_options)
+                // console.log(inResponse)
                 $this.updateOrder(ORDERID, data)
             },
             networkNotAvailable: function () {
 
-                console.log("Network not available");
+                // console.log("Network not available");
             },
             clientAuthenticationFailed: function (inErrorMessage) {
 
-                console.log(inErrorMessage);
+                // console.log(inErrorMessage);
             },
             onErrorLoadingWebPage: function (
                 iniErrorCode,
@@ -537,24 +542,25 @@ export class StoreAppPaymentComponent implements OnInit {
                 inFailingUrl
             ) {
 
-                console.log(iniErrorCode, inErrorMessage, inFailingUrl);
+                // console.log(iniErrorCode, inErrorMessage, inFailingUrl);
             },
             onBackPressedCancelTransaction: function () {
 
-                console.log("User cancelled transaction by pressing back button");
+                // console.log("User cancelled transaction by pressing back button");
             },
             onTransactionCancel: function (inErrorMessage, inResponse) {
 
-                console.log(inErrorMessage, inResponse);
+                // console.log(inErrorMessage, inResponse);
             }
         });
     }
 
     updateOrder(id, data) {
+        // console.log(data)
         this.loader.show(this.lodaing_options);
         this.storeAppService.updateOrder(id, data).subscribe(
             res => {
-                console.log(res)
+                // console.log(res)
                 if (data.txn_status == 2) {
                     this.pushNotf()
                 }
@@ -566,7 +572,7 @@ export class StoreAppPaymentComponent implements OnInit {
             },
             error => {
                 this.loader.hide();
-                console.log(error)
+                // console.log(error)
             }
         )
     }

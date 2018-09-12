@@ -42,6 +42,7 @@ export class StoreAppOrderListComponent implements OnInit {
     }
     items: any[];
     currency: string;
+    visible_key: boolean;
     constructor(
         private route: ActivatedRoute,
         private location: Location,
@@ -54,7 +55,6 @@ export class StoreAppOrderListComponent implements OnInit {
         var full_location = this.location.path().split('/');
         this.app_id = full_location[2].trim();
         this.user_id = getString('user_id');
-        console.log(this.app_id)
         this.getOrderList()
     }
 
@@ -67,15 +67,16 @@ export class StoreAppOrderListComponent implements OnInit {
         this.storeAppService.getCustomerOrderListByApp(param).subscribe(
             res => {
                 this.loader.hide();
-                console.log(res);
+                // console.log(res);
                 this.order_list = res['results'];
                 for (var i = 0; i < this.order_list.length; i++) {
                     this.order_list[i]['items'] = JSON.parse(JSON.stringify(this.order_list[i].order_details));
                 }
+                this.visible_key = true;
             },
             error => {
                 this.loader.hide();
-                console.log(error)
+                // console.log(error)
             }
         )
     }

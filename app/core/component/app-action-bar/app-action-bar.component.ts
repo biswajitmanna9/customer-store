@@ -21,7 +21,7 @@ export class AppActionBarComponent implements OnInit {
     user_id: string;
     customer_cart_data: any;
     serviceType;
-    cartStatus:boolean;
+    cartStatus: boolean;
     constructor(
         private _routerExtensions: RouterExtensions,
         private storeAppService: StoreAppService,
@@ -33,21 +33,13 @@ export class AppActionBarComponent implements OnInit {
 
     private changeCartStatus(status: boolean): void {
         this.cartStatus = status;
-        console.log(this.cartStatus)
         if (this.cartStatus == true) {
-           
             this.ngOnInit();
         }
-        else{
-            this.ngOnInit();
-        }
-
-        //alert(this.userName)
     }
     ngOnInit() {
-        if(getBoolean('isLoggedin')){
+        if (getBoolean('isLoggedin')) {
             this.isLoggedin = getBoolean('isLoggedin');
-            // alert(this.isLoggedin)
         }
         this.user_id = getString('user_id');
         this.getAppDetails(this.appId);
@@ -56,25 +48,25 @@ export class AppActionBarComponent implements OnInit {
 
     populateData() {
         this.secureStorage.get({
-          key: "cart"
+            key: "cart"
         }).then(
-          value => {
-            var data = JSON.parse(value);
-            console.log(data);
-            if (data != null) {
-              this.all_cart_data = data;
-              var filteredData = data.filter(x => x.customer_id == this.user_id && x.app_id == this.appId)
-              this.customer_cart_data = filteredData;
-              
-              this.visible_key = true;
+            value => {
+                var data = JSON.parse(value);
+                // console.log(data);
+                if (data != null) {
+                    this.all_cart_data = data;
+                    var filteredData = data.filter(x => x.customer_id == this.user_id && x.app_id == this.appId)
+                    this.customer_cart_data = filteredData;
+
+                    this.visible_key = true;
+                }
+                else {
+                    this.customer_cart_data = [];
+                    this.visible_key = true;
+                }
             }
-            else {
-              this.customer_cart_data = [];
-              this.visible_key = true;
-            }
-          }
         );
-      }
+    }
 
     getAppDetails(id) {
         this.storeAppService.getStoreAppDetails(id).subscribe(
@@ -91,12 +83,11 @@ export class AppActionBarComponent implements OnInit {
                         this.product_list.push(y)
                     })
                 })
-                console.log(res)
-                console.log(this.product_list)
+                // console.log(res)
                 this.visible_key = true;
             },
             error => {
-                console.log(error)
+                // console.log(error)
             }
         )
     }
@@ -104,7 +95,7 @@ export class AppActionBarComponent implements OnInit {
         this.routerExtensions.back();
     }
 
-    logout(){
+    logout() {
         clear();
         this._routerExtensions.navigate(["/login"], { clearHistory: true });
     }
