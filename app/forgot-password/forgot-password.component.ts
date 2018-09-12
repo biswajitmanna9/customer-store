@@ -22,7 +22,6 @@ export class ForgotPasswordComponent implements OnInit {
   form: FormGroup;
   otpForm: FormGroup;
   passwordForm: FormGroup;
-  processing = false;
   showOtpSection = false;
   newPwdSection = false;
   contact_no;

@@ -23,8 +23,6 @@ import { NotificationService } from './services/notification.service';
 // component
 import { ActionBarComponent } from './component/action-bar/action-bar.component';
 import { MenuBarComponent } from './component/menu-bar/menu-bar.component';
-import { LoginModalComponent } from './component/login-modal/login-modal.component';
-import { SignUpModalComponent } from './component/signup-modal/signup-modal.component';
 import { LocationModalComponent } from './component/location-modal/location-modal.component';
 import { AppMenuBarComponent } from './component/app-menu-bar/app-menu-bar.component';
 import { AppActionBarComponent } from './component/app-action-bar/app-action-bar.component';
@@ -50,8 +48,6 @@ import { AppActionBarComponent } from './component/app-action-bar/app-action-bar
         IsEmailDirective,
         ActionBarComponent,
         MenuBarComponent,
-        LoginModalComponent,
-        SignUpModalComponent,
         LocationModalComponent,
         AppMenuBarComponent,
         CarouselDirective,
@@ -74,8 +70,6 @@ import { AppActionBarComponent } from './component/app-action-bar/app-action-bar
         AppActionBarComponent
     ],
     entryComponents: [
-        LoginModalComponent,
-        SignUpModalComponent,
         LocationModalComponent
     ],
     schemas: [

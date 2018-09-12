@@ -15,13 +15,15 @@
             <CardView class="whiteCard">
                 <GridLayout rows="*" columns="*,*" padding="10" verticalAlignment="center">
                     <StackLayout row="0" col="0" verticalAlignment="center" orientation="vertical" horizontalAlignment="left">
-                        <Label [text]="item.product_details.product_name" textWrap="true" verticalAlignment="center" class="product_name"></Label>
+                        <Label [text]="item.product_details.product_name" textWrap="true" verticalAlignment="center"
+                            class="product_name"></Label>
                         <StackLayout orientation="horizontal">
-                            <Label [text]="item.product_details.discounted_price | currency: currency : true:'1.0-0'" class="discounted_price" textWrap="true"
-                                *ngIf="item.product_details.discounted_price > 0"></Label>
-                            <Label [text]="item.product_details.price | currency: currency : true:'1.0-0'" class="original_price" textWrap="true" [ngClass]="[item.product_details.discounted_price > 0 ? 'isDiscount' : '']"></Label>
-                            <Label [text]="getDiscount(item.product_details.price,item.product_details.discounted_price)" class="discount" textWrap="true"
-                                *ngIf="item.product_details.discounted_price > 0"></Label>
+                            <Label [text]="item.product_details.discounted_price | currency: currency : true:'1.0-0'"
+                                class="discounted_price" textWrap="true" *ngIf="item.product_details.discounted_price > 0"></Label>
+                            <Label [text]="item.product_details.price | currency: currency : true:'1.0-0'" class="original_price"
+                                textWrap="true" [ngClass]="[item.product_details.discounted_price > 0 ? 'isDiscount' : '']"></Label>
+                            <Label [text]="getDiscount(item.product_details.price,item.product_details.discounted_price)"
+                                class="discount" textWrap="true" *ngIf="item.product_details.discounted_price > 0"></Label>
                         </StackLayout>
                     </StackLayout>
                     <StackLayout horizontalAlignment="right" verticalAlignment="center" col="1" row="0" backgroundColor="#fff">
@@ -51,3 +53,6 @@
         </StackLayout>
     </ng-template>
 </Accordion>
+<StackLayout orientation="vertical" *ngIf="order_list.length == 0">
+    <Label text="You have no order in this app"></Label>
+</StackLayout>

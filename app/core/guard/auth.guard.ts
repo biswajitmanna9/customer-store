@@ -10,7 +10,6 @@ export class AuthGuard implements CanActivate {
 
     canActivate(): boolean {
         if (getBoolean('isLoggedin') || getBoolean('isSkipped')) {
-            console.log("got the")
             return true;
         }
         this._routerExtensions.navigate(["/login"], { clearHistory: true });

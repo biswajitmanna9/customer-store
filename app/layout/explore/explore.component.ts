@@ -5,11 +5,10 @@ registerElement('FilterSelect', () => FilterSelect);
 import { ExploreService } from "../../core/services/explore.service";
 
 import { ModalDialogService } from "nativescript-angular/directives/dialogs";
-import { LoginModalComponent } from '../../core/component/login-modal/login-modal.component';
-import { SignUpModalComponent } from '../../core/component/signup-modal/signup-modal.component';
 import { LocationModalComponent } from '../../core/component/location-modal/location-modal.component';
 import { getString, setString, getBoolean, setBoolean, clear } from "application-settings";
 import { LoadingIndicator } from "nativescript-loading-indicator";
+import { RouterExtensions } from "nativescript-angular/router";
 
 @Component({
   selector: "explore",
@@ -62,6 +61,7 @@ export class ExploreComponent implements OnInit {
   constructor(
     private exploreService: ExploreService,
     private modal: ModalDialogService,
+    private router: RouterExtensions,
     private vcRef: ViewContainerRef
   ) {
 
@@ -145,49 +145,11 @@ export class ExploreComponent implements OnInit {
       }
     )
   }
-
-
-  openLoginModal(app_id) {
-    this.modal.showModal(LoginModalComponent, this.options).then(res => {
-      console.log(res);
-      if (res != undefined) {
-        if (res.signup) {
-          this.openSignupModal(app_id);
-        }
-        else if (res.success == 1) {
-          this.user_id = res.user_id;
-          this.appAttachAndDisattach(app_id, this.user_id)
-        }
-      }
-      else {
-        var index = this.app_list.findIndex(x => x.id == app_id);
-        this.app_list[index].isDashboard = false
-      }
-    })
-  }
-
-  openSignupModal(app_id) {
-    this.modal.showModal(SignUpModalComponent, this.options).then(res => {
-      console.log(res);
-      if (res != undefined) {
-        if (res.signin) {
-          this.openLoginModal(app_id);
-        }
-        else if (res.success == 1) {
-          this.user_id = res.id;
-          this.appAttachAndDisattach(app_id, this.user_id)
-        }
-      }
-      else {
-        var index = this.app_list.findIndex(x => x.id == app_id);
-        this.app_list[index].isDashboard = false
-      }
-    })
-  }
+  
 
   addToDashboard(app_id) {
     if (!getBoolean('isLoggedin')) {
-      this.openLoginModal(app_id);
+      this.router.navigate(["/login"], { clearHistory: true });
     }
     else {
       this.appAttachAndDisattach(app_id, this.user_id)
@@ -319,5 +281,4 @@ export class ExploreComponent implements OnInit {
     }
   }
 
-  // http://192.168.24.208:8000/search_app/?latitude=22.5402602&longitude=88.3821989
 }

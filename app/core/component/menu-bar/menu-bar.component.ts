@@ -1,7 +1,5 @@
 import { Component, ViewContainerRef, OnInit } from '@angular/core';
 import { ModalDialogService } from "nativescript-angular/directives/dialogs";
-import { LoginModalComponent } from '../login-modal/login-modal.component';
-import { SignUpModalComponent } from '../signup-modal/signup-modal.component';
 import { getString, setString, getBoolean, setBoolean, clear } from "application-settings";
 import { Router } from "@angular/router";
 import { RouterExtensions } from "nativescript-angular/router";
@@ -33,40 +31,11 @@ export class MenuBarComponent implements OnInit {
         console.log(full_location)
         this.current_url = full_location[1];
     }
-
-    openLoginModal() {
-        this.modal.showModal(LoginModalComponent, this.options).then(res => {
-            console.log(res);
-            if (res != undefined) {
-                if (res.signup) {
-                    this.openSignupModal();
-                }
-                else if (res.success == 1) {
-                    console.log("ggggg")
-                    this.router.navigate(['/dashboard'])
-                }
-            }
-
-        })
-    }
-
-    openSignupModal() {
-        this.modal.showModal(SignUpModalComponent, this.options).then(res => {
-            console.log(res);
-            if (res != undefined) {
-                if (res.signin) {
-                    this.openLoginModal();
-                }
-                else if (res.success == 1) {
-                    this.router.navigate(['/dashboard'])
-                }
-            }
-        })
-    }
+    
 
     goTodashboard() {
         if (!getBoolean('isLoggedin')) {
-            this.openLoginModal();
+            this.router.navigate(["/login"], { clearHistory: true });
         }
         else {
             this.router.navigate(['/dashboard'])
