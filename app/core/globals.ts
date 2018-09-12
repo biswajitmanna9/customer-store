@@ -1,6 +1,6 @@
 'use strict';
-export const apiEndpoint: string = 'https://www.api-store.banaoapp.com:8001/';
-export const img_base_url: string = 'https://www.api-store.banaoapp.com:8001';
+export const apiEndpoint: string = 'http://www.api-store.banaoapp.com:8001/';
+export const img_base_url: string = 'http://www.api-store.banaoapp.com:8001';
 export const itemPerPage: number = 10;
 export const paginationMaxSize: number = 2;
 export const currency: string = 'INR';
