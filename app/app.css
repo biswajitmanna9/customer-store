@@ -37,6 +37,16 @@ refer to http://docs.nativescript.org/ui/theme.
     font-size: 10;
 }
 
+.unread {
+    color: #fff;
+    background-color: #dc3545;
+    float: right;
+    padding: 1;
+    height: 13;
+    width: 17;
+    border-radius: 2;
+}
+
 
 /* FilterSelect */
 
@@ -149,6 +159,21 @@ ActionBar {
 
 .CardView {
     border-radius: 5;
+}
+
+.full-cardview {
+    width: 100%;
+    padding: 15;
+    text-align: center;
+}
+
+.section_heading {
+    color: #000;
+    text-align: left;
+    font-size: 20;
+    font-weight: 600;
+    margin-bottom: 10;
+    padding: 0 12;
 }
 
 .border-bottom {

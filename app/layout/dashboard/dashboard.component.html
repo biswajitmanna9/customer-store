@@ -3,25 +3,39 @@
     <ScrollView row="0">
         <StackLayout class="full-dashboard bg-color" *ngIf="visible_key">
             <FlexboxLayout flexWrap="wrap" alignItems="flex-start">
-                <CardView *ngFor="let item of user_app_list" class="card" elevation="0" borderColor="#6c6969"
-                    shadowOffsetWidth="0" shadowOffsetHeight="0" alignSelf="flex-start" [nsRouterLink]="['/store-app/', item.id, 'about-us']">
-                    <StackLayout orientation="vertical">
-                        <StackLayout class="app-icon">
-                            <Label class="fa close" [text]="'fa-times-circle' | fonticon" (tap)="removeFromDashboard(item.id)"
-                                top="10" left="10"></Label>
-                            <AbsoluteLayout width="20" height="20" *ngIf="item.total_unread_messages > 0">
-                                <Label verticalAlignment="center" [text]="item.total_unread_messages" class="body unread"
-                                    left="0" top="0" width="18" height="18" textAlignment="center"></Label>
-                            </AbsoluteLayout>
-                            <Image class="dash-image" [src]="base_url + item.logo" *ngIf="item.logo != ''"></Image>
-                            <Image class="dash-image" src="~/images/no-image-logo.jpg" *ngIf="item.logo == ''"></Image>
+
+
+
+                <CardView *ngFor="let item of user_app_list" class="card" elevation="0" borderColor="#6c6969" shadowOffsetWidth="0" shadowOffsetHeight="0" alignSelf="flex-start" [nsRouterLink]="['/store-app/', item.id, 'about-us']">
+                    <AbsoluteLayout>
+                        <StackLayout width="33%" orientation="vertical">
+                            <StackLayout class="app-icon">
+
+                                <!-- <AbsoluteLayout width="20" height="20" *ngIf="item.total_unread_messages > 0">
+                                    <Label verticalAlignment="center" [text]="item.total_unread_messages" class="body unread" left="0" top="0" width="18" height="18" textAlignment="center"></Label>
+                                </AbsoluteLayout> -->
+                                <Image class="dash-image" [src]="base_url + item.logo" *ngIf="item.logo != ''"></Image>
+                                <Image class="dash-image" src="~/images/no-image-logo.jpg" *ngIf="item.logo == ''"></Image>
+                            </StackLayout>
+                            <Label class="app-name" [text]="item.business_name"></Label>
                         </StackLayout>
-                        <Label class="app-name" [text]="item.business_name"></Label>
+                        <Label class="fa close" fontSize="15" [text]="'fa-times-circle' | fonticon" (tap)="removeFromDashboard(item.id)" top="0" left="0"></Label>
+
+
+
+                        <Label verticalAlignment="center" fontSize="8" [text]="item.total_unread_messages" class="body unread" left="95%" top="0" textAlignment="center"></Label>
+                    </AbsoluteLayout>
+                </CardView>
+
+
+                <CardView class="full-cardview">
+                    <StackLayout textAlignment="center" orientation="vertical" *ngIf="user_app_list.length == 0">
+                        <Label class="section_heading" fontSize="15" text="You have not added any app in your dashboard"></Label>
+
                     </StackLayout>
                 </CardView>
-                <StackLayout orientation="vertical" *ngIf="user_app_list.length == 0">
-                    <Label text="You have not added any app in your dashboard"></Label>
-                </StackLayout>
+
+
             </FlexboxLayout>
         </StackLayout>
     </ScrollView>
