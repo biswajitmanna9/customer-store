@@ -29,6 +29,7 @@
     "nativescript-feedback": "^1.2.0",
     "nativescript-filter-select": "^1.2.9",
     "nativescript-filterable-listpicker": "^2.1.0",
+    "nativescript-floatingactionbutton": "^4.1.4",
     "nativescript-geolocation": "^4.2.6",
     "nativescript-google-places-autocomplete": "^1.0.3",
     "nativescript-image-swipe": "^3.0.0",

@@ -5,6 +5,8 @@ import { getString, setString, getBoolean, setBoolean, clear } from "application
 import { StoreAppService } from "../../../core/services/store-app.service";
 import { LoadingIndicator } from "nativescript-loading-indicator";
 import * as Globals from '../../../core/globals';
+import { registerElement } from "nativescript-angular/element-registry";
+registerElement("Fab", () => require("nativescript-floatingactionbutton").Fab);
 
 @Component({
     selector: '',
@@ -43,11 +45,14 @@ export class StoreAppOrderListComponent implements OnInit {
     items: any[];
     currency: string;
     visible_key: boolean;
+    page: number = 1;
+    next_page: string;
+    total_item: number;
     constructor(
         private route: ActivatedRoute,
         private location: Location,
         private storeAppService: StoreAppService
-    ) {}
+    ) { }
 
     ngOnInit() {
         this.currency = Globals.currency
@@ -63,15 +68,22 @@ export class StoreAppOrderListComponent implements OnInit {
     }
 
     getOrderList() {
-        var param = '?customer=' + this.user_id + '&appmaster=' + this.app_id;
+        var param = '?customer=' + this.user_id + '&appmaster=' + this.app_id + '&page=' + this.page;
         this.storeAppService.getCustomerOrderListByApp(param).subscribe(
             res => {
-                this.loader.hide();
                 // console.log(res);
-                this.order_list = res['results'];
-                for (var i = 0; i < this.order_list.length; i++) {
-                    this.order_list[i]['items'] = JSON.parse(JSON.stringify(this.order_list[i].order_details));
-                }
+                this.next_page = res['next'];
+                this.total_item = res['count'];
+                res['results'].forEach(x => {
+                    x['items'] = JSON.parse(JSON.stringify(x.order_details));
+                    this.order_list.push(x)
+                })
+                this.loader.hide();
+
+                // this.order_list = res['results'];
+                // for (var i = 0; i < this.order_list.length; i++) {
+                //     this.order_list[i]['items'] = JSON.parse(JSON.stringify(this.order_list[i].order_details));
+                // }
                 this.visible_key = true;
             },
             error => {
@@ -79,5 +91,16 @@ export class StoreAppOrderListComponent implements OnInit {
                 // console.log(error)
             }
         )
+    }
+
+    more() {
+        if (this.next_page != null) {
+            var num_arr = this.next_page.split('=');
+            var count = +num_arr[num_arr.length - 1]
+            if (this.page == count - 1) {
+                this.page = count;
+                this.getOrderList();
+            }
+        }
     }
 }
