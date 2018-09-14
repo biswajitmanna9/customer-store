@@ -13,15 +13,15 @@
         </FlexboxLayout>
 
         <FlexboxLayout class="button-center">
+                <AbsoluteLayout>
             <Button textWrap="true" class="btn btn-primary" backgroundColor="#284058" color="#fff" width="50%" (tap)="massage()">
                 <FormattedString>
-                    
                     <Span text="Chat"></Span>
-                    <Span  class="body unread-btn" [text]="chat_unread_length" 
-                        textAlignment="center"></Span>
-                   
                 </FormattedString>
             </Button>
+            <Label verticalAlignment="center" fontSize="8" [text]="chat_unread_length" class="body unread" left="93%" top="0" textAlignment="center" ></Label>
+
+            </AbsoluteLayout>
             <Button class="btn btn-primary" backgroundColor="#284058" color="#fff" width="50%" text="Call" (tap)="call(app_details.user.user_details[0].contact_no)" *ngIf="app_details.user.user_details[0].contact_no != null"></Button>
         </FlexboxLayout>
         <FlexboxLayout class="social-media-section" justifyContent="center" alignItems="flex-start" alignItems="center" *ngIf="social_media_links.length>0">

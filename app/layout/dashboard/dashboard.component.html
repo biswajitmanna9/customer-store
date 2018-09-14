@@ -23,7 +23,7 @@
 
 
 
-                        <Label verticalAlignment="center" fontSize="8" [text]="item.total_unread_messages" class="body unread" left="93%" top="0" textAlignment="center"></Label>
+                        <Label verticalAlignment="center" fontSize="8" [text]="item.total_unread_messages" class="body unread" left="93%" top="0" textAlignment="center" *ngIf="item.total_unread_messages > 0"></Label>
                     </AbsoluteLayout>
                 </CardView>
 
