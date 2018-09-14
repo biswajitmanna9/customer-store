@@ -70,7 +70,11 @@ export class ForgotPasswordComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.formBuilder.group({
-      contact_no: ['', Validators.required],
+      contact_no: ['', [
+        Validators.required,
+        Validators.minLength(10),
+        Validators.maxLength(10)
+      ]],
       app_store_flag: [0],
       app_id: [0],
     });
