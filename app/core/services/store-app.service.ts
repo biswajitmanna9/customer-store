@@ -103,11 +103,11 @@ export class StoreAppService {
   }
 
   getSocialMediaListByApp(id) {
-    return this.http.get(Globals.apiEndpoint + 'app_social_media/' + id)
+    return this.http.get(Globals.apiEndpoint + 'app_social_media/' + id + '/')
   }
 
   getOrderDetails(id) {
-    return this.http.get(Globals.apiEndpoint + 'all_order_details/' + id)
+    return this.http.get(Globals.apiEndpoint + 'order_details/' + id + '/')
   }
 
   updateOrder(id, data) {

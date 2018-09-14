@@ -62,7 +62,7 @@ export class SignupComponent implements OnInit {
       contact_no: ['', [
         Validators.required,
         Validators.minLength(10),
-        Validators.maxLength(12)
+        Validators.maxLength(10)
       ]],
       password: ['', Validators.required],
       app_store_flag: [0],

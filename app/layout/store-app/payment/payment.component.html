@@ -83,12 +83,10 @@
                         </StackLayout>
                     </StackLayout>
                     <StackLayout class="input-filld" row="3">
-                        <TextField hint="Pincode" keyboardType="number" class="input input-border cyan-border m-t-10" borderColor="#6c6969" returnKeyType="done" formControlName="pincode"></TextField>
-                        <StackLayout *ngIf="form.controls['pincode'].hasError('minlength') || form.controls['pincode'].hasError('maxlength') && !form.controls['pincode'].hasError('required')" class="invalid-feedback">
-                            <Label fontSize="8" text="Pincode should be 6 digit"></Label>
-                        </StackLayout>
-                        <StackLayout *ngIf="form.controls['pincode'].hasError('required')" class="invalid-feedback">
-                            <Label fontSize="8" text="Pincode is required"></Label>
+                        <TextField hint="Pincode" keyboardType="number" class="input input-border cyan-border m-t-10"
+                            borderColor="#6c6969" returnKeyType="done" formControlName="pincode"></TextField>
+                        <StackLayout *ngIf="isFieldValid('pincode')" class="invalid-feedback">
+                            <Label fontSize="8" text="Valid pincode is required"></Label>
                         </StackLayout>
                     </StackLayout>
                 </GridLayout>
