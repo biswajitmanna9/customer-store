@@ -7,17 +7,13 @@
                         <Label [text]="item.product_name" textWrap="true" verticalAlignment="center" class="product_name"></Label>
                         <StackLayout orientation="horizontal">
                             <StackLayout verticalAlignment="center" orientation="horizontal">
-                                <Label [text]="item.quantity * item.discounted_price | currency: currency : true:'1.0-0'"
-                                    class="discounted_price" textWrap="true" *ngIf="item.discounted_price > 0"></Label>
-                                <Label [text]="item.quantity * item.price | currency: currency : true:'1.0-0'" class="original_price"
-                                    textWrap="true" [ngClass]="[item.discounted_price > 0 ? 'isDiscount' : '']"></Label>
-                                <Label [text]="getDiscount(item.price,item.discounted_price)" class="discount" textWrap="true"
-                                    *ngIf="item.discounted_price > 0"></Label>
+                                <Label [text]="item.quantity * item.discounted_price | currency: currency : true:'1.0-0'" class="discounted_price" textWrap="true" *ngIf="item.discounted_price > 0"></Label>
+                                <Label [text]="item.quantity * item.price | currency: currency : true:'1.0-0'" class="original_price" textWrap="true" [ngClass]="[item.discounted_price > 0 ? 'isDiscount' : '']"></Label>
+                                <Label [text]="getDiscount(item.price,item.discounted_price)" class="discount" textWrap="true" *ngIf="item.discounted_price > 0"></Label>
                             </StackLayout>
                         </StackLayout>
                     </StackLayout>
-                    <GridLayout rows="*,*" textAlignment="right" columns="auto,auto" verticalAlignment="center" row="0"
-                        col="1" class="pull-right font-weight-bold">
+                    <GridLayout rows="*,*" textAlignment="right" columns="auto,auto" verticalAlignment="center" row="0" col="1" class="pull-right font-weight-bold">
                         <Label text="Qty - " Color="#000" row="0" col="0" verticalAlignment="center"></Label>
                         <Label [text]="item.quantity" row="0" col="1" Color="#000" class="quantity" verticalAlignment="center"></Label>
 
@@ -61,8 +57,7 @@
         <Label class="section_heading" text="Shipping Address" row="0" col="0"></Label>
         <GridLayout rows="*,*" columns="*" verticalAlignment="center" row="0" col="0">
             <CardView class="card" elevation="0" radius="0" shadowOpacity="0" shadowOffsetWidth="0" shadowOffsetHeight="0">
-                <Button class="btn btn-primary  " backgroundColor="#284058" color="#fff" width="50%" text="Add Address"
-                    (tap)="addAdressBox()" row="1" col="1"></Button>
+                <Button class="btn btn-primary  " backgroundColor="#284058" color="#fff" width="50%" text="Add Address" (tap)="addAdressBox()" row="1" col="1"></Button>
             </CardView>
         </GridLayout>
 
@@ -70,22 +65,19 @@
             <StackLayout class="form" [formGroup]="form" novalidate *ngIf="address_box_key">
                 <GridLayout rows="auto,auto, auto, auto" padding="10">
                     <StackLayout class="input-filld" row="0">
-                        <TextField hint="Address name" class="input input-border cyan-border m-t-10" borderColor="#6c6969"
-                            returnKeyType="next" formControlName="address_name" [ngClass]="displayFieldCss('address_name')"></TextField>
+                        <TextField hint="Address name" class="input input-border cyan-border m-t-10" borderColor="#6c6969" returnKeyType="next" formControlName="address_name" [ngClass]="displayFieldCss('address_name')"></TextField>
                         <StackLayout *ngIf="isFieldValid('address_name')" class="invalid-feedback">
                             <Label fontSize="8" text="Address name is required"></Label>
                         </StackLayout>
                     </StackLayout>
                     <StackLayout class="input-filld" row="1">
-                        <TextField hint="Address" class="input input-border cyan-border m-t-10" borderColor="#6c6969"
-                            returnKeyType="next" formControlName="address" [ngClass]="displayFieldCss('address')"></TextField>
+                        <TextField hint="Address" class="input input-border cyan-border m-t-10" borderColor="#6c6969" returnKeyType="next" formControlName="address" [ngClass]="displayFieldCss('address')"></TextField>
                         <StackLayout *ngIf="isFieldValid('address')" class="invalid-feedback">
                             <Label fontSize="8" text="Address is required"></Label>
                         </StackLayout>
                     </StackLayout>
                     <StackLayout class="input-filld" row="2">
-                        <DropDown #dd class="input input-border cyan-border m-t-10" borderColor="#6c6969" [items]="state_list"
-                            hint="Select State" (selectedIndexChanged)="onchange($event)"></DropDown>
+                        <DropDown #dd class="input input-border cyan-border m-t-10" borderColor="#6c6969" [items]="state_list" hint="Select State" (selectedIndexChanged)="onchange($event)"></DropDown>
                         <StackLayout *ngIf="isFieldValid('state')" class="invalid-feedback">
                             <Label fontSize="8" text="State is required"></Label>
                         </StackLayout>
@@ -99,11 +91,9 @@
                     </StackLayout>
                 </GridLayout>
                 <FlexboxLayout class="m-t-10">
-                    <Button class="btn btn-primary" text="Cancel" (tap)="cancel()" backgroundColor="#284058" color="#fff"
-                        width="50%">
+                    <Button class="btn btn-primary" text="Cancel" (tap)="cancel()" backgroundColor="#284058" color="#fff" width="50%">
                     </Button>
-                    <Button class="btn btn-primary" text="Save" (tap)="addAdress()" backgroundColor="#284058" color="#fff"
-                        width="50%">
+                    <Button class="btn btn-primary" text="Save" (tap)="addAdress()" backgroundColor="#284058" color="#fff" width="50%">
                     </Button>
                 </FlexboxLayout>
 
@@ -115,11 +105,10 @@
             <StackLayout class="address_list">
                 <StackLayout *ngFor="let option of addressOptions">
                     <StackLayout orientation="horizontal" verticalAlignment="center">
-                        <CheckBox #elem [checked]="option.selected" (checkedChange)="elem.checked !== option.selected && changeCheckedRadioAddress(option)"
-                            class="checkbox" boxType="circle"></CheckBox>
+                        <CheckBox #elem [checked]="option.selected" (checkedChange)="elem.checked !== option.selected && changeCheckedRadioAddress(option)" class="checkbox" boxType="circle"></CheckBox>
                         <StackLayout verticalAlignment="center" (tap)="changeCheckedRadioAddress(option)">
-                            <Label [text]="option.name" textWrap="true"></Label>
-                            <Label [text]="option.text" class="body" textWrap="true"></Label>
+                            <Label fontSize="15" color="#000" [text]="option.name" textWrap="true"></Label>
+                            <Label fontSize="8" [text]="option.text" class="body" textWrap="true"></Label>
                         </StackLayout>
                     </StackLayout>
                 </StackLayout>
@@ -134,8 +123,7 @@
                 <Label class="section_heading" text="Payment Type" row="0" col="0"></Label>
                 <StackLayout *ngFor="let option of paymentOptions">
                     <StackLayout orientation="horizontal" verticalAlignment="center">
-                        <CheckBox #elem [checked]="option.selected" (checkedChange)="elem.checked !== option.selected && changeCheckedRadioPaymentMode(option)"
-                            class="checkbox" boxType="circle"></CheckBox>
+                        <CheckBox #elem [checked]="option.selected" (checkedChange)="elem.checked !== option.selected && changeCheckedRadioPaymentMode(option)" class="checkbox" boxType="circle"></CheckBox>
                         <StackLayout verticalAlignment="center">
                             <Label [text]="option.text" textWrap="true" (tap)="changeCheckedRadioPaymentMode(option)"></Label>
                         </StackLayout>
@@ -145,8 +133,7 @@
         </CardView>
         <StackLayout>
             <StackLayout class="hr-light pading-gap m-b-10 m-t-10"></StackLayout>
-            <Button class="btn btn-primary pull-right" backgroundColor="#284058" color="#fff" width="50%" text="Pay Order"
-                (tap)="orderPay()"></Button>
+            <Button class="btn btn-primary pull-right" backgroundColor="#284058" color="#fff" width="50%" text="Pay Order" (tap)="orderPay()"></Button>
         </StackLayout>
     </StackLayout>
 </ScrollView>

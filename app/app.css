@@ -37,6 +37,24 @@ refer to http://docs.nativescript.org/ui/theme.
     font-size: 10;
 }
 
+.unread {
+    color: #fff;
+    background-color: #dc3545;
+    float: right;
+    padding: 1;
+    height: 13;
+    width: 17;
+    border-radius: 2;
+}
+
+.unread-btn {
+    color: #dc3545;
+    padding: 1;
+    border-radius: 50%;
+    width: 20;
+    margin-left: 20;
+}
+
 
 /* FilterSelect */
 
@@ -151,6 +169,26 @@ ActionBar {
     border-radius: 5;
 }
 
+.full-cardview {
+    width: 100%;
+    padding: 15;
+    text-align: center;
+}
+
+.section_heading {
+    color: #000;
+    text-align: center;
+    font-size: 20;
+    font-weight: 600;
+    margin-bottom: 10;
+    padding: 0 12;
+}
+
 .border-bottom {
     border-bottom: 1px #284058;
+}
+
+.product_name {
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
