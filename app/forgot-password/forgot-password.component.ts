@@ -86,37 +86,16 @@ export class ForgotPasswordComponent implements OnInit {
 
   }
 
-  isFieldValid(field: string) {
-    return !this.form.get(field).valid && (this.form.get(field).dirty || this.form.get(field).touched);
-  }
-  isFieldValid1(field: string) {
-    return !this.otpForm.get(field).valid && (this.otpForm.get(field).dirty || this.otpForm.get(field).touched);
-  }
-  isFieldValid2(field: string) {
-    return !this.passwordForm.get(field).valid && (this.passwordForm.get(field).dirty || this.passwordForm.get(field).touched);
+  isFieldValid(form: FormGroup, field: string) {
+    return !form.get(field).valid && (form.get(field).dirty || form.get(field).touched);
   }
 
-  displayFieldCss(field: string) {
+  displayFieldCss(form: FormGroup, field: string) {
     return {
-      'is-invalid': this.form.get(field).invalid && (this.form.get(field).dirty || this.form.get(field).touched),
-      'is-valid': this.form.get(field).valid && (this.form.get(field).dirty || this.form.get(field).touched)
+      'is-invalid': form.get(field).invalid && (form.get(field).dirty || form.get(field).touched),
+      'is-valid': form.get(field).valid && (form.get(field).dirty || form.get(field).touched)
     };
-  }
-
-  displayFieldCss1(field: string) {
-    return {
-      'is-invalid': this.otpForm.get(field).invalid && (this.otpForm.get(field).dirty || this.otpForm.get(field).touched),
-      'is-valid': this.otpForm.get(field).valid && (this.otpForm.get(field).dirty || this.otpForm.get(field).touched)
-    };
-  }
-
-  displayFieldCss2(field: string) {
-    return {
-      'is-invalid': this.passwordForm.get(field).invalid && (this.passwordForm.get(field).dirty || this.passwordForm.get(field).touched),
-      'is-valid': this.passwordForm.get(field).valid && (this.passwordForm.get(field).dirty || this.passwordForm.get(field).touched)
-    };
-  }
-
+  } 
 
 
   customerForgotPasswordOtp() {
