@@ -1,5 +1,4 @@
-<Accordion [items]="order_list" itemTapped="tapped" class="category_product_accordian" separatorColor="transparent"
-    *ngIf="order_list.length > 0 && visible_key">
+<Accordion [items]="order_list" itemTapped="tapped" class="category_product_accordian" separatorColor="transparent" *ngIf="order_list.length > 0 && visible_key">
     <ng-template accordionHeaderTemplate let-item="item" let-i="index">
         <GridLayout columns="*,*,*,*,*" rows="*" class="category_heading" borderWidth="1" borderColor="#ccc">
             <Label [text]="item.order_id" row="0" col="0"></Label>
@@ -16,15 +15,11 @@
             <CardView class="whiteCard">
                 <GridLayout rows="*" columns="*,*" padding="10" verticalAlignment="center">
                     <StackLayout row="0" col="0" verticalAlignment="center" orientation="vertical" horizontalAlignment="left">
-                        <Label [text]="item.product_details.product_name" textWrap="true" verticalAlignment="center"
-                            class="product_name"></Label>
+                        <Label [text]="item.product_details.product_name" textWrap="true" verticalAlignment="center" class="product_name"></Label>
                         <StackLayout orientation="horizontal">
-                            <Label [text]="item.product_details.discounted_price | currency: currency : true:'1.0-0'"
-                                class="discounted_price" textWrap="true" *ngIf="item.product_details.discounted_price > 0"></Label>
-                            <Label [text]="item.product_details.price | currency: currency : true:'1.0-0'" class="original_price"
-                                textWrap="true" [ngClass]="[item.product_details.discounted_price > 0 ? 'isDiscount' : '']"></Label>
-                            <Label [text]="getDiscount(item.product_details.price,item.product_details.discounted_price)"
-                                class="discount" textWrap="true" *ngIf="item.product_details.discounted_price > 0"></Label>
+                            <Label [text]="item.product_details.discounted_price | currency: currency : true:'1.0-0'" class="discounted_price" textWrap="true" *ngIf="item.product_details.discounted_price > 0"></Label>
+                            <Label [text]="item.product_details.price | currency: currency : true:'1.0-0'" class="original_price" textWrap="true" [ngClass]="[item.product_details.discounted_price > 0 ? 'isDiscount' : '']"></Label>
+                            <Label [text]="getDiscount(item.product_details.price,item.product_details.discounted_price)" class="discount" textWrap="true" *ngIf="item.product_details.discounted_price > 0"></Label>
                         </StackLayout>
                     </StackLayout>
                     <StackLayout horizontalAlignment="right" verticalAlignment="center" col="1" row="0" backgroundColor="#fff">
@@ -55,6 +50,14 @@
     </ng-template>
 </Accordion>
 <FAB (tap)="more()" icon="res://ic_add_white" rippleColor="#f1f1f1" class="fab-button" *ngIf="next_page != null"></FAB>
-<StackLayout orientation="vertical" *ngIf="order_list.length == 0 && visible_key" padding="10">
+<!-- <StackLayout orientation="vertical" *ngIf="order_list.length == 0 && visible_key" padding="10">
     <Label text="You have no order in this app"></Label>
-</StackLayout>
+</StackLayout> -->
+
+
+<CardView class="main_container" orientation="vertical" textAlignment="center" verticalAlignment="center" *ngIf="order_list.length == 0 && visible_key">
+    <StackLayout class="full-cardview">
+        <Label class="section_heading" fontSize="15" text="You have no order in this app"></Label>
+
+    </StackLayout>
+</CardView>

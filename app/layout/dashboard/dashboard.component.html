@@ -23,13 +23,13 @@
 
 
 
-                        <Label verticalAlignment="center" fontSize="8" [text]="item.total_unread_messages" class="body unread" left="95%" top="0" textAlignment="center"></Label>
+                        <Label verticalAlignment="center" fontSize="8" [text]="item.total_unread_messages" class="body unread" left="93%" top="0" textAlignment="center"></Label>
                     </AbsoluteLayout>
                 </CardView>
 
 
                 <CardView class="full-cardview">
-                    <StackLayout textAlignment="center" orientation="vertical" *ngIf="user_app_list.length == 0">
+                    <StackLayout textAlignment="center" orientation="vertical" textAlignment="center" verticalAlignment="center" *ngIf="user_app_list.length == 0">
                         <Label class="section_heading" fontSize="15" text="You have not added any app in your dashboard"></Label>
 
                     </StackLayout>

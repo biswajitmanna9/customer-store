@@ -47,6 +47,14 @@ refer to http://docs.nativescript.org/ui/theme.
     border-radius: 2;
 }
 
+.unread-btn {
+    color: #dc3545;
+    padding: 1;
+    border-radius: 50%;
+    width: 20;
+    margin-left: 20;
+}
+
 
 /* FilterSelect */
 
@@ -169,7 +177,7 @@ ActionBar {
 
 .section_heading {
     color: #000;
-    text-align: left;
+    text-align: center;
     font-size: 20;
     font-weight: 600;
     margin-bottom: 10;
@@ -178,4 +186,9 @@ ActionBar {
 
 .border-bottom {
     border-bottom: 1px #284058;
+}
+
+.product_name {
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
