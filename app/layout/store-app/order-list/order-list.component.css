@@ -23,10 +23,10 @@
 }
 
 .fab-button {
-    height: 70;
-    width: 70; 
+    height: 50;
+    width: 50;
     margin: 15;
-    background-color: #ff4081; 
-    horizontal-align: right; 
-    vertical-align: bottom; 
+    background-color: #999999;
+    horizontal-align: right;
+    vertical-align: bottom;
 }

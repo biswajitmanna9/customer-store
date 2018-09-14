@@ -49,15 +49,12 @@
         </StackLayout>
     </ng-template>
 </Accordion>
-<FAB (tap)="more()" icon="res://ic_add_white" rippleColor="#f1f1f1" class="fab-button" *ngIf="next_page != null"></FAB>
+<FAB (tap)="more()" icon="res://more" rippleColor="#f1f1f1" class="fab-button" *ngIf="next_page != null"></FAB>
 <!-- <StackLayout orientation="vertical" *ngIf="order_list.length == 0 && visible_key" padding="10">
     <Label text="You have no order in this app"></Label>
 </StackLayout> -->
-
-
 <CardView class="main_container" orientation="vertical" textAlignment="center" verticalAlignment="center" *ngIf="order_list.length == 0 && visible_key">
     <StackLayout class="full-cardview">
         <Label class="section_heading" fontSize="15" text="You have no order in this app"></Label>
-
     </StackLayout>
 </CardView>
