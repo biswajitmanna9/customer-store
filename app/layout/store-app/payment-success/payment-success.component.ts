@@ -66,9 +66,9 @@ export class StoreAppPaymentSuccessComponent implements OnInit {
 
     getOrderDetails(id) {
         this.storeAppService.getOrderDetails(id).subscribe(
-            (res: any[]) => {
+            (res) => {
                 // console.log(res)
-                this.order = res[0];
+                this.order = res;
                 var item_sum = 0;
                 var package_sum = 0;
                 this.order.order_details.forEach(x => {
