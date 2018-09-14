@@ -71,7 +71,7 @@ export class StoreAppContactUsComponent implements OnInit {
         var full_location = this.location.path().split('/');
         this.app_id = full_location[2].trim();
         this.user_id = getString('user_id');
-        this.getAppDetails(this.app_id);
+        this.getStoreAppContactDetails(this.app_id);
         this.getSocialMediaListByApp(this.app_id);
         this.getChatMembersDetails();
     }
@@ -97,8 +97,8 @@ export class StoreAppContactUsComponent implements OnInit {
     }
 
 
-    getAppDetails(id) {
-        this.storeAppService.getStoreAppDetails(id).subscribe(
+    getStoreAppContactDetails(id) {
+        this.storeAppService.getStoreAppContactDetails(id).subscribe(
             res => {
                 this.app_details = res;
                 this.visible_key = true;

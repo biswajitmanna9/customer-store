@@ -58,13 +58,13 @@ export class StoreAppAboutUsComponent implements OnInit {
     var full_location = this.location.path().split('/');
     this.app_id = full_location[2].trim();
     this.user_id = getString('user_id');
-    this.getAppDetails(this.app_id)
+    this.getStoreAppAdoutDetails(this.app_id)
     this.getAppRatingValue();
   }
 
-  getAppDetails(id) {
+  getStoreAppAdoutDetails(id) {
     this.loader.show(this.lodaing_options);
-    this.storeAppService.getStoreAppDetails(id).subscribe(
+    this.storeAppService.getStoreAppAdoutDetails(id).subscribe(
       res => {
         this.app_details = res;
         if (this.app_details.app_imgs.length > 0) {

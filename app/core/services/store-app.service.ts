@@ -31,6 +31,25 @@ export class StoreAppService {
     return this.http.get(Globals.apiEndpoint + 'app_all_details/' + id + '/')
   }
 
+  getStoreAppMinDetails(id) {
+    return this.http.get(Globals.apiEndpoint + 'app_min_details/' + id + '/')
+  }
+
+  getStoreAppAdoutDetails(id) {
+    return this.http.get(Globals.apiEndpoint + 'app_about_details/' + id + '/')
+  }
+
+  getStoreAppProductDetails(id) {
+    return this.http.get(Globals.apiEndpoint + 'app_product_details/' + id + '/')
+  }
+  
+
+  getStoreAppContactDetails(id) {
+    return this.http.get(Globals.apiEndpoint + 'app_contact_details/' + id + '/')
+  }
+
+  
+
   createOrder(data) {
     return this.http.post(Globals.apiEndpoint + 'create_orders/', data)
   }

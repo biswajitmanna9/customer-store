@@ -82,14 +82,14 @@ export class StoreAppProductsComponent implements OnInit {
                     this.customer_cart_data = [];
                 }
 
-                this.getAppDetails(this.app_id);
+                this.getStoreAppProductDetails(this.app_id);
             }
         );
     }
 
-    getAppDetails(id) {
+    getStoreAppProductDetails(id) {
         this.loader.show(this.lodaing_options);
-        this.storeAppService.getStoreAppDetails(id).subscribe(
+        this.storeAppService.getStoreAppProductDetails(id).subscribe(
             res => {
                 this.app_details = res;
                 this.category_list = this.app_details.app_product_categories;
