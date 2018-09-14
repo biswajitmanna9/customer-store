@@ -19,14 +19,14 @@ export class AppComponent {
         private notificationService: NotificationService
     ) {
         orientation.setOrientation("portrait");
-        application.android.on(application.AndroidApplication.activityBackPressedEvent, (args: any) => {
-            if (this.router.canGoBack()) {
-                args.cancel = true;
-                this.router.back();
-            } else {
-                args.cancel = false;
-            }
-        });
+        // application.android.on(application.AndroidApplication.activityBackPressedEvent, (args: any) => {
+        //     if (this.router.canGoBack()) {
+        //         args.cancel = true;
+        //         this.router.back();
+        //     } else {
+        //         args.cancel = false;
+        //     }
+        // });
 
 
         // push notification
