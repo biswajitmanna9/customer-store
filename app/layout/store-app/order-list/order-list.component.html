@@ -3,7 +3,7 @@
         <GridLayout columns="*,*,*,*,*" rows="*" class="category_heading" borderWidth="1" borderColor="#ccc">
             <Label [text]="item.order_id" row="0" col="0"></Label>
             <Label [text]="item.price | currency: currency : true:'1.0-0'" row="0" col="1"></Label>
-            <Label [text]="item.created_at | date:'yy-mm-dd'" row="0" col="2"></Label>
+            <Label [text]="item.created_at | date:'dd-MM-yyyy'" row="0" col="2"></Label>
             <Label row="0" col="3" *ngIf="!item.is_paid" text="Not Paid"></Label>
             <Label row="0" col="3" *ngIf="item.is_paid" text="Paid"></Label>
             <Label row="0" col="4" *ngIf="!item.delivery_status" text="Not Delivered"></Label>
@@ -17,7 +17,7 @@
                     <StackLayout row="0" col="0" verticalAlignment="center" orientation="vertical" horizontalAlignment="left">
                         <Label [text]="item.product_details.product_name" textWrap="true" verticalAlignment="center" class="product_name"></Label>
                         <StackLayout orientation="horizontal">
-                            <Label [text]="item.product_details.discounted_price | currency: currency : true:'1.0-0'" class="discounted_price" textWrap="true" *ngIf="item.product_details.discounted_price > 0"></Label>
+                            <Label [text]="item.product_details.discounted_price | currency: currency : true:'1.0-0'" class="original_price" textWrap="true" *ngIf="item.product_details.discounted_price > 0"></Label>
                             <Label [text]="item.product_details.price | currency: currency : true:'1.0-0'" class="original_price" textWrap="true" [ngClass]="[item.product_details.discounted_price > 0 ? 'isDiscount' : '']"></Label>
                             <Label [text]="getDiscount(item.product_details.price,item.product_details.discounted_price)" class="discount" textWrap="true" *ngIf="item.product_details.discounted_price > 0"></Label>
                         </StackLayout>
