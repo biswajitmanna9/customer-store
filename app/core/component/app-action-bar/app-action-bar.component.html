@@ -1,5 +1,5 @@
 <ActionBar title="">
-    <GridLayout rows="*" columns="40,40,*,40,40,40" verticalAlignment="center">
+    <GridLayout rows="*" columns="40,40,*,40,40,40" verticalAlignment="center" *ngIf="visible_key">
         <StackLayout (tap)="goBack()">
             <Image src="~/images/back.png" height="30" width="30" row="0" col="0" verticalAlignment="center"></Image>
         </StackLayout>
@@ -10,7 +10,7 @@
 
         <Label class="fa logout-label" color="#fff" [nsRouterLink]="['/dashboard']" [text]="'fa-desktop' | fonticon"
             *ngIf="isLoggedin" row="0" col="3" verticalAlignment="center"></Label>
-        <StackLayout *ngIf="visible_key && product_list.length > 0 && serviceType==1" [nsRouterLink]="['/store-app/', appId , 'cart']"
+        <StackLayout *ngIf="product_list.length > 0 && serviceType==1" [nsRouterLink]="['/store-app/', appId , 'cart']"
             row="0" col="4">
             <AbsoluteLayout width="40" height="40">
                 <Label class="fa cart-label" top="15" color="#fff" [text]="'fa-shopping-cart' | fonticon"

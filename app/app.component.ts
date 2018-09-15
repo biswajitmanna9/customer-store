@@ -18,6 +18,7 @@ export class AppComponent {
     @ViewChild("button") button: ElementRef;
     private feedback: Feedback;
     public connectionType: string;
+    is_success: boolean;
     constructor(
         private router: RouterExtensions,
         private notificationService: NotificationService,
@@ -60,16 +61,18 @@ export class AppComponent {
         Connectivity.startMonitoring(connectionType => {
             this.zone.run(() => {
                 this.connectionType = this.connectionToString(connectionType);
-                if (this.connectionType == "0") {
+                if (this.connectionType == "0" && !this.is_success) {
+                    this.is_success = true;
                     this.feedback.error({
                         title: "No Connection!",
                         backgroundColor: new Color("red"),
                         titleColor: new Color("black"),
                         position: FeedbackPosition.Bottom,
                         type: FeedbackType.Custom
-                    });
+                    });                    
                 }
-                else {
+                else if (this.connectionType == "1" && this.is_success) {
+                    this.is_success = false;
                     this.feedback.success({
                         title: 'Network Connected',
                         backgroundColor: new Color("green"),

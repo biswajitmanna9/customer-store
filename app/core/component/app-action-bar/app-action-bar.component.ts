@@ -19,7 +19,7 @@ export class AppActionBarComponent implements OnInit {
     isLoggedin: boolean;
     all_cart_data: any;
     user_id: string;
-    customer_cart_data: any;
+    customer_cart_data: any = [];
     serviceType;
     cartStatus: boolean;
     constructor(
@@ -57,12 +57,9 @@ export class AppActionBarComponent implements OnInit {
                     this.all_cart_data = data;
                     var filteredData = data.filter(x => x.customer_id == this.user_id && x.app_id == this.appId)
                     this.customer_cart_data = filteredData;
-
-                    this.visible_key = true;
                 }
                 else {
                     this.customer_cart_data = [];
-                    this.visible_key = true;
                 }
             }
         );
@@ -87,6 +84,7 @@ export class AppActionBarComponent implements OnInit {
                 this.visible_key = true;
             },
             error => {
+                this.visible_key = true;
                 // console.log(error)
             }
         )
