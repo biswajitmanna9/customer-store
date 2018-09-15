@@ -14,10 +14,10 @@
                                     <GridLayout rows="*,*" columns="*,*" verticalAlignment="center">
                                         <Label [text]="item.product_name" textWrap="true" verticalAlignment="center" class="product_name m-b-10" row="0" colSpan="2"></Label>
                                         <StackLayout row="1" col="0" verticalAlignment="center" orientation="vertical" horizontalAlignment="left">
-                                            <StackLayout orientation="horizontal">
-                                                <Label [text]="item.discounted_price | currency: currency : true:'1.0-0'" class="discounted_price" textWrap="true" *ngIf="item.discounted_price > 0"></Label>
-                                                <Label [text]="item.price | currency: currency : true:'1.0-0'" class="original_price" textWrap="true" [ngClass]="[item.discounted_price > 0 ? 'isDiscount' : '']"></Label>
-                                                <Label [text]="getDiscount(item.price,item.discounted_price)" class="discount" textWrap="true" *ngIf="item.discounted_price > 0"></Label>
+                                            <StackLayout orientation="horizontal" fontSize="8">
+                                                <Label [text]="item.discounted_price | currency: currency : true:'1.0-0'" class="discounted_price" textWrap="true" *ngIf="item.discounted_price > 0" fontSize="8"></Label>
+                                                <Label [text]="item.price | currency: currency : true:'1.0-0'" class="original_price" textWrap="true" [ngClass]="[item.discounted_price > 0 ? 'isDiscount' : '']" fontSize="8"></Label>
+                                                <!-- <Label [text]="getDiscount(item.price,item.discounted_price)" class="discount" textWrap="true" *ngIf="item.discounted_price > 0" fontSize="8"></Label> -->
                                             </StackLayout>
                                         </StackLayout>
                                         <StackLayout horizontalAlignment="right" verticalAlignment="center" (tap)="addToCart(item)" *ngIf="!item.isCart" col="1" row="1" backgroundColor="#fff" borderColor="#00a008" borderWidth="1" borderRadius="3">
@@ -79,11 +79,11 @@
                         <GridLayout rows="*,*" columns="*,*" verticalAlignment="center">
                             <Label [text]="item.product_name" textWrap="true" verticalAlignment="center" class="product_name m-b-10" row="0" colSpan="2"></Label>
                             <StackLayout row="1" col="0" verticalAlignment="center" orientation="vertical" horizontalAlignment="left">
-                                <StackLayout orientation="horizontal">
-                                    <Label [text]="item.discounted_price | currency: currency : true:'1.0-0'" class="discounted_price" textWrap="true" *ngIf="item.discounted_price > 0"></Label>
-                                    <Label [text]="item.price | currency: currency : true:'1.0-0'" class="original_price" textWrap="true" [ngClass]="[item.discounted_price > 0 ? 'isDiscount' : '']"></Label>
+                                <StackLayout orientation="horizontal" fontSize="8">
+                                    <Label [text]="item.discounted_price | currency: currency : true:'1.0-0'" class="discounted_price" textWrap="true" *ngIf="item.discounted_price > 0" fontSize="8"></Label>
+                                    <Label [text]="item.price | currency: currency : true:'1.0-0'" class="original_price" textWrap="true" [ngClass]="[item.discounted_price > 0 ? 'isDiscount' : '']" fontSize="8"></Label>
                                     <!-- <Label [text]="getDiscount(item.price,item.discounted_price)" class="discount"
-                                        textWrap="true" *ngIf="item.discounted_price > 0"></Label> -->
+                                        textWrap="true" *ngIf="item.discounted_price > 0" fontSize="8"></Label> -->
                                 </StackLayout>
                             </StackLayout>
                             <StackLayout horizontalAlignment="right" verticalAlignment="center" (tap)="addToCart(item)" *ngIf="!item.isCart" col="1" row="1" backgroundColor="#fff" borderColor="#00a008" borderWidth="1" borderRadius="3">
@@ -98,8 +98,6 @@
                                     <Label [text]="item.quantity" color="#00a008" borderRightColor="#00a008" borderRightWidth="1" row="0" col="1" textAlignment="center" verticalAlignment="center"></Label>
                                     <Label class="fa" [text]="'fa-plus' | fonticon" color="#00a008" paddingTop="4" row="0" col="2" (tap)="increment(item)" textAlignment="center" verticalAlignment="center"></Label>
                                 </GridLayout>
-
-
                             </StackLayout>
                         </GridLayout>
                     </StackLayout>

@@ -35,3 +35,12 @@
     font-size: 30;
 }
 
+.unread {
+    color: #fff;
+    background-color: #dc3545;
+    float: right;
+    padding: 1;
+    height: 17;
+    width: 17;
+    border-radius: 50%;
+}
