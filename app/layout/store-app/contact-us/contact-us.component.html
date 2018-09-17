@@ -18,7 +18,7 @@
         <FlexboxLayout class="button-center">
             <AbsoluteLayout width="50%">
                 <Label class="btn btn-primary" backgroundColor="#284058" color="#fff" width="100%" text="Chat" (tap)="massage()" textAlignment="center"></Label>
-                <Label verticalAlignment="center" fontSize="8" [text]="chat_unread_length" class="body unread" left="6"
+                <Label *ngIf="chat_unread_length > 0" verticalAlignment="center" fontSize="8" [text]="chat_unread_length" class="body unread" left="6"
                     top="3" textAlignment="center"></Label>
             </AbsoluteLayout>
             <Label class="btn btn-primary" backgroundColor="#284058" color="#fff" width="50%" text="Call" (tap)="call(app_details.user.user_details[0].contact_no)"
