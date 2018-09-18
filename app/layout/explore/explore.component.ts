@@ -10,6 +10,9 @@ import { getString, setString, getBoolean, setBoolean, clear } from "application
 import { LoadingIndicator } from "nativescript-loading-indicator";
 import { RouterExtensions } from "nativescript-angular/router";
 
+import { Feedback, FeedbackType, FeedbackPosition } from "nativescript-feedback";
+import { Color } from "tns-core-modules/color";
+
 @Component({
   selector: "explore",
   moduleId: module.id,
@@ -26,6 +29,7 @@ export class ExploreComponent implements OnInit {
     fullscreen: false,
     viewContainerRef: this.vcRef
   };
+  private feedback: Feedback;
   user_id: string;
   user_app_list: any = [];
   latitude: any;
@@ -64,7 +68,7 @@ export class ExploreComponent implements OnInit {
     private router: RouterExtensions,
     private vcRef: ViewContainerRef
   ) {
-
+    this.feedback = new Feedback();
   }
 
   ngOnInit() {
@@ -104,6 +108,7 @@ export class ExploreComponent implements OnInit {
       },
       error => {
         // console.log(error)
+        
       }
     )
   }
@@ -158,7 +163,7 @@ export class ExploreComponent implements OnInit {
     this.loader.show(this.lodaing_options);
     var index = this.app_list.findIndex(x => x.id == app)
     if (index != -1) {
-      this.app_list[index].isDashboard = !this.app_list[index].isDashboard;
+      
       var data = {
         "customer": user,
         "app_master": app
@@ -166,10 +171,33 @@ export class ExploreComponent implements OnInit {
       this.exploreService.appAttachAndDisattachToDashboard(data).subscribe(
         res => {
           this.loader.hide()
-          // console.log(res)
+          this.app_list[index].isDashboard = !this.app_list[index].isDashboard;
+
+          if(this.app_list[index].isDashboard)
+          {
+            var msg ="App has been successfully added in your dashboard"
+          }
+          else{
+            var msg ="App has been successfully removed from your dashboard"
+          } 
+          this.feedback.success({
+            title: msg,
+            backgroundColor: new Color("green"),
+            titleColor: new Color("black"),
+            position: FeedbackPosition.Bottom,
+            type: FeedbackType.Custom
+          });
+          console.log(res)
         },
         error => {
           this.loader.hide()
+          this.feedback.error({
+            title: error.error.msg,
+            backgroundColor: new Color("red"),
+            titleColor: new Color("black"),
+            position: FeedbackPosition.Bottom,
+            type: FeedbackType.Custom
+          });
           // console.log(error)
         }
       )
