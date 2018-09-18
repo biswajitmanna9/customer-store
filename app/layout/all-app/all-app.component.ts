@@ -6,6 +6,8 @@ import { ModalDialogService } from "nativescript-angular/directives/dialogs";
 import { getString, setString, getBoolean, setBoolean, clear } from "application-settings";
 import { LoadingIndicator } from "nativescript-loading-indicator";
 import { RouterExtensions } from "nativescript-angular/router";
+import { Feedback, FeedbackType, FeedbackPosition } from "nativescript-feedback";
+import { Color } from "tns-core-modules/color";
 
 @Component({
     selector: "dashboard",
@@ -51,14 +53,14 @@ export class AllAppComponent implements OnInit {
             hideBezel: true,
         }
     }
-
+    private feedback: Feedback;
     constructor(
         private exploreService: ExploreService,
         private modal: ModalDialogService,
         private router: RouterExtensions,
         private vcRef: ViewContainerRef
     ) {
-
+        this.feedback = new Feedback();
     }
 
     ngOnInit() {
@@ -131,6 +133,13 @@ export class AllAppComponent implements OnInit {
 
     addToDashboard(app_id) {
         if (!getBoolean('isLoggedin')) {
+            this.feedback.error({
+                title: "You have to login first",
+                backgroundColor: new Color("red"),
+                titleColor: new Color("black"),
+                position: FeedbackPosition.Bottom,
+                type: FeedbackType.Custom
+            });
             this.router.navigate(["/login"], { clearHistory: true });
         }
         else {
@@ -140,18 +149,42 @@ export class AllAppComponent implements OnInit {
     }
 
     appAttachAndDisattach(app, user) {
+        this.loader.show(this.lodaing_options);
         var index = this.app_list.findIndex(x => x.id == app)
         if (index != -1) {
-            this.app_list[index].isDashboard = !this.app_list[index].isDashboard;
             var data = {
                 "customer": user,
                 "app_master": app
             }
             this.exploreService.appAttachAndDisattachToDashboard(data).subscribe(
                 res => {
+                    this.loader.hide()
+                    this.app_list[index].isDashboard = !this.app_list[index].isDashboard;
+
+                    if (this.app_list[index].isDashboard) {
+                        var msg = "App has been successfully added in your dashboard"
+                    }
+                    else {
+                        var msg = "App has been successfully removed from your dashboard"
+                    }
+                    this.feedback.success({
+                        title: msg,
+                        backgroundColor: new Color("green"),
+                        titleColor: new Color("black"),
+                        position: FeedbackPosition.Bottom,
+                        type: FeedbackType.Custom
+                    });
                     // console.log(res)
                 },
                 error => {
+                    this.loader.hide()
+                    this.feedback.error({
+                        title: error.error.msg,
+                        backgroundColor: new Color("red"),
+                        titleColor: new Color("black"),
+                        position: FeedbackPosition.Bottom,
+                        type: FeedbackType.Custom
+                    });
                     // console.log(error)
                 }
             )

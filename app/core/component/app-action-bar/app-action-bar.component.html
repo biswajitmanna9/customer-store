@@ -5,8 +5,8 @@
         </StackLayout>
         <Image [src]="app_details?.logo" class="action-image" row="0" col="1" verticalAlignment="center" *ngIf="app_details?.logo != null"></Image>
         <Image src="~/images/no-image-logo.jpg" class="action-image" row="0" col="1" *ngIf="app_details?.logo == null"></Image>
-        <Label [text]="app_details?.business_name" class="action-label" color="#fff" fontSize="12" row="0" col="2"
-            verticalAlignment="center"></Label>
+        <!-- <Label [text]="app_details?.business_name" class="action-label" color="#fff" fontSize="12" row="0" col="2"
+            verticalAlignment="center"></Label> -->
 
         <Label class="fa logout-label" color="#fff" [nsRouterLink]="['/dashboard']" [text]="'fa-desktop' | fonticon"
             *ngIf="isLoggedin" row="0" col="3" verticalAlignment="center"></Label>

@@ -455,7 +455,7 @@ export class StoreAppPaymentComponent implements OnInit {
     }
 
     getPaytmFormValue(amount: number, table_order_id: number) {
-        this.storeAppService.paytmFormValue(amount, table_order_id).subscribe(
+        this.storeAppService.paytmFormValue(amount, table_order_id, this.app_id).subscribe(
             res => {
                 // console.log(res)
                 this.paytmFormDetails = res;

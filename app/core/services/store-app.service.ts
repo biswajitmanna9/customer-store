@@ -42,13 +42,13 @@ export class StoreAppService {
   getStoreAppProductDetails(id) {
     return this.http.get(Globals.apiEndpoint + 'app_product_details/' + id + '/')
   }
-  
+
 
   getStoreAppContactDetails(id) {
     return this.http.get(Globals.apiEndpoint + 'app_contact_details/' + id + '/')
   }
 
-  
+
 
   createOrder(data) {
     return this.http.post(Globals.apiEndpoint + 'create_orders/', data)
@@ -78,8 +78,8 @@ export class StoreAppService {
     return this.http.post(Globals.apiEndpoint + 'add_rating/', data)
   }
 
-  paytmFormValue(order_amount, table_order_id): Observable<any> {
-    return this.http.get(Globals.apiEndpoint + 'get_payment_details/?order_amount=' + order_amount + '&table_order_id=' + table_order_id + '&type=app')
+  paytmFormValue(order_amount, table_order_id, app_id): Observable<any> {
+    return this.http.get(Globals.apiEndpoint + 'get_payment_details/?order_amount=' + order_amount + '&table_order_id=' + table_order_id + '&type=app&paytm_marchent_flag=1&app_id=' + app_id)
   }
 
   getCustomerAddress(customer) {

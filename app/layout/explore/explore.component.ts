@@ -73,7 +73,7 @@ export class ExploreComponent implements OnInit {
 
   ngOnInit() {
     this.loader.show(this.lodaing_options);
-    this.user_id = getString('user_id');    
+    this.user_id = getString('user_id');
     this.getCategoryList();
     if (this.user_id != undefined) {
       this.getDashboardAppList();
@@ -108,7 +108,7 @@ export class ExploreComponent implements OnInit {
       },
       error => {
         // console.log(error)
-        
+
       }
     )
   }
@@ -119,7 +119,7 @@ export class ExploreComponent implements OnInit {
         this.app_list = [];
         if (this.user_app_list.length > 0) {
           res.forEach(x => {
-            var index = this.user_app_list.findIndex(y => y.id == x.id)            
+            var index = this.user_app_list.findIndex(y => y.id == x.id)
             if (index != -1) {
               x['isDashboard'] = true;
             }
@@ -147,10 +147,17 @@ export class ExploreComponent implements OnInit {
       }
     )
   }
-  
+
 
   addToDashboard(app_id) {
     if (!getBoolean('isLoggedin')) {
+      this.feedback.error({
+        title: "You have to login first",
+        backgroundColor: new Color("red"),
+        titleColor: new Color("black"),
+        position: FeedbackPosition.Bottom,
+        type: FeedbackType.Custom
+      });
       this.router.navigate(["/login"], { clearHistory: true });
     }
     else {
@@ -163,7 +170,6 @@ export class ExploreComponent implements OnInit {
     this.loader.show(this.lodaing_options);
     var index = this.app_list.findIndex(x => x.id == app)
     if (index != -1) {
-      
       var data = {
         "customer": user,
         "app_master": app
@@ -173,13 +179,12 @@ export class ExploreComponent implements OnInit {
           this.loader.hide()
           this.app_list[index].isDashboard = !this.app_list[index].isDashboard;
 
-          if(this.app_list[index].isDashboard)
-          {
-            var msg ="App has been successfully added in your dashboard"
+          if (this.app_list[index].isDashboard) {
+            var msg = "App has been successfully added in your dashboard"
           }
-          else{
-            var msg ="App has been successfully removed from your dashboard"
-          } 
+          else {
+            var msg = "App has been successfully removed from your dashboard"
+          }
           this.feedback.success({
             title: msg,
             backgroundColor: new Color("green"),
@@ -187,7 +192,7 @@ export class ExploreComponent implements OnInit {
             position: FeedbackPosition.Bottom,
             type: FeedbackType.Custom
           });
-          console.log(res)
+          // console.log(res)
         },
         error => {
           this.loader.hide()
