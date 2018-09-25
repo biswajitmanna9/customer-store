@@ -39,8 +39,8 @@ export class StoreAppService {
     return this.http.get(Globals.apiEndpoint + 'app_about_details/' + id + '/')
   }
 
-  getStoreAppProductDetails(id) {
-    return this.http.get(Globals.apiEndpoint + 'app_product_details/' + id + '/')
+  getStoreAppProductDetails(id, params) {
+    return this.http.get(Globals.apiEndpoint + 'app_product_details/' + id + '/' + params)
   }
 
 
@@ -78,8 +78,8 @@ export class StoreAppService {
     return this.http.post(Globals.apiEndpoint + 'add_rating/', data)
   }
 
-  paytmFormValue(order_amount, table_order_id, app_id): Observable<any> {
-    return this.http.get(Globals.apiEndpoint + 'get_payment_details/?order_amount=' + order_amount + '&table_order_id=' + table_order_id + '&type=app&paytm_marchent_flag=1&app_id=' + app_id)
+  paytmFormValue(order_amount, table_order_id, app_id, customer_email): Observable<any> {
+    return this.http.get(Globals.apiEndpoint + 'get_payment_details/?order_amount=' + order_amount + '&table_order_id=' + table_order_id + '&type=app&paytm_marchent_flag=1&app_id=' + app_id + '&customer_email=' + customer_email)
   }
 
   getCustomerAddress(customer) {
@@ -108,6 +108,10 @@ export class StoreAppService {
 
   getOrderDetails(id) {
     return this.http.get(Globals.apiEndpoint + 'order_details/' + id + '/')
+  }
+
+  getChatUnreadMessageCount(user_id, app_id) {
+    return this.http.get(Globals.apiEndpoint + 'chat_unread_message_count/?user=' + user_id + '&user_type=customer&app_id=' + app_id)
   }
 
   updateOrder(id, data) {

@@ -77,18 +77,10 @@ export class StoreAppContactUsComponent implements OnInit {
     }
 
     getChatMembersDetails() {
-        this.exploreService.getUserDashboardAppList(this.user_id).subscribe(
+        this.storeAppService.getChatUnreadMessageCount(this.user_id, this.app_id).subscribe(
             res => {
-                var d = [];
-                d = res['app_master'].filter(x => x.id == this.app_id)
-                if (d.length > 0) {
-                    var sum = 0;
-                    d[0].chat_details.forEach(y => {
-                        sum += y.unread_messages
-                    })
-                    this.chat_unread_length = sum;
-                }
-                // console.log(res);
+                this.chat_unread_length = res['unread_message_count'];
+                // console.log(res)
             },
             error => {
                 // console.log(error)
