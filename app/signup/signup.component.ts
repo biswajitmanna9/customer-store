@@ -70,7 +70,8 @@ export class SignupComponent implements OnInit {
       password: ['', Validators.required],
       app_store_flag: [0],
       app_id: [0],
-      otp_flag: [0]
+      otp_flag: [0],
+	  individual_app_flag:[0],
     });
     
     this.otpForm = this.formBuilder.group({
