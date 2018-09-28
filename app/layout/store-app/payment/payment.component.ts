@@ -451,6 +451,9 @@ export class StoreAppPaymentComponent implements OnInit {
                     }
                 )
             }
+            else if(this.order_id != undefined && this.payment_type == 1){
+                this.pushNotf();
+            }
             else {
                 this.getPaytmFormValue(this.order.price, this.order_id)
             }
