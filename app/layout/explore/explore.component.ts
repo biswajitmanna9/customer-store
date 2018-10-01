@@ -34,6 +34,7 @@ export class ExploreComponent implements OnInit {
   user_app_list: any = [];
   latitude: any;
   longitude: any;
+  visible_key: boolean;
   loader = new LoadingIndicator();
   lodaing_options = {
     message: 'Loading...',
@@ -139,6 +140,8 @@ export class ExploreComponent implements OnInit {
           })
           this.loader.hide();
         }
+        this.visible_key=true;
+
         // console.log(res)
       },
       error => {
@@ -277,7 +280,7 @@ export class ExploreComponent implements OnInit {
           this.loader.hide()
         }
         else {
-          res.forEach(x => {
+          res.results.forEach(x => {
             x['isDashboard'] = false;
             x['avg_rating'] = Math.round(x['avg_rating'])
             this.app_list.push(x);
