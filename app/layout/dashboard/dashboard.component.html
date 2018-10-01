@@ -28,12 +28,22 @@
                 </CardView>
 
 
-                <CardView class="full-cardview">
+                <CardView class="full-cardview p-5">
                     <StackLayout textAlignment="center" orientation="vertical" textAlignment="center" verticalAlignment="center" *ngIf="user_app_list.length == 0">
-                        <Label class="section_heading" fontSize="15" text="You have not added any app in your dashboard"></Label>
+
+                        <Label class="fa fa-frown-o" fontSize="30" color="#284058" [text]="'fa-frown-o' | fonticon" top="0" left="0"></Label>
+
+                        <Label class="section_heading" fontSize="10" text="You are yet to add an app here!"></Label>
 
                     </StackLayout>
                 </CardView>
+
+
+                <!-- <CardView class="main_container" orientation="vertical" textAlignment="center" verticalAlignment="center" *ngIf="user_app_list.length == 0">
+                    <StackLayout class="full-cardview">
+                        <Label class="section_heading" fontSize="15" text="You are yet to add an app here!"></Label>
+                    </StackLayout>
+                </CardView> -->
 
 
             </FlexboxLayout>

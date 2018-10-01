@@ -1,12 +1,33 @@
 <FlexboxLayout class="location_modal">
     <StackLayout>
-        <AbsoluteLayout class="action-bar" orientation="horizontal">
+
+
+        <AbsoluteLayout title="" class="action-bar" backgroundColor="#284058">
+            <StackLayout>
+
+
+
+                <GridLayout rows="*" columns="30,*,40,40" verticalAlignment="center">
+
+
+                    <Image src="~/images/back.png" class="back-prev" row="0" col="0" verticalAlignment="center" (tap)="close()"></Image>
+
+                    <Label text="Back" color="#fff" class="action-label" fontSize="12" row="0" col="1" verticalAlignment="center" (tap)="close()"></Label>
+
+
+
+                </GridLayout>
+            </StackLayout>
+        </AbsoluteLayout>
+
+
+        <!-- <AbsoluteLayout class="action-bar" orientation="horizontal">
             <Label verticalAligment="middle" id="arrow-icon" [text]="'fa-long-arrow-left' | fonticon" class="fa back-icon"></Label>
             <Label class="Back-btn" text="Back" width="100%" (tap)="close()"></Label>
-        </AbsoluteLayout>
+        </AbsoluteLayout> -->
+
         <Button class="current-location" text="Use Current location" (tap)="enableLocationServices()" *ngIf="!currentGeoLocation" height="50"></Button>
-        <SearchBar hint="Search by Location" text="" (textChange)="searchFieldChanged($event)" 
-            color="#000" textFieldBackgroundColor="white" textFieldHintColor="white" borderColor="#ababab" borderRadius="5" borderWidth="1"></SearchBar>
+        <SearchBar hint="Search by Location" text="" (textChange)="searchFieldChanged($event)" color="#000" textFieldBackgroundColor="white" textFieldHintColor="white" borderColor="#ababab" borderRadius="5" borderWidth="1"></SearchBar>
 
         <ListView class="list-group" [items]="items" (itemTap)="listViewItemTap($event)">
             <ng-template let-app="item">
