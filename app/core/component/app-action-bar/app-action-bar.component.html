@@ -12,7 +12,7 @@
             *ngIf="isLoggedin" row="0" col="3" verticalAlignment="center"></Label>
         <StackLayout *ngIf="product_list.length > 0 && serviceType==1" [nsRouterLink]="['/store-app/', appId , 'cart']"
             row="0" col="4">
-            <AbsoluteLayout width="40" height="40">
+            <AbsoluteLayout width="40" height="30">
                 <Label class="fa cart-label" top="10" color="#fff" [text]="'fa-shopping-cart' | fonticon"
                     verticalAlignment="center"></Label>
                 <Label class="circle-wrapper" color="#fff" [text]="customer_cart_data.length" *ngIf="customer_cart_data.length > 0"

@@ -94,7 +94,7 @@ export class StoreAppProductsComponent implements OnInit {
         let params = '';
         if (this.page > 1) {
             params = '?page=' + this.page;
-        }        
+        }
         this.storeAppService.getStoreAppProductDetails(this.app_id, params).subscribe(
             (res) => {
                 this.next_page = res['next'];
@@ -117,6 +117,14 @@ export class StoreAppProductsComponent implements OnInit {
                 for (var i = 0; i < data_list.length; i++) {
                     data_list[i]['items'] = JSON.parse(JSON.stringify(data_list[i].products));
                     // isCart implemented
+
+                    if( data_list[i]['items'][0].product_image!='')
+                    {
+                        data_list[i]['hasProductImage'] = true;
+                    }
+                    else{
+                        data_list[i]['hasProductImage'] = false;
+                    }
                     for (var j = 0; j < data_list[i].items.length; j++) {
                         var index = this.customer_cart_data.findIndex(y => y.app_id == data_list[i].items[j].app_master && y.product_id == data_list[i].items[j].id && y.customer_id == this.user_id);
 
@@ -129,10 +137,21 @@ export class StoreAppProductsComponent implements OnInit {
                             data_list[i].items[j]['quantity'] = 0;
                         }
                     }
-                    this.category_list.push(data_list[i])
+                    var cat_index = this.category_list.findIndex(x => x.id == data_list[i].id)
+                    if (cat_index != -1) {
+                        data_list[i]['products'].forEach(z => {
+                            this.category_list[cat_index]['products'].push(z)
+                        })
+                        data_list[i]['items'].forEach(k => {
+                            this.category_list[cat_index]['items'].push(k)
+                        })
+                    }
+                    else {
+                        this.category_list.push(data_list[i])
+                    }
                 }
 
-                // console.log(this.category_list)
+                console.log(this.category_list)
 
                 if (this.category_list.length > 1) {
                     this.accordian_view_key = true
