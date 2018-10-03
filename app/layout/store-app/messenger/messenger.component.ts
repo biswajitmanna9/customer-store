@@ -127,6 +127,7 @@ export class StoreAppMessengerComponent implements OnInit, OnDestroy {
 
     onClose(evt) {
         // console.log("You have been disconnected");
+        this.socket.onopen = (evt) => this.onOpen(evt)
     }
 
     onMessage(evt) {
